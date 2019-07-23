@@ -43,8 +43,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PersianDate">
+      <HintPath>..\..\..\..\web project\v360\V360_Web_Application\V360_Web_Application\bin\PersianDate.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -101,20 +116,278 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bootstrap\css\bootstrap-grid.css" />
+    <Content Include="bootstrap\css\bootstrap-grid.min.css" />
+    <Content Include="bootstrap\css\bootstrap-reboot.css" />
+    <Content Include="bootstrap\css\bootstrap-reboot.min.css" />
+    <Content Include="bootstrap\css\bootstrap.css" />
+    <Content Include="bootstrap\css\bootstrap.min.css" />
+    <Content Include="bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="bootstrap\js\bootstrap.js" />
+    <Content Include="bootstrap\js\bootstrap.min.js" />
+    <Content Include="css\kamadatepicker.css" />
+    <Content Include="css\kamadatepicker.min.css" />
+    <Content Include="css\styles.css" />
     <Content Include="Global.asax" />
+    <Content Include="images\mine.jpg" />
+    <Content Include="js\jquery-3.4.1.js" />
+    <Content Include="js\kamadatepicker.js" />
+    <Content Include="js\kamadatepicker.min.js" />
+    <Content Include="js\Resource\css\animateColors.js" />
+    <Content Include="js\Resource\css\bootstrap-rtl.min.css" />
+    <Content Include="js\Resource\css\bootstrap.min.css" />
+    <Content Include="js\Resource\css\changeState.js" />
+    <Content Include="js\Resource\css\clear.js" />
+    <Content Include="js\Resource\css\colorDiff.js" />
+    <Content Include="js\Resource\css\entypo.css" />
+    <Content Include="js\Resource\css\eventPolyfill.js" />
+    <Content Include="js\Resource\css\font-awesome.min.css" />
+    <Content Include="js\Resource\css\getCurrentColors.js" />
+    <Content Include="js\Resource\css\getDimensions.js" />
+    <Content Include="js\Resource\css\getLightness.js" />
+    <Content Include="js\Resource\css\hexToRgb.js" />
+    <Content Include="js\Resource\css\makeGradient.js" />
+    <Content Include="js\Resource\css\mouldifi-core.css" />
+    <Content Include="js\Resource\css\mouldifi-forms.css" />
+    <Content Include="js\Resource\css\mouldifi-rtl-core.css" />
+    <Content Include="js\Resource\css\onResize.js" />
+    <Content Include="js\Resource\css\pause.js" />
+    <Content Include="js\Resource\css\pauseWhenNotInView.js" />
+    <Content Include="js\Resource\css\play.js" />
+    <Content Include="js\Resource\css\plugins\bootstrap-wysihtml5\bootstrap-wysihtml5.css" />
+    <Content Include="js\Resource\css\plugins\c3\c3.min.css" />
+    <Content Include="js\Resource\css\plugins\chartist\chartist.min.css" />
+    <Content Include="js\Resource\css\plugins\colorpicker\bootstrap-colorpicker.css" />
+    <Content Include="js\Resource\css\plugins\colorpicker\images\alpha-horizontal.png" />
+    <Content Include="js\Resource\css\plugins\colorpicker\images\alpha.png" />
+    <Content Include="js\Resource\css\plugins\colorpicker\images\hue-horizontal.png" />
+    <Content Include="js\Resource\css\plugins\colorpicker\images\hue.png" />
+    <Content Include="js\Resource\css\plugins\colorpicker\images\saturation.png" />
+    <Content Include="js\Resource\css\plugins\css3-animate-it-plugin\animations.css" />
+    <Content Include="js\Resource\css\plugins\datatables\jquery.dataTables.css" />
+    <Content Include="js\Resource\css\plugins\datepicker\bootstrap-datepicker.css" />
+    <Content Include="js\Resource\css\plugins\dropzone\dropzone.css" />
+    <Content Include="js\Resource\css\plugins\dropzone\images\spritemap.png" />
+    <Content Include="js\Resource\css\plugins\dropzone\images\spritemap_402x.png" />
+    <Content Include="js\Resource\css\plugins\jvectormap\jquery-jvectormap-2.0.3.css" />
+    <Content Include="js\Resource\css\plugins\markdown\bootstrap-markdown.min.css" />
+    <Content Include="js\Resource\css\plugins\morris\morris.css" />
+    <Content Include="js\Resource\css\plugins\nouislider\nouislider.css" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\css\calendare_arrow.png" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\css\datepicker-theme.css" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\css\daterangepicker.css" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\css\fonts\datepicker.svg" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\fonts\yekan\Yekan.svg" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\js\daterangepicker-fa-ex.js" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\js\daterangepicker-fa.js" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\js\moment-jalaali.js" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\js\moment.min.js" />
+    <Content Include="js\Resource\css\plugins\scrollbar\perfect-scrollbar.css" />
+    <Content Include="js\Resource\css\plugins\select2\select2.css" />
+    <Content Include="js\Resource\css\plugins\summernote\summernote.css" />
+    <Content Include="js\Resource\css\refreshColors.js" />
+    <Content Include="js\Resource\css\setColors.js" />
+    <Content Include="js\Resource\css\setDirection.js" />
+    <Content Include="js\Resource\fonts\entypo.svg" />
+    <Content Include="js\Resource\fonts\fontawesome-webfont.svg" />
+    <Content Include="js\Resource\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="js\Resource\js\bootstrap.min.js" />
+    <Content Include="js\Resource\js\functions.js" />
+    <Content Include="js\Resource\js\html5shiv.min.js" />
+    <Content Include="js\Resource\js\jquery.min.js" />
+    <Content Include="js\Resource\js\jquery.validate.min.js" />
+    <Content Include="js\Resource\js\plugins\blockui-master\jquery-ui.js" />
+    <Content Include="js\Resource\js\plugins\blockui-master\jquery.blockUI.js" />
+    <Content Include="js\Resource\js\plugins\bootstrap-wysihtml5\bootstrap-wysihtml5.js" />
+    <Content Include="js\Resource\js\plugins\bootstrap-wysihtml5\wysihtml5-0.3.0.min.js" />
+    <Content Include="js\Resource\js\plugins\c3\c3-script.js" />
+    <Content Include="js\Resource\js\plugins\c3\c3.min.js" />
+    <Content Include="js\Resource\js\plugins\c3\d3.v3.min.js" />
+    <Content Include="js\Resource\js\plugins\chartist\chartist-script.js" />
+    <Content Include="js\Resource\js\plugins\chartist\chartist.min.js" />
+    <Content Include="js\Resource\js\plugins\chartjs\Chart.min.js" />
+    <Content Include="js\Resource\js\plugins\chartjs\chartjs-script.js" />
+    <Content Include="js\Resource\js\plugins\colorpicker\bootstrap-colorpicker.min.js" />
+    <Content Include="js\Resource\js\plugins\css3-animate-it-plugin\css3-animate-it.js" />
+    <Content Include="js\Resource\js\plugins\datatables\dataTables.bootstrap.min.js" />
+    <Content Include="js\Resource\js\plugins\datatables\extensions\Buttons\css\buttons.dataTables.css" />
+    <Content Include="js\Resource\js\plugins\datatables\extensions\Buttons\js\buttons.colVis.js" />
+    <Content Include="js\Resource\js\plugins\datatables\extensions\Buttons\js\buttons.html5.js" />
+    <Content Include="js\Resource\js\plugins\datatables\extensions\Buttons\js\dataTables.buttons.min.js" />
+    <Content Include="js\Resource\js\plugins\datatables\jquery.dataTables.min.js" />
+    <Content Include="js\Resource\js\plugins\datatables\jszip.min.js" />
+    <Content Include="js\Resource\js\plugins\datatables\pdfmake.min.js" />
+    <Content Include="js\Resource\js\plugins\datatables\vfs_fonts.js" />
+    <Content Include="js\Resource\js\plugins\datepicker\bootstrap-datepicker.js" />
+    <Content Include="js\Resource\js\plugins\dropzone\dropzone.js" />
+    <Content Include="js\Resource\js\plugins\dropzone\lib\dropzone.js" />
+    <Content Include="js\Resource\js\plugins\flot\excanvas.min.js" />
+    <Content Include="js\Resource\js\plugins\flot\flot-script.js" />
+    <Content Include="js\Resource\js\plugins\flot\jquery.flot.min.js" />
+    <Content Include="js\Resource\js\plugins\flot\jquery.flot.pie.min.js" />
+    <Content Include="js\Resource\js\plugins\flot\jquery.flot.resize.min.js" />
+    <Content Include="js\Resource\js\plugins\flot\jquery.flot.selection.min.js" />
+    <Content Include="js\Resource\js\plugins\flot\jquery.flot.time.min.js" />
+    <Content Include="js\Resource\js\plugins\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="js\Resource\js\plugins\jasny\jasny-bootstrap.min.js" />
+    <Content Include="js\Resource\js\plugins\jvectormap\jquery-jvectormap-2.0.3.min.js" />
+    <Content Include="js\Resource\js\plugins\jvectormap\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="js\Resource\js\plugins\markdown\bootstrap-markdown.js" />
+    <Content Include="js\Resource\js\plugins\markdown\markdown.js" />
+    <Content Include="js\Resource\js\plugins\metismenu\jquery.metisMenu.js" />
+    <Content Include="js\Resource\js\plugins\morris\morris-script.js" />
+    <Content Include="js\Resource\js\plugins\morris\morris.min.js" />
+    <Content Include="js\Resource\js\plugins\morris\raphael-min.js" />
+    <Content Include="js\Resource\js\plugins\nouislider\nouislider.min.js" />
+    <Content Include="js\Resource\js\plugins\peity\jquery.peity.min.js" />
+    <Content Include="js\Resource\js\plugins\peity\peity-script.js" />
+    <Content Include="js\Resource\js\plugins\scrollbar\perfect-scrollbar.jquery.min.js" />
+    <Content Include="js\Resource\js\plugins\select2\select2.full.min.js" />
+    <Content Include="js\Resource\js\plugins\sparkline\jquery.sparkline.min.js" />
+    <Content Include="js\Resource\js\plugins\sparkline\sparkline-script.js" />
+    <Content Include="js\Resource\js\plugins\summernote\summernote.min.js" />
+    <Content Include="js\Resource\js\plugins\wizard\jquery.bootstrap.wizard.min.js" />
+    <Content Include="js\Resource\js\respond.min.js" />
+    <Content Include="Models\GoharSang.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GoharSang.Context.cs</LastGenOutput>
+      <DependentUpon>GoharSang.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\GoharSang.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GoharSang.edmx</DependentUpon>
+      <LastGenOutput>GoharSang.cs</LastGenOutput>
+    </Content>
+    <Content Include="Script\jsShowPic\jsShowPic.js" />
+    <Content Include="Script\loading\ajax-loader.gif" />
+    <Content Include="Script\modalmessag\jsAlert.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CopsController.cs" />
+    <Compile Include="Controllers\DefinitionsController.cs" />
+    <Compile Include="Controllers\ExitOrderController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogInController.cs" />
+    <Compile Include="Controllers\minesController.cs" />
+    <Compile Include="Controllers\RecordEntryController.cs" />
+    <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cops.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CopsBooking.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Exitorder.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GoharSang.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GoharSang.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GoharSang.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GoharSang.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GoharSang.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\mine.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Record_the_Entrry_Image.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Record_the_entry.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Store.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\clsPersianDate.cs" />
+    <Compile Include="Utility\CreatHash.cs" />
+    <Compile Include="Utility\Email.cs" />
+    <Compile Include="Utility\ExtentionFunction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
+    <Content Include="bootstrap\css\bootstrap-grid.css.map" />
+    <Content Include="bootstrap\css\bootstrap-grid.min.css.map" />
+    <Content Include="bootstrap\css\bootstrap-reboot.css.map" />
+    <Content Include="bootstrap\css\bootstrap-reboot.min.css.map" />
+    <Content Include="bootstrap\css\bootstrap.css.map" />
+    <Content Include="bootstrap\css\bootstrap.min.css.map" />
+    <Content Include="bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="bootstrap\js\bootstrap.js.map" />
+    <Content Include="bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="fonts\Yekan.ttf" />
+    <EntityDeploy Include="Models\GoharSang.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GoharSang.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\GoharSang.edmx.diagram">
+      <DependentUpon>GoharSang.edmx</DependentUpon>
+    </Content>
+    <Content Include="js\Resource\css\plugins\pdatepicker\css\fonts\datepicker.eot" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\css\fonts\datepicker.ttf" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\css\fonts\datepicker.woff" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\fonts\yekan\Yekan.eot" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\fonts\yekan\Yekan.ttf" />
+    <Content Include="js\Resource\css\plugins\pdatepicker\fonts\yekan\Yekan.woff" />
+    <Content Include="js\Resource\css\plugins\summernote\font\summernote.eot" />
+    <Content Include="js\Resource\css\plugins\summernote\font\summernote.eot%40" />
+    <Content Include="js\Resource\css\plugins\summernote\font\summernote.ttf" />
+    <Content Include="js\Resource\css\plugins\summernote\font\summernote.woff" />
+    <Content Include="js\Resource\fonts\entypo.eot" />
+    <Content Include="js\Resource\fonts\entypo.eot%40" />
+    <Content Include="js\Resource\fonts\entypo.ttf" />
+    <Content Include="js\Resource\fonts\entypo.woff" />
+    <Content Include="js\Resource\fonts\fontawesome-webfont.eot" />
+    <Content Include="js\Resource\fonts\fontawesome-webfont.eot%40" />
+    <Content Include="js\Resource\fonts\fontawesome-webfont.ttf" />
+    <Content Include="js\Resource\fonts\fontawesome-webfont.woff" />
+    <Content Include="js\Resource\fonts\fontawesome-webfont.woff2" />
+    <Content Include="js\Resource\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="js\Resource\fonts\glyphicons-halflings-regular.eot%40" />
+    <Content Include="js\Resource\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="js\Resource\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="js\Resource\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="js\Resource\fonts\Samim-Bold-FD.eot" />
+    <Content Include="js\Resource\fonts\Samim-Bold-FD.ttf" />
+    <Content Include="js\Resource\fonts\Samim-Bold-FD.woff" />
+    <Content Include="js\Resource\fonts\Samim-Bold-FD.woff2" />
+    <Content Include="js\Resource\fonts\Samim-FD.eot" />
+    <Content Include="js\Resource\fonts\Samim-FD.ttf" />
+    <Content Include="js\Resource\fonts\Samim-FD.woff" />
+    <Content Include="js\Resource\fonts\Samim-FD.woff2" />
     <None Include="packages.config" />
+    <Content Include="Views\Shared\_layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Definitions\Index.cshtml" />
+    <Content Include="Views\Cops\Index.cshtml" />
+    <Content Include="Views\mines\Index.cshtml" />
+    <Content Include="Views\Stores\Index.cshtml" />
+    <Content Include="Views\RecordEntry\Index.cshtml" />
+    <Content Include="Views\ExitOrder\Index.cshtml" />
+    <Content Include="Views\LogIn\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -124,8 +397,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

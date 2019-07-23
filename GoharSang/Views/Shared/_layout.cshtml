@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <img src="~/Script/loading/ajax-loader.gif" id="LoadingGift" style="display:none;position:fixed;top:50%;left:50%" />
+
+    @RenderBody()
+
+
+    <div class="modal fade" id="modalAlertInAjax" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+
+    </div>
+    <div class="modal fade" id="modaldeletedata" role="dialog">
+        <div class="modal-dialog">
+
+
+            <div class="modal-content">
+                <div class="modal-header alert alert-danger">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">آیا از انجام عملیات اطمینان دارید؟</h4>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+                    <button type="button" id="btnConfirmDelete" class="btn btn-success">تایید</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="~/js/jquery-3.4.1.js"></script>
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Script/modalmessag/jsAlert.js"></script>
+    <script src="~/Script/NewFolder1/jsconfdelete.js"></script>
+    <script src="~/Script/jsShowPic/jsShowPic.js"></script>
+    <script src="~/js/Resource/css/animateColors.js"></script>
+
+
+    <script src="~/js/Resource/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <link href="~~/js/Resource/css/plugins/pdatepicker/css/daterangepicker.css" rel="stylesheet" />
+
+    <link href="~/js/Resource/css/plugins/pdatepicker/css/datepicker-theme.css" rel="stylesheet" />
+
+    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment.min.js"></script>
+    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
+    <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            $('.jalali-datepicker').daterangepicker({
+                clearLabel: 'Clear',
+                autoApply: true,
+                opens: 'left',
+                singleDatePicker: true,
+                showDropdowns: true,
+                jalaali: true,
+                language: 'fa'
+            }).on('apply.daterangepicker', function () {
+                $('.tooltip').hide();
+                $('.date-select').text($(this).val());
+            });
+
+            $(document).on('mouseover', '.daterangepicker .calendar td', function () {
+                var gagDate = $(this).attr('data-original-title');
+                $('.date-hover').text('');
+                $('.date-hover').text(gagDate);
+
+                $('[data-toggle="tooltip"]').tooltip()
+            });
+        });
+    </script>
+
+
+    @RenderSection("localscript", false)
+</body>
+</html>

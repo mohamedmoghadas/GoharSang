@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewBag.Title = "معادن";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<div class="container depotsContainer">
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary homePageBtn" href="index.html" role="button">صفحه اصلی</a>
+            <a class="btn btn-primary homePageBtn margRight2" href="definitions.html" role="button">بازگشت</a>
+        </div>
+    </div>
+
+    <div class="row depotsRow1">
+        <div class="col-sm-6 divCol">
+
+            <div class="userForm">
+                <div class="form-group divSignIn">
+                    <label class="labelSignIn" for="Name">نام معدن</label>
+                    <input type="text" id="Name" class="form-control textSignIn" name="mine">
+                </div>
+                <div class="form-group">
+                    <button onclick="mgndata()" class="btn btn-primary saveBtnDepots">ذخیره</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 divCo12">
+            <label class="listLable">لیست معادن</label>
+            <table class="table table-info table-striped userTable width100">
+                <tbody id="tbody">
+                    
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+@section localscript{
+
+
+    <script>
+
+        var ListData = [];
+
+        window.onload = load();
+        function load() {
+            GetData();
+        }
+
+        function GetData() {
+            $.ajax({
+                url: '/mines/GetData',
+                data: null,
+                type: 'post',
+                beforeSend: function () {
+                    $(LoadingGift).show();
+                },
+                success: function (data) {
+
+                    $(LoadingGift).hide();
+
+                    var str = "<tr><td>نام معدن</td><td>عملیات</td></tr>";
+                    for (var i in data) {
+                        ListData = data;
+
+                        str += '<tr>';
+                        str += '<td>' + data[i].Name + '</td>';
+                        str += '<td><button onclick="Removedata(' + data[i].Id + ')" class="btn btn-danger fa fa-trash"></button><button onclick="Editdata(' + data[i].Id + ')"   class="btn btn-primary fa fa-pencil"></button></td>';
+
+                        str += '</tr>';
+
+                    }
+                    tbody.innerHTML = str;
+
+
+                }
+            });
+        }
+
+
+    </script>
+
+    <script>
+        function mdata(Id, Name) {
+            this.Id = Id;
+            this.Name = Name;
+        }
+
+        var _mdata = new mdata(0, "");
+    </script>
+
+    <script>
+        function Removedata(id) {
+            $(modaldeletedata).modal('show');
+            $(btnConfirmDelete).click(function () {
+
+                $.ajax({
+                    url: '/mines/Deletedata',
+                    data: { id: id },
+                    type: 'post',
+                    beforeSend: function () {
+                        $(LoadingGift).show();
+                    },
+                    success: function (data) {
+
+
+                        $(LoadingGift).hide();
+                        $(modaldeletedata).modal('hide');
+
+                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                        $(modalAlertInAjax).modal("show");
+
+                        $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                            GetData();
+
+                        });
+                    }
+                });
+            });
+        }
+
+       
+
+        function Editdata(id) {
+            for (var i in ListData) {
+                if (ListData[i].Id == id) {
+                    Name.value = ListData[i].Name;
+                    _mdata.Id = ListData[i].Id;
+                }
+            }
+        }
+    </script>
+
+
+
+
+    <script>
+
+        function mgndata() {
+            if (Name.value == 0) {
+                AlertInAjax("تمامی اطلاعات را وارد نمایید", modalAlertInAjax, "alert-danger");
+                $(modalAlertInAjax).modal("show");
+
+                return;
+            }
+            else {
+
+
+                _mdata.Name = Name.value;
+
+
+                $.ajax({
+                    url: '/mines/mgndata',
+                    data: { _mdata: _mdata },
+                    type: 'post',
+                    beforeSend: function () {
+                        $(LoadingGift).show();
+                    },
+                    success: function (data) {
+
+
+                        $(LoadingGift).hide();
+
+                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                        _mdata.Id = 0;
+                        Name.value = "";
+                        $(modalAlertInAjax).modal("show");
+
+                        $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                            GetData();
+
+                        });
+                    }
+                });
+
+            }
+        }
+
+    </script>
+}

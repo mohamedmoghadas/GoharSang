@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="~/text/css" href="css/styles.css">
+    <meta charset="UTF-8">
+    <title>ورود</title>
+</head>
+<body>
+
+    <div class="container justify-content-center">
+        <div class="row justify-content-center">
+            <div class="col-sm-6 logCol">
+                <form class="loginForm" action="/LogIn/Index"
+                      method="post">
+                    <div class="form-group">
+                        <label class="float-right loginLable margTop10" for="UserName">نام کاربری</label>
+                        <input type="text" class="form-control loginInput clear" id="UserName" name="UserName" required>
+                    </div>
+                    <div class="form-group clear">
+                        <label class="float-right loginLable" for="Password">کلمه عبور</label>
+                        <input type="password" name="Password" id="Password" class="form-control loginInput clear" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        @if (ViewBag.WrongPassword != null)
+                        {
+                        <label class="alert alert-danger">نام کاربری و یا رمز عبور اشتباه است</label>
+                        }
+                       
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary loginBtn">ورود</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

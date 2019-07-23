@@ -1,0 +1,284 @@
+@font-face {
+    font-family: "Yekan";
+    src: url(../fonts/Yekan.ttf);
+}
+.depotsContainer{
+    width: 95%;
+    direction: rtl;
+    font-family: Yekan;
+    margin-top: 5%;
+}
+.userForm{
+    margin-top: 5%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+.userTable{
+    width: 90%;
+    text-align: center;
+}
+.homePageBtn{
+    float: right;
+}
+.rtlDir{
+    direction: rtl;
+}
+.labelSignIn{
+    float: right;
+    clear: both;
+    margin-bottom: 3%;
+}
+.textSignIn{
+    width: 90%;
+    margin-right: 5%;
+    margin-left: 5%;
+    clear: both;
+}
+.userChDiv{
+    float: right;
+    margin-right: 5%;
+    width: 95%;
+}
+.userSel{
+    float: right;
+    margin-right: 1%;
+}
+.divCol{
+    border: 1px solid;
+    border-radius: 5px;
+}
+.divCo12{
+    border: 1px solid;
+    border-radius: 5px;
+}
+.divLevel{
+    text-align: right;
+    direction: rtl;
+    clear: both;
+    float: right;
+    margin-right: 5%;
+    width: 90%;
+}
+.labelLevel{
+    float: right;
+}
+.labelLevel2{
+    float: right;
+}
+.margTop1{
+    margin-top: 1%;
+}
+.margTop5{
+    margin-top: 5%;
+}
+.margTop2{
+    margin-top: 2%;
+}
+.margTop10{
+    margin-top: 10%;
+}
+.margRight2{
+    margin-right: 2%;
+}
+.margRight6{
+    margin-right: 6%;
+}
+.margRight7{
+    margin-right: 7%;
+}
+.margRight12{
+    margin-right: 12%;
+}
+.margRight10{
+    margin-right: 10%;
+}
+.saveButton{
+    float: right;
+    margin-right: 1%;
+}
+.listLable{
+    margin-top: 2%;
+    float: right;
+    font-size: calc(16px + 0.4vw);
+}
+.txtLeft{
+    text-align: left;
+}
+.txtCenter{
+    text-align: center;
+}
+.indexLableBtn{
+    width: 100%;
+    float: right;
+    background-color: lightgray;
+    color: white;
+    text-align: right;
+}
+.indexRows{
+    margin-top: 5%;
+}
+.width100{
+    width: 100%;
+}
+.width50{
+    width: 50%;
+}
+.dailyContainer{
+    margin-top: 5%;
+    text-align: center;
+    font-family: Yekan;
+    direction: rtl;
+}
+.defContainer{
+    margin-top: 5%;
+    text-align: center;
+    font-family: Yekan;
+    text-align: center;
+}
+.indexLinks1{
+    background-color: #1565C0;
+    width: 90%;
+    height: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+.indexLinks2{
+    background-color: #1E88E5;
+    width: 90%;
+    height: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+.requestsLink{
+    width: 98%;
+    height: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    background-color: #42A5F5;
+    border-color: #1E88E5;
+}
+.loginForm{
+    border: 1px solid lightgray;
+    background-color: #F5F5F5;
+    border-radius: 20px;
+    margin-top: 5%;
+}
+.loginInput{
+    margin-right: 10%;
+    margin-left: 10%;
+    width: 80%;
+}
+.loginLable{
+    margin-right: 5%;
+}
+.loginBtn{
+    margin-left: 10%;
+    margin-bottom: 10%;
+}
+.saveBtnDepots{
+    margin-left: 5%;
+}
+.depotsRow1{
+    margin-top: 2%;
+}
+.dailyRow{
+    border: 1px solid lightgray ;
+    background-color: #F5F5F5;
+    border-radius: 30px;
+}
+.dailyTable{
+    text-align: center;
+    direction: rtl;
+    margin-bottom: 3%;
+}
+.dailyTitle{
+    background-color: #0c5460;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+.dailyBtnTop{
+    margin-top: -1rem;
+    margin-right: -2rem;
+    float: right;
+    direction: rtl;
+    text-align: center;
+    border-radius: 20px;
+}
+.dailyCol{
+    font-family: Yekan;
+    margin-top: 5%;
+    width: 90%;
+}
+.dailyBtnBottom{
+    margin-left: -2rem;
+    margin-bottom: -1rem;
+    border-radius: 20px;
+
+}
+.dailyBtnBottom2{
+    margin-left: 5px;
+    margin-bottom: -1rem;
+    border-radius: 20px;
+}
+.entryForm{
+    margin-left: 3%;
+    margin-top: 5%;
+    direction: rtl;
+    text-align: right;
+    clear: both;
+}
+.rgEnLable{
+    text-align: left;
+}
+.entryImg{
+    width: 40px;
+    height: 50px;
+}
+.SaveBtn{
+    margin-bottom: 2%;
+}
+.buyerLable{
+    color: gray;
+    text-align: right;
+    float: right;
+    margin-top: 1%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    clear: both;
+    border-bottom: 2px solid gray
+}
+.rgExitLi{
+    border: none;
+}
+.rgExSelect{
+    font-size: calc(10px + 0.4vw);
+    text-align: right;
+    height: 95%;
+    overflow-y: scroll;
+    width: 100%;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+}
+.portableTable{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    clear: both;
+    direction: rtl;
+    text-align: center;
+}
+.clear{
+    clear: both;
+}
+.indexDiv{
+    background-color: #F5F5F5;
+    padding: 5%;
+    border-radius: 10px;
+    width: 96%;
+}
