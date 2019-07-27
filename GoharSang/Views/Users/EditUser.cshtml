@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "EditUser";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 
@@ -18,15 +18,15 @@
             <div class="userForm">
                 <div class="form-group">
                     <label class="labelSignIn">نام کاربر</label>
-                    <input type="text" class="form-control textSignIn" id="FullName">
+                    <input type="text" class="form-control textSignIn" value="@Model.user.FullName" id="FullName">
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn">نام کاربری</label>
-                    <input type="text" class="form-control textSignIn txtLeft" id="UserName">
+                    <input type="text" class="form-control textSignIn txtLeft" value="@Model.user.UserName" id="UserName">
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn">ایمیل</label>
-                    <input type="text" class="form-control textSignIn txtLeft" id="Email">
+                    <input type="text" class="form-control textSignIn txtLeft" value="@Model.user.Email" id="Email">
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn txtLeft">کلمه عبور</label>
@@ -40,11 +40,26 @@
                 <div class="row">
                     @foreach (var item in Model.listrole)
                     {
-                        <div class="checkbox checkbox-replace checkbox-primary">
-                            <input type="checkbox" id="@item.Id" value="@item.Id">
-                            <label for="@item.Id"> @item.Name</label>
-                        </div>
+                        if (item.UserRole.Where(p=>p.IdUser==Model.user.Id).Any())
+                        {
+                            <div class="checkbox checkbox-replace checkbox-primary">
+                                <input type="checkbox" id="@item.Id" value="@item.Id" checked>
+                                <label for="@item.Id"> @item.Name</label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="checkbox checkbox-replace checkbox-primary">
+                                <input type="checkbox" id="@item.Id" value="@item.Id">
+                                <label for="@item.Id"> @item.Name</label>
+                            </div>
+                        }
+
+
+
                     }
+
+                    
 
                 </div>
 
@@ -62,19 +77,17 @@
                     <tr>
                         <td>نام و نام خانوادگی</td>
                         <td>نام کاربری</td>
-                        <td>عملیات</td>
+                        
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach (var item in Model.listUsers)
-                    {
+                    
                         <tr>
-                            <td>@item.FullName</td>
-                            <td>@item.UserName</td>
-                            <td><button class="btn btn-danger fa fa-trash" onclick="deleteUser(@item.Id)"></button>| <button class="btn btn-primary fa fa-pencil" onclick="EditUser(@item.Id)"></button></td>
+                            <td>@Model.user.FullName</td>
+                            <td>@Model.user.UserName</td>
                         </tr>
-                    }
+                    
 
 
                 </tbody>
@@ -111,6 +124,7 @@
             }
 
             else {
+                _muser.Id=@Model.user.Id;
                 _muser.FullName = FullName.value;
                 _muser.UserName = UserName.value;
                 _muser.Email = Email.value;
@@ -157,62 +171,6 @@
     </script>
 
 
-    <script>
-        function deleteUser(id) {
-            $(modaldeletedata).modal('show');
-            $(btnConfirmDelete).click(function () {
+    
 
-                $.ajax({
-                    url: '/Users/DeleteUser',
-                    data: { id: id },
-                    type: 'post',
-                    beforeSend: function () {
-                        $(LoadingGift).show();
-                    },
-                    success: function (data) {
-
-
-                        $(LoadingGift).hide();
-                        $(modaldeletedata).modal('hide');
-
-                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
-                        $(modalAlertInAjax).modal("show");
-
-                        $(modalAlertInAjax).on("hidden.bs.modal", function () {
-                            location.href = "/Users/Index";
-
-
-                        });
-                    }
-                });
-            });
-        }
-
-
-    </script>
-
-
-    <script>
-
-        function EditUser(id) {
-            var form = document.createElement("form");
-            var element1 = document.createElement("input");
-
-
-            form.method = "Post";
-            form.action = '/Users/EditUser';
-
-            element1.value = id;
-            element1.name = "id";
-            element1.hidden = true;
-            form.appendChild(element1);
-
-
-
-            document.body.appendChild(form);
-
-            form.submit();
-        }
-
-    </script>
 }

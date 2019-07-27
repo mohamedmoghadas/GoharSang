@@ -16,8 +16,39 @@ namespace GoharSang.Controllers
 
         public ActionResult Index()
         {
-            var result = GetListUser();
-            return View(result);
+            try
+            {
+                string UserIdcookie = "";
+                if (Request.Cookies.AllKeys.Contains("UserId"))
+                {
+                    UserIdcookie = Request.Cookies["UserId"].Value;
+                    string _Id = UserIdcookie;
+                    long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+                    Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    if (admin == null)
+                    {
+
+                        return RedirectToAction("Index", "LogIn");
+                    }
+                    else
+                    {
+                        var result = GetListUser();
+                        return View(result);
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+
+                }
+            }
+            catch (Exception ee)
+            {
+                return RedirectToAction("Index", "LogIn");
+
+            }
+
+           
         }
 
         private object GetListUser()
@@ -33,6 +64,64 @@ namespace GoharSang.Controllers
             return _vmlistuser;
         }
 
+
+        [HttpPost]
+        public ActionResult EditUser(long? id)
+        {
+
+            try
+            {
+                string UserIdcookie = "";
+                if (Request.Cookies.AllKeys.Contains("UserId"))
+                {
+                    UserIdcookie = Request.Cookies["UserId"].Value;
+                    string _Id = UserIdcookie;
+                    long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+                    Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    if (admin == null)
+                    {
+
+                        return RedirectToAction("Index", "LogIn");
+                    }
+                    else
+                    {
+                        if (id!=null && id!=0)
+                        {
+                            Users user = db.Users.Find(id);
+                            List<Role> listrole = db.Role.ToList();
+                            List<UserRole> listuserrole = db.UserRole.ToList();
+
+
+                            vmlistuser _vmlistuser = new vmlistuser();
+                            _vmlistuser.listrole = listrole;
+                            _vmlistuser.user = user;
+                            _vmlistuser.userrole = listuserrole;
+
+
+                            return View(_vmlistuser);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "LogIn");
+
+                        }
+
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+
+                }
+            }
+            catch (Exception ee)
+            {
+                return RedirectToAction("Index", "LogIn");
+
+            }
+
+          
+        }
 
         public List<Users> getUsers()
         {

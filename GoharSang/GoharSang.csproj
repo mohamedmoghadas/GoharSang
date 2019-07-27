@@ -279,6 +279,7 @@
     <Compile Include="Controllers\RecordEntryController.cs" />
     <Compile Include="Controllers\RegisterCopeReserveController.cs" />
     <Compile Include="Controllers\RegisterExitPaperController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ReportdenotativeStoreController.cs" />
     <Compile Include="Controllers\ReportEntryController.cs" />
     <Compile Include="Controllers\ReportExitController.cs" />
@@ -442,6 +443,8 @@
     <Content Include="Views\ReportExit\Index.cshtml" />
     <Content Include="Views\ReportTotal\Index.cshtml" />
     <Content Include="Views\exitRequests\Index.cshtml" />
+    <Content Include="Views\Users\EditUser.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

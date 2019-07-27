@@ -332,6 +332,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="GoharSangModelStoreContainer">
           <EntitySet Name="Cops" EntityType="Self.Cops" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CopsBooking" EntityType="Self.CopsBooking" Schema="dbo" store:Type="Tables" />
@@ -396,6 +424,14 @@
           <AssociationSet Name="FK_RecordEntryExitOrder_Exitorder" Association="Self.FK_RecordEntryExitOrder_Exitorder">
             <End Role="Exitorder" EntitySet="Exitorder" />
             <End Role="RecordEntryExitOrder" EntitySet="RecordEntryExitOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Users" Association="Self.FK_UserRole_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -466,6 +502,14 @@
           <AssociationSet Name="FK_Record_the_entry_Store" Association="GoharSangModel.FK_Record_the_entry_Store">
             <End Role="Store" EntitySet="Store" />
             <End Role="Record_the_entry" EntitySet="Record_the_entry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="GoharSangModel.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Users" Association="GoharSangModel.FK_UserRole_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cops">
@@ -601,6 +645,7 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRole" Relationship="GoharSangModel.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -639,6 +684,8 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdUser" Type="Int64" />
           <Property Name="IdRole" Type="Int64" />
+          <NavigationProperty Name="Role" Relationship="GoharSangModel.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
+          <NavigationProperty Name="Users" Relationship="GoharSangModel.FK_UserRole_Users" FromRole="UserRole" ToRole="Users" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -650,6 +697,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StateDelete" Type="Int32" />
           <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRole" Relationship="GoharSangModel.FK_UserRole_Users" FromRole="Users" ToRole="UserRole" />
         </EntityType>
         <Association Name="FK_Record_the_entry_Cops">
           <End Type="GoharSangModel.Cops" Role="Cops" Multiplicity="0..1">
@@ -816,6 +864,34 @@
             </Principal>
             <Dependent Role="Record_the_entry">
               <PropertyRef Name="IdStore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Type="GoharSangModel.Role" Role="Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GoharSangModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Users">
+          <End Type="GoharSangModel.Users" Role="Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GoharSangModel.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

@@ -17,5 +17,8 @@ namespace GoharSang.Models
         public long Id { get; set; }
         public Nullable<long> IdUser { get; set; }
         public Nullable<long> IdRole { get; set; }
+    
+        public virtual Role Role { get; set; }
+        public virtual Users Users { get; set; }
     }
 }
