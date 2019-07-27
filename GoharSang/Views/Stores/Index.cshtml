@@ -104,6 +104,7 @@
                     beforeSend: function () {
                         $(LoadingGift).show();
                     },
+                    
                     success: function (data) {
 
 
@@ -158,6 +159,15 @@
                     type: 'post',
                     beforeSend: function () {
                         $(LoadingGift).show();
+                    },
+                    error: function (data) {
+                        $(LoadingGift).hide();
+                        if (data.status == 510) {
+                            AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
+                            $(modalAlertInAjax).modal("show");
+
+                            return;
+                        }
                     },
                     success: function (data) {
 

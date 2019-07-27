@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+    <div class="container dailyCol">
+        <div class="row dailyRow">
+            <div class="col dailyLDiv">
+                <a class="btn btn-primary d-block dailyBtnTop" href="index.html" role="button">صفحه اصلی</a>
+                <br>
+                <label class="buyerLable">مشخصات راننده</label>
+                <form class="entryForm">
+                    <div class="row margTop1">
+                        <div class="col-sm-2 col-4 rgEnLable">
+                            <label>نام راننده</label>
+                        </div>
+                        <div class="col-sm-4 col-8">
+                            <input type="text" class="form-control float-right" name="driver">
+                        </div>
+                        <div class="col-sm-2 col-4 rgEnLable">
+                            <label>شماره شهربانی</label>
+                        </div>
+                        <div class="col-sm-4 col-8">
+                            <input type="text" class="form-control txtLeft" name="policeNumber">
+                        </div>
+                    </div>
+                    <div class="row margTop1">
+                        <div class="col-sm-2 col-4 rgEnLable">
+                            <label>شماره همراه</label>
+                        </div>
+                        <div class="col-sm-4 col-8">
+                            <input type="text" class="form-control float-right txtLeft" name="mobile">
+                        </div>
+                        <div class="col-sm-2 col-4 rgEnLable">
+                            <label>شماره گواهینامه</label>
+                        </div>
+                        <div class="col-sm-4 col-8">
+                            <input type="text" class="form-control txtLeft" name="policeNumber">
+                        </div>
+                    </div>
+                    <div class="row margTop1">
+                        <div class="col-sm-2 col-4 rgEnLable">
+                            <label>شماره هوشمند</label>
+                        </div>
+                        <div class="col-sm-4 col-8">
+                            <input type="text" class="form-control float-right txtLeft" name="Intelligent">
+                        </div>
+                        <div class="col-sm-2 col-4 rgEnLable">
+                            <label>راننده کامیون</label>
+                        </div>
+                        <div class="col-sm-4 col-8">
+                            <input type="text" class="form-control" name="truckType">
+                        </div>
+                    </div>
+                    <div class="row margTop1">
+                        <div class="col-sm-2 col-4 rgEnLable">
+                            <label>مقصد</label>
+                        </div>
+                        <div class="col-sm-4 col-8">
+                            <input type="text" class="form-control" name="destination">
+                        </div>
+                    </div>
+                    <div class="row margTop1">
+                        <div class="col-sm-2 col-4 rgEnLable">
+                            <label>وزن ناخالص</label>
+                        </div>
+                        <div class="col-sm-2 col-8">
+                            <input type="text" class="form-control float-right txtCenter" name="ImpureWeight">
+                        </div>
+                        <div class="col-sm-2 col-4 rgEnLable">
+                            <label>وزن کامیون</label>
+                        </div>
+                        <div class="col-sm-2 col-8">
+                            <input type="text" class="form-control txtCenter" name="weightTruck">
+                        </div>
+                        <div class="col-sm-2 col-4 rgEnLable">
+                            <label>وزن خالص</label>
+                        </div>
+                        <div class="col-sm-2 col-8">
+                            <input type="text" class="form-control txtCenter" name="pureWeight">
+                        </div>
+                    </div>
+                    <label class="buyerLable">کوپ های درخواست شده</label>
+                    <br>
+                    <div class="row margTop2 clear">
+                        <div class="col">
+                            <select name="stones" class="rgExSelect" multiple>
+                                <option value="volvo" class="rgExitOption"><lable>کوپ سنگ مرمریت 1000*1000 معدن لاشتر امینی</lable></option>
+                                <option value=""><lable>کوپ سنگ مرمریت 1000*1000 معدن لاشتر امینی</lable></option>
+                                <option value=""><lable>کوپ سنگ مرمریت 1000*1000 معدن لاشتر امینی</lable></option>
+                                <option value=""><lable>کوپ سنگ مرمریت 1000*1000 معدن لاشتر امینی</lable></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row margTop1">
+                        <div class="col">
+                            <button class="btn btn-primary float-left SaveBtn" name="save">ذخیره</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

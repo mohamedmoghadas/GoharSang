@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+@model IEnumerable<GoharSang.Models.vmModel.vmcopreserv>
+
+
+<div class="container dailyCol">
+    <div class="row dailyRow">
+        <div class="col dailyLDiv">
+            <a class="btn btn-primary dailyBtnTop" href="index.html" role="button">صفحه اصلی</a>
+            <br>
+            <label class="d-block dailyTitle">
+                فیلتر های نام خریدار | تاریخ اتمام | انبار | تعداد کوپ
+            </label>
+            <div class="table-responsive-sm">
+                <table class="table table-info table-striped dailyTable">
+                    <thead>
+                        <tr>
+                            <td>ردیف</td>
+                            <td>نام خریدار</td>
+                            <td>تاریخ اتمام</td>
+                            <td>انبار</td>
+                            <td>رزرو شده </td>
+                            <td>عملیات</td>
+                            @*<td>مشاهده کامل</td>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 0;
+                        }
+                        @foreach (var item in Model)
+                        {
+                            i++;
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.CustomerFullName</td>
+                                <td>@item.DateExpired</td>
+                                <td>@item.StoreMame</td>
+                                <td>@item.Reserved</td>
+                                <td><button class="btn btn-danger fa fa-trash" ></button>|<button class="btn btn-primary fa fa-pencil" onclick="LoadEdit(@item.Id)"></button> </td>
+
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+            <a class="btn btn-primary dailyBtnBottom" role="button" href="~/RegisterCopeReserve/Index">ثبت رزرو جدید</a>
+        </div>
+    </div>
+</div>
+
+
+
+@section localscript{
+
+
+    <script>
+
+        function LoadEdit(id) {
+            var form = document.createElement("form");
+            var element1 = document.createElement("input");
+
+
+            form.method = "Post";
+            form.action = '/CopeReserve/LoadEditCopsBooking';
+
+            element1.value = id;
+            element1.name = "id";
+            element1.hidden = true;
+            form.appendChild(element1);
+
+
+
+            document.body.appendChild(form);
+
+            form.submit();
+        }
+
+    </script>
+
+}

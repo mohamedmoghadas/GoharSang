@@ -12,24 +12,21 @@ namespace GoharSang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Exitorder
+    public partial class State
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Exitorder()
+        public State()
         {
-            this.RecordEntryExitOrder = new HashSet<RecordEntryExitOrder>();
+            this.CopsBooking = new HashSet<CopsBooking>();
+            this.Exitorder = new HashSet<Exitorder>();
         }
     
         public long Id { get; set; }
-        public string CustomerFullName { get; set; }
-        public Nullable<System.DateTime> Uploaddate { get; set; }
-        public Nullable<long> IdStore { get; set; }
-        public Nullable<int> StateDelete { get; set; }
-        public Nullable<long> IdState { get; set; }
+        public string Name { get; set; }
     
-        public virtual State State { get; set; }
-        public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RecordEntryExitOrder> RecordEntryExitOrder { get; set; }
+        public virtual ICollection<CopsBooking> CopsBooking { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Exitorder> Exitorder { get; set; }
     }
 }

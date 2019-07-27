@@ -1,0 +1,194 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+@model GoharSang.Models.vmModel.vmlistuser
+
+
+<div class="container depotsContainer">
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary homePageBtn" href="index.html" role="button">صفحه اصلی</a>
+        </div>
+    </div>
+    <div class="row rtlDir margTop2">
+        <div class="col-sm-6 divCol">
+            <div class="userForm">
+                <div class="form-group">
+                    <label class="labelSignIn">نام کاربر</label>
+                    <input type="text" class="form-control textSignIn" id="FullName">
+                </div>
+                <div class="form-group">
+                    <label class="labelSignIn">نام کاربری</label>
+                    <input type="text" class="form-control textSignIn txtLeft" id="UserName">
+                </div>
+                <div class="form-group">
+                    <label class="labelSignIn">ایمیل</label>
+                    <input type="text" class="form-control textSignIn txtLeft" id="Email">
+                </div>
+                <div class="form-group">
+                    <label class="labelSignIn txtLeft">کلمه عبور</label>
+                    <input type="password" class="form-control textSignIn txtLeft" id="Password">
+                </div>
+
+                <label class="labelSignIn margTop2">سطوح دسترسی</label>
+
+
+                <br />
+                <div class="row">
+                    @foreach (var item in Model.listrole)
+                    {
+                        <div class="checkbox checkbox-replace checkbox-primary">
+                            <input type="checkbox" id="@item.Id" value="@item.Id">
+                            <label for="@item.Id"> @item.Name</label>
+                        </div>
+                    }
+
+                </div>
+
+
+
+                <div class="form-group userChDiv">
+                    <button class="btn btn-primary saveButton" onclick="mgnUser()">ذخیره</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 divCo12">
+            <label class="listLable">لیست کاربران</label>
+            <table class="table table-info table-striped userTable width100">
+                <thead class="thead-dark">
+                    <tr>
+                        <td>نام و نام خانوادگی</td>
+                        <td>نام کاربری</td>
+                        <td>عملیات</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model.listUsers)
+                    {
+                        <tr>
+                            <td>@item.FullName</td>
+                            <td>@item.UserName</td>
+                            <td><button class="btn btn-danger fa fa-trash"></button>| <button class="btn btn-primary fa fa-pencil" onclick="deleteUser(@item.Id)"></button></td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section localscript{
+
+
+    <script>
+
+        function mUSer(Id, UserName, Password, Email, FullName) {
+            this.Id = Id;
+            this.UserName = UserName;
+            this.Password = Password;
+            this.Email = Email;
+            this.FullName = FullName;
+        }
+
+        var _muser = new mUSer(0, "", "", "", "");
+
+    </script>
+
+    <script>
+
+        function mgnUser() {
+            if (FullName.value == "" || UserName.value == "" || Email.value == "" || Password.value == "") {
+                AlertInAjax("تمامی اطلاعات را وارد نمایید", modalAlertInAjax, "alert-danger");
+                $(modalAlertInAjax).modal("show");
+
+                return;
+            }
+
+            else {
+                _muser.FullName = FullName.value;
+                _muser.UserName = UserName.value;
+                _muser.Email = Email.value;
+                _muser.Password = Password.value;
+
+                SelectedProp = {};
+                ListProps = [];
+                $(':checkbox:checked').each(function (i) {
+
+                    var Id = $(this).val();
+
+                    item = {};
+                    item["Id"] = Id;
+
+                    ListProps.push(item);
+                });
+                SelectedProp["ListProps"] = ListProps;
+
+                $.ajax({
+                    url: '/Users/mgnUser',
+                    data: { user: _muser, prop: SelectedProp },
+                    type: 'post',
+                    beforeSend: function () {
+                        $(LoadingGift).show();
+                    },
+
+                    success: function (data) {
+
+                        $(LoadingGift).hide();
+
+
+                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                        $(modalAlertInAjax).modal("show");
+
+                        $(modalAlertInAjax).on("hidden.bs.modal", function () {
+
+                            location.href = "/Users/Index";
+                        });
+                    }
+                });
+            }
+        }
+
+    </script>
+
+
+    <script>
+        function deleteUser(id) {
+            $(modaldeletedata).modal('show');
+            $(btnConfirmDelete).click(function () {
+
+                $.ajax({
+                    url: '/Users/DeleteUser',
+                    data: { id: id },
+                    type: 'post',
+                    beforeSend: function () {
+                        $(LoadingGift).show();
+                    },
+                    success: function (data) {
+
+
+                        $(LoadingGift).hide();
+                        $(modaldeletedata).modal('hide');
+
+                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                        $(modalAlertInAjax).modal("show");
+
+                        $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                          location.href = "/Users/Index";
+
+
+                        });
+                    }
+                });
+            });
+        }
+
+        
+    </script>
+
+}

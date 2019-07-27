@@ -10,12 +10,12 @@ using GoharSang.Models.vmModel;
 
 namespace GoharSang.Controllers
 {
-    public class ExitOrderController : Controller
+    public class RegisterCopeReserveController : Controller
     {
         GoharSangEntities db = new GoharSangEntities();
         public ActionResult Index()
         {
-            var result = getRecordEntry();
+           var result= getRecordEntry();
             return View(result);
         }
 
@@ -24,98 +24,99 @@ namespace GoharSang.Controllers
             var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0).ToList()
                 .Select(p => new vmListRecordEntry
                 {
-                    Id = p.Id,
+                    Id=p.Id,
                     minename = p.mine.Name,
                     copname = p.Cops.Name,
                     Dimensions = p.length + "*" + p.width + "*" + p.Height,
-                    Weight = p.Weight,
-                    CopsCod = p.CopsCod,
-                    Transfernumber = p.Transfernumber,
-                    image = db.Record_the_Entrry_Image.Where(q => q.Id == p.Id).FirstOrDefault() == null ? ""
+                    Weight= p.Weight,
+                    CopsCod= p.CopsCod,
+                    Transfernumber= p.Transfernumber,
+                    image=db.Record_the_Entrry_Image.Where(q=>q.Id==p.Id).FirstOrDefault()==null?""
                     : db.Record_the_Entrry_Image.Where(q => q.Id == p.Id).FirstOrDefault().Image,
                 }).ToList();
 
-
+           
 
             return listrecordentry;
         }
 
 
-        public async Task<ActionResult> ExitOrder(Exitorder exo, string date, ItemPropSelect prop)
+        public async Task<ActionResult> RegisterCopeReserve(CopsBooking cb,string date,ItemPropSelect prop)
         {
-            if (exo.Id == 0)
+            if (cb.Id==0)
             {
-                exo.StateDelete = 0;
+                cb.StateDelete = 0;
                 if (date != null && date != "")
                 {
                     DateTime tempdate = clsPersianDate.ShamsiToMiladi(date).Value;
 
-                    exo.Uploaddate = tempdate;
+                    cb.DateExpired = tempdate;
                 }
-                exo.IdState = 1;
 
-                db.Exitorder.Add(exo);
+                cb.IdState = 1;
+
+                db.CopsBooking.Add(cb);
                 await db.SaveChangesAsync();
 
-                List<RecordEntryExitOrder> _listprops = new List<RecordEntryExitOrder>();
-                RecordEntryExitOrder _p = null;
+                List<RecordEntryCopsBooking> _listprops = new List<RecordEntryCopsBooking>();
+                RecordEntryCopsBooking _p = null;
 
                 foreach (var item in prop.ListProps)
                 {
-                    _p = new RecordEntryExitOrder();
-                    _p.IdExitOrder = exo.Id;
+                    _p = new RecordEntryCopsBooking();
+                    _p.IdCopsBooking = cb.Id;
                     _p.IdRecordEntry = item.Id;
                    
                     _listprops.Add(_p);
                 }
-                db.RecordEntryExitOrder.AddRange(_listprops);
+                db.RecordEntryCopsBooking.AddRange(_listprops);
                 await db.SaveChangesAsync();
                 return Json("Ok", JsonRequestBehavior.AllowGet);
 
             }
             else
             {
-                var deleteprops = db.RecordEntryExitOrder.Where(p => p.IdExitOrder == exo.Id);
-                db.RecordEntryExitOrder.RemoveRange(deleteprops);
+                var deleteprops = db.RecordEntryCopsBooking.Where(p => p.IdCopsBooking == cb.Id);
+                db.RecordEntryCopsBooking.RemoveRange(deleteprops);
                 await db.SaveChangesAsync();
 
-                Exitorder ecb = db.Exitorder.Find(exo.Id);
-
-                ecb.IdState = 1;
-
+                CopsBooking ecb = db.CopsBooking.Find(cb.Id);
 
                 ecb.StateDelete = 0;
                 if (date != null && date != "")
                 {
                     DateTime tempdate = clsPersianDate.ShamsiToMiladi(date).Value;
 
-                    ecb.Uploaddate = tempdate;
+                    ecb.DateExpired = tempdate;
                 }
+                ecb.IdState = 1;
 
-                ecb.IdStore = exo.IdStore;
-                ecb.CustomerFullName = exo.CustomerFullName;
-
+                ecb.IdStore = cb.IdStore;
+                ecb.CustomerFullName = cb.CustomerFullName;
+                
                 await db.SaveChangesAsync();
 
-                List<RecordEntryExitOrder> _listprops = new List<RecordEntryExitOrder>();
-                RecordEntryExitOrder _p = null;
+                List<RecordEntryCopsBooking> _listprops = new List<RecordEntryCopsBooking>();
+                RecordEntryCopsBooking _p = null;
 
                 foreach (var item in prop.ListProps)
                 {
-                    _p = new RecordEntryExitOrder();
-                    _p.IdExitOrder = exo.Id;
+                    _p = new RecordEntryCopsBooking();
+                    _p.IdCopsBooking = cb.Id;
                     _p.IdRecordEntry = item.Id;
-                   
+                    
 
                     _listprops.Add(_p);
                 }
-                db.RecordEntryExitOrder.AddRange(_listprops);
+                db.RecordEntryCopsBooking.AddRange(_listprops);
                 await db.SaveChangesAsync();
 
 
                 return Json("Ok", JsonRequestBehavior.AllowGet);
 
             }
-        }
+        } 
+
+        
     }
 }

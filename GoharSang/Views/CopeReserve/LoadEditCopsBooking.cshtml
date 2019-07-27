@@ -1,10 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "LoadEditCopsBooking";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 
-@model IEnumerable<GoharSang.Models.vmModel.vmListRecordEntry>
+@model GoharSang.Models.vmModel.vmEditCopReserv
 
 <div class="container dailyCol">
     <div class="row dailyRow">
@@ -18,14 +18,14 @@
                         <label>خریدار</label>
                     </div>
                     <div class="col-sm-4 col-8">
-                        <input type="text" class="form-control float-right" id="CustomerName">
+                        <input type="text" class="form-control float-right" id="CustomerName" value="@Model.RecordEntryCopsBooking.CopsBooking.CustomerFullName">
                     </div>
                     <div class="col-sm-2 col-4 rgEnLable">
-                        <label>تاریخ بارگیری</label>
+                        <label>انقضا رزرو</label>
 
                     </div>
                     <div class="col-sm-4 col-8">
-                        <input type="text" class="form-control jalali-datepicker" id="dateLoad">
+                        <input type="text" class="form-control jalali-datepicker" id="dateLoad" value="@clsPersianDate.MiladiToShamsi(Model.RecordEntryCopsBooking.CopsBooking.DateExpired)">
                     </div>
                 </div>
                 <div class="row margTop1">
@@ -43,18 +43,29 @@
 
                 </div>
                 <div class="row">
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.ListRecordEntry)
                     {
-                        <div class="checkbox checkbox-replace checkbox-primary">
-                            <input type="checkbox" id="@item.Id" value="@item.Id">
-                            <label for="@item.Id"> معدن= @item.minename نوع کوپ= @item.copname ابعاد= @item.Dimensions وزن= @item.Weight کد کوپ= @item.CopsCod تصویر= @item.image شماره حواله= @item.Transfernumber</label>
-                        </div>
+                        if (item.Id==Model.RecordEntryCopsBooking.IdRecordEntry)
+                        {
+                            <div class="checkbox checkbox-replace checkbox-primary">
+                                <input type="checkbox" id="@item.Id" value="@item.Id" checked>
+                                <label for="@item.Id"> معدن= @item.minename نوع کوپ= @item.copname ابعاد= @item.Dimensions وزن= @item.Weight کد کوپ= @item.CopsCod تصویر= @item.image شماره حواله= @item.Transfernumber</label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="checkbox checkbox-replace checkbox-primary">
+                                <input type="checkbox" id="@item.Id" value="@item.Id">
+                                <label for="@item.Id"> معدن= @item.minename نوع کوپ= @item.copname ابعاد= @item.Dimensions وزن= @item.Weight کد کوپ= @item.CopsCod تصویر= @item.image شماره حواله= @item.Transfernumber</label>
+                            </div>
+                        }
+
                     }
 
                 </div>
                 <div class="row margTop1">
                     <div class="col">
-                        <button class="btn btn-primary float-left SaveBtn" onclick="BtnExitOrder()">ذخیره</button>
+                        <button class="btn btn-primary float-left SaveBtn" onclick="BtnRegisterCopeReserve()">ذخیره</button>
                     </div>
                 </div>
             </div>
@@ -112,18 +123,18 @@
 
 
     <script>
-        function ExitOrder(Id, CustomerFullName, IdStore) {
+        function RegisterCopeReserve(Id, CustomerFullName, IdStore) {
             this.Id = Id;
             this.CustomerFullName = CustomerFullName;
             this.IdStore = IdStore;
 
         }
-        var _ExitOrder = new ExitOrder(0, "", 0);
+        var _RegisterCopeReserve = new RegisterCopeReserve(0, "", 0);
     </script>
 
 
     <script>
-        function BtnExitOrder() {
+        function BtnRegisterCopeReserve() {
 
 
             if (CustomerName.value == "" || SelectStore.value == 0) {
@@ -134,8 +145,11 @@
             }
 
             else {
-                _ExitOrder.CustomerFullName = CustomerName.value;
-                _ExitOrder.IdStore = SelectStore.value;
+
+                _RegisterCopeReserve.Id=@Model.RecordEntryCopsBooking.CopsBooking.Id;
+
+                _RegisterCopeReserve.CustomerFullName = CustomerName.value;
+                _RegisterCopeReserve.IdStore = SelectStore.value;
 
                 var DateLoad = dateLoad.value;
 
@@ -153,8 +167,8 @@
                 SelectedProp["ListProps"] = ListProps;
 
                 $.ajax({
-                    url: '/ExitOrder/ExitOrder',
-                    data: { exo: _ExitOrder, date: DateLoad, prop: SelectedProp },
+                    url: '/RegisterCopeReserve/RegisterCopeReserve',
+                    data: { cb: _RegisterCopeReserve, date: DateLoad, prop: SelectedProp },
                     type: 'post',
                     beforeSend: function () {
                         $(LoadingGift).show();
@@ -170,7 +184,7 @@
 
                         $(modalAlertInAjax).on("hidden.bs.modal", function () {
 
-                            location.href = "/ExitOrder/Index";
+                            location.href = "/RegisterCopeReserve/Index";
                         });
                     }
                 });
@@ -181,3 +195,4 @@
     </script>
 
 }
+

@@ -48,6 +48,11 @@ namespace GoharSang.Controllers
 
         public async Task<ActionResult> mgndata(Cops _mdata)
         {
+            bool uniq = db.Cops.Where(p => p.Name == _mdata.Name).Any();
+            if (uniq)
+            {
+                return new HttpStatusCodeResult(510);
+            }
             if (_mdata.Id == 0)
             {
                 _mdata.StateDelete = 0;

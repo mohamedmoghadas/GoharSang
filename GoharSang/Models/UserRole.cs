@@ -12,13 +12,10 @@ namespace GoharSang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class UserRole
     {
         public long Id { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public Nullable<int> StateDelete { get; set; }
-        public string FullName { get; set; }
+        public Nullable<long> IdUser { get; set; }
+        public Nullable<long> IdRole { get; set; }
     }
 }

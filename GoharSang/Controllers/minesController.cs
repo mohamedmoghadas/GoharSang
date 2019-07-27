@@ -49,6 +49,13 @@ namespace GoharSang.Controllers
 
         public async Task<ActionResult> mgndata(mine _mdata)
         {
+
+            bool uniq = db.mine.Where(p => p.Name == _mdata.Name).Any();
+            if (uniq)
+            {
+                return new HttpStatusCodeResult(510);
+            }
+
             if (_mdata.Id == 0)
             {
                 _mdata.StateDelete = 0;

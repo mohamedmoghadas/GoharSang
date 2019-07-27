@@ -31,8 +31,13 @@ namespace GoharSang.Models
         public virtual DbSet<mine> mine { get; set; }
         public virtual DbSet<Record_the_Entrry_Image> Record_the_Entrry_Image { get; set; }
         public virtual DbSet<Record_the_entry> Record_the_entry { get; set; }
+        public virtual DbSet<RecordEntryCopsBooking> RecordEntryCopsBooking { get; set; }
+        public virtual DbSet<RecordEntryExitOrder> RecordEntryExitOrder { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<State> State { get; set; }
         public virtual DbSet<Store> Store { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     }
 }

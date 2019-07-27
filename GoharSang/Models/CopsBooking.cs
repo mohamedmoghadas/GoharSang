@@ -14,13 +14,22 @@ namespace GoharSang.Models
     
     public partial class CopsBooking
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CopsBooking()
+        {
+            this.RecordEntryCopsBooking = new HashSet<RecordEntryCopsBooking>();
+        }
+    
         public long Id { get; set; }
         public string CustomerFullName { get; set; }
         public Nullable<System.DateTime> DateExpired { get; set; }
         public Nullable<long> IdStore { get; set; }
-        public string ProductCode { get; set; }
         public Nullable<int> StateDelete { get; set; }
+        public Nullable<long> IdState { get; set; }
     
+        public virtual State State { get; set; }
         public virtual Store Store { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RecordEntryCopsBooking> RecordEntryCopsBooking { get; set; }
     }
 }

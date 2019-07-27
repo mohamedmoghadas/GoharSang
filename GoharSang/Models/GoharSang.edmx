@@ -21,8 +21,8 @@
           <Property Name="CustomerFullName" Type="nvarchar" MaxLength="50" />
           <Property Name="DateExpired" Type="datetime" />
           <Property Name="IdStore" Type="bigint" />
-          <Property Name="ProductCode" Type="nvarchar" MaxLength="50" />
           <Property Name="StateDelete" Type="int" />
+          <Property Name="IdState" Type="bigint" />
         </EntityType>
         <EntityType Name="Exitorder">
           <Key>
@@ -32,7 +32,8 @@
           <Property Name="CustomerFullName" Type="nvarchar" MaxLength="50" />
           <Property Name="Uploaddate" Type="datetime" />
           <Property Name="IdStore" Type="bigint" />
-          <Property Name="ProductCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="StateDelete" Type="int" />
+          <Property Name="IdState" Type="bigint" />
         </EntityType>
         <EntityType Name="mine">
           <Key>
@@ -70,6 +71,36 @@
           <Property Name="StateDelete" Type="int" />
           <Property Name="basculenumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="RecordEntryCopsBooking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCopsBooking" Type="bigint" />
+          <Property Name="IdRecordEntry" Type="bigint" />
+        </EntityType>
+        <EntityType Name="RecordEntryExitOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdExitOrder" Type="bigint" />
+          <Property Name="IdRecordEntry" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Store">
           <Key>
             <PropertyRef Name="Id" />
@@ -88,6 +119,14 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="bigint" />
+          <Property Name="IdRole" Type="bigint" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
@@ -97,7 +136,22 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="StateDelete" Type="int" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_CopsBooking_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CopsBooking" Type="Self.CopsBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CopsBooking">
+              <PropertyRef Name="IdState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CopsBooking_Store">
           <End Role="Store" Type="Self.Store" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -109,6 +163,20 @@
             </Principal>
             <Dependent Role="CopsBooking">
               <PropertyRef Name="IdStore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exitorder_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Exitorder" Type="Self.Exitorder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exitorder">
+              <PropertyRef Name="IdState" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -182,6 +250,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RecordEntryCopsBooking_CopsBooking">
+          <End Role="CopsBooking" Type="Self.CopsBooking" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RecordEntryCopsBooking" Type="Self.RecordEntryCopsBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CopsBooking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordEntryCopsBooking">
+              <PropertyRef Name="IdCopsBooking" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecordEntryExitOrder_Exitorder">
+          <End Role="Exitorder" Type="Self.Exitorder" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="RecordEntryExitOrder" Type="Self.RecordEntryExitOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exitorder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordEntryExitOrder">
+              <PropertyRef Name="IdExitOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="GoharSangModelStoreContainer">
           <EntitySet Name="Cops" EntityType="Self.Cops" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CopsBooking" EntityType="Self.CopsBooking" Schema="dbo" store:Type="Tables" />
@@ -189,12 +285,25 @@
           <EntitySet Name="mine" EntityType="Self.mine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Record the Entrry Image" EntityType="Self.Record the Entrry Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Record the entry" EntityType="Self.Record the entry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecordEntryCopsBooking" EntityType="Self.RecordEntryCopsBooking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecordEntryExitOrder" EntityType="Self.RecordEntryExitOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CopsBooking_State" Association="Self.FK_CopsBooking_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="CopsBooking" EntitySet="CopsBooking" />
+          </AssociationSet>
           <AssociationSet Name="FK_CopsBooking_Store" Association="Self.FK_CopsBooking_Store">
             <End Role="Store" EntitySet="Store" />
             <End Role="CopsBooking" EntitySet="CopsBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exitorder_State" Association="Self.FK_Exitorder_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Exitorder" EntitySet="Exitorder" />
           </AssociationSet>
           <AssociationSet Name="FK_Exitorder_Store" Association="Self.FK_Exitorder_Store">
             <End Role="Store" EntitySet="Store" />
@@ -216,6 +325,14 @@
             <End Role="Store" EntitySet="Store" />
             <End Role="Record the entry" EntitySet="Record the entry" />
           </AssociationSet>
+          <AssociationSet Name="FK_RecordEntryCopsBooking_CopsBooking" Association="Self.FK_RecordEntryCopsBooking_CopsBooking">
+            <End Role="CopsBooking" EntitySet="CopsBooking" />
+            <End Role="RecordEntryCopsBooking" EntitySet="RecordEntryCopsBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecordEntryExitOrder_Exitorder" Association="Self.FK_RecordEntryExitOrder_Exitorder">
+            <End Role="Exitorder" EntitySet="Exitorder" />
+            <End Role="RecordEntryExitOrder" EntitySet="RecordEntryExitOrder" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -228,20 +345,41 @@
           <EntitySet Name="mine" EntityType="GoharSangModel.mine" />
           <EntitySet Name="Record_the_Entrry_Image" EntityType="GoharSangModel.Record_the_Entrry_Image" />
           <EntitySet Name="Record_the_entry" EntityType="GoharSangModel.Record_the_entry" />
+          <EntitySet Name="RecordEntryCopsBooking" EntityType="GoharSangModel.RecordEntryCopsBooking" />
+          <EntitySet Name="RecordEntryExitOrder" EntityType="GoharSangModel.RecordEntryExitOrder" />
+          <EntitySet Name="Role" EntityType="GoharSangModel.Role" />
+          <EntitySet Name="State" EntityType="GoharSangModel.State" />
           <EntitySet Name="Store" EntityType="GoharSangModel.Store" />
           <EntitySet Name="sysdiagrams" EntityType="GoharSangModel.sysdiagrams" />
+          <EntitySet Name="UserRole" EntityType="GoharSangModel.UserRole" />
           <EntitySet Name="Users" EntityType="GoharSangModel.Users" />
           <AssociationSet Name="FK_Record_the_entry_Cops" Association="GoharSangModel.FK_Record_the_entry_Cops">
             <End Role="Cops" EntitySet="Cops" />
             <End Role="Record_the_entry" EntitySet="Record_the_entry" />
           </AssociationSet>
+          <AssociationSet Name="FK_CopsBooking_State" Association="GoharSangModel.FK_CopsBooking_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="CopsBooking" EntitySet="CopsBooking" />
+          </AssociationSet>
           <AssociationSet Name="FK_CopsBooking_Store" Association="GoharSangModel.FK_CopsBooking_Store">
             <End Role="Store" EntitySet="Store" />
             <End Role="CopsBooking" EntitySet="CopsBooking" />
           </AssociationSet>
+          <AssociationSet Name="FK_RecordEntryCopsBooking_CopsBooking" Association="GoharSangModel.FK_RecordEntryCopsBooking_CopsBooking">
+            <End Role="CopsBooking" EntitySet="CopsBooking" />
+            <End Role="RecordEntryCopsBooking" EntitySet="RecordEntryCopsBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Exitorder_State" Association="GoharSangModel.FK_Exitorder_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="Exitorder" EntitySet="Exitorder" />
+          </AssociationSet>
           <AssociationSet Name="FK_Exitorder_Store" Association="GoharSangModel.FK_Exitorder_Store">
             <End Role="Store" EntitySet="Store" />
             <End Role="Exitorder" EntitySet="Exitorder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecordEntryExitOrder_Exitorder" Association="GoharSangModel.FK_RecordEntryExitOrder_Exitorder">
+            <End Role="Exitorder" EntitySet="Exitorder" />
+            <End Role="RecordEntryExitOrder" EntitySet="RecordEntryExitOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_Record_the_entry_mine" Association="GoharSangModel.FK_Record_the_entry_mine">
             <End Role="mine" EntitySet="mine" />
@@ -273,9 +411,11 @@
           <Property Name="CustomerFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateExpired" Type="DateTime" Precision="3" />
           <Property Name="IdStore" Type="Int64" />
-          <Property Name="ProductCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StateDelete" Type="Int32" />
+          <Property Name="IdState" Type="Int64" />
+          <NavigationProperty Name="State" Relationship="GoharSangModel.FK_CopsBooking_State" FromRole="CopsBooking" ToRole="State" />
           <NavigationProperty Name="Store" Relationship="GoharSangModel.FK_CopsBooking_Store" FromRole="CopsBooking" ToRole="Store" />
+          <NavigationProperty Name="RecordEntryCopsBooking" Relationship="GoharSangModel.FK_RecordEntryCopsBooking_CopsBooking" FromRole="CopsBooking" ToRole="RecordEntryCopsBooking" />
         </EntityType>
         <EntityType Name="Exitorder">
           <Key>
@@ -285,8 +425,11 @@
           <Property Name="CustomerFullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Uploaddate" Type="DateTime" Precision="3" />
           <Property Name="IdStore" Type="Int64" />
-          <Property Name="ProductCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StateDelete" Type="Int32" />
+          <Property Name="IdState" Type="Int64" />
+          <NavigationProperty Name="State" Relationship="GoharSangModel.FK_Exitorder_State" FromRole="Exitorder" ToRole="State" />
           <NavigationProperty Name="Store" Relationship="GoharSangModel.FK_Exitorder_Store" FromRole="Exitorder" ToRole="Store" />
+          <NavigationProperty Name="RecordEntryExitOrder" Relationship="GoharSangModel.FK_RecordEntryExitOrder_Exitorder" FromRole="Exitorder" ToRole="RecordEntryExitOrder" />
         </EntityType>
         <EntityType Name="mine">
           <Key>
@@ -330,6 +473,40 @@
           <NavigationProperty Name="Record_the_Entrry_Image" Relationship="GoharSangModel.FK_Record_the_Entrry_Image_Record_the_entry" FromRole="Record_the_entry" ToRole="Record_the_Entrry_Image" />
           <NavigationProperty Name="Store" Relationship="GoharSangModel.FK_Record_the_entry_Store" FromRole="Record_the_entry" ToRole="Store" />
         </EntityType>
+        <EntityType Name="RecordEntryCopsBooking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCopsBooking" Type="Int64" />
+          <Property Name="IdRecordEntry" Type="Int64" />
+          <NavigationProperty Name="CopsBooking" Relationship="GoharSangModel.FK_RecordEntryCopsBooking_CopsBooking" FromRole="RecordEntryCopsBooking" ToRole="CopsBooking" />
+        </EntityType>
+        <EntityType Name="RecordEntryExitOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdExitOrder" Type="Int64" />
+          <Property Name="IdRecordEntry" Type="Int64" />
+          <NavigationProperty Name="Exitorder" Relationship="GoharSangModel.FK_RecordEntryExitOrder_Exitorder" FromRole="RecordEntryExitOrder" ToRole="Exitorder" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CopsBooking" Relationship="GoharSangModel.FK_CopsBooking_State" FromRole="State" ToRole="CopsBooking" />
+          <NavigationProperty Name="Exitorder" Relationship="GoharSangModel.FK_Exitorder_State" FromRole="State" ToRole="Exitorder" />
+        </EntityType>
         <EntityType Name="Store">
           <Key>
             <PropertyRef Name="Id" />
@@ -351,6 +528,14 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int64" />
+          <Property Name="IdRole" Type="Int64" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="Id" />
@@ -360,6 +545,7 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StateDelete" Type="Int32" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Record_the_entry_Cops">
           <End Type="GoharSangModel.Cops" Role="Cops" Multiplicity="0..1">
@@ -372,6 +558,20 @@
             </Principal>
             <Dependent Role="Record_the_entry">
               <PropertyRef Name="IdCops" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CopsBooking_State">
+          <End Type="GoharSangModel.State" Role="State" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GoharSangModel.CopsBooking" Role="CopsBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CopsBooking">
+              <PropertyRef Name="IdState" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -389,6 +589,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RecordEntryCopsBooking_CopsBooking">
+          <End Type="GoharSangModel.CopsBooking" Role="CopsBooking" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GoharSangModel.RecordEntryCopsBooking" Role="RecordEntryCopsBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CopsBooking">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordEntryCopsBooking">
+              <PropertyRef Name="IdCopsBooking" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Exitorder_State">
+          <End Type="GoharSangModel.State" Role="State" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GoharSangModel.Exitorder" Role="Exitorder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Exitorder">
+              <PropertyRef Name="IdState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Exitorder_Store">
           <End Type="GoharSangModel.Store" Role="Store" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -400,6 +628,20 @@
             </Principal>
             <Dependent Role="Exitorder">
               <PropertyRef Name="IdStore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecordEntryExitOrder_Exitorder">
+          <End Type="GoharSangModel.Exitorder" Role="Exitorder" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GoharSangModel.RecordEntryExitOrder" Role="RecordEntryExitOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exitorder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordEntryExitOrder">
+              <PropertyRef Name="IdExitOrder" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -463,8 +705,8 @@
           <EntitySetMapping Name="CopsBooking">
             <EntityTypeMapping TypeName="GoharSangModel.CopsBooking">
               <MappingFragment StoreEntitySet="CopsBooking">
+                <ScalarProperty Name="IdState" ColumnName="IdState" />
                 <ScalarProperty Name="StateDelete" ColumnName="StateDelete" />
-                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
                 <ScalarProperty Name="IdStore" ColumnName="IdStore" />
                 <ScalarProperty Name="DateExpired" ColumnName="DateExpired" />
                 <ScalarProperty Name="CustomerFullName" ColumnName="CustomerFullName" />
@@ -475,7 +717,8 @@
           <EntitySetMapping Name="Exitorder">
             <EntityTypeMapping TypeName="GoharSangModel.Exitorder">
               <MappingFragment StoreEntitySet="Exitorder">
-                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="IdState" ColumnName="IdState" />
+                <ScalarProperty Name="StateDelete" ColumnName="StateDelete" />
                 <ScalarProperty Name="IdStore" ColumnName="IdStore" />
                 <ScalarProperty Name="Uploaddate" ColumnName="Uploaddate" />
                 <ScalarProperty Name="CustomerFullName" ColumnName="CustomerFullName" />
@@ -522,6 +765,40 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="RecordEntryCopsBooking">
+            <EntityTypeMapping TypeName="GoharSangModel.RecordEntryCopsBooking">
+              <MappingFragment StoreEntitySet="RecordEntryCopsBooking">
+                <ScalarProperty Name="IdRecordEntry" ColumnName="IdRecordEntry" />
+                <ScalarProperty Name="IdCopsBooking" ColumnName="IdCopsBooking" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecordEntryExitOrder">
+            <EntityTypeMapping TypeName="GoharSangModel.RecordEntryExitOrder">
+              <MappingFragment StoreEntitySet="RecordEntryExitOrder">
+                <ScalarProperty Name="IdRecordEntry" ColumnName="IdRecordEntry" />
+                <ScalarProperty Name="IdExitOrder" ColumnName="IdExitOrder" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="GoharSangModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="State">
+            <EntityTypeMapping TypeName="GoharSangModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Store">
             <EntityTypeMapping TypeName="GoharSangModel.Store">
               <MappingFragment StoreEntitySet="Store">
@@ -542,9 +819,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserRole">
+            <EntityTypeMapping TypeName="GoharSangModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="GoharSangModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="StateDelete" ColumnName="StateDelete" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

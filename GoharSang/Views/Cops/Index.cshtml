@@ -95,33 +95,33 @@
 
     <script>
         function Removedata(id) {
-            
-           
+
+
 
             $(modaldeletedata).modal('show');
             $(btnConfirmDelete).click(function () {
 
                 $.ajax({
-                url: '/Cops/Deletedata',
-                data: { id: id },
-                type: 'post',
-                beforeSend: function () {
-                    $(LoadingGift).show();
-                },
-                success: function (data) {
+                    url: '/Cops/Deletedata',
+                    data: { id: id },
+                    type: 'post',
+                    beforeSend: function () {
+                        $(LoadingGift).show();
+                    },
+                    success: function (data) {
 
 
-                    $(LoadingGift).hide();
-                    $(modaldeletedata).modal('hide');
-                    AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
-                    $(modalAlertInAjax).modal("show");
+                        $(LoadingGift).hide();
+                        $(modaldeletedata).modal('hide');
+                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                        $(modalAlertInAjax).modal("show");
 
-                    $(modalAlertInAjax).on("hidden.bs.modal", function () {
-                        GetData();
+                        $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                            GetData();
 
-                    });
-                }
-            });
+                        });
+                    }
+                });
             });
         }
 
@@ -160,6 +160,15 @@
                     type: 'post',
                     beforeSend: function () {
                         $(LoadingGift).show();
+                    },
+                    error: function (data) {
+                        $(LoadingGift).hide();
+                        if (data.status == 510) {
+                            AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
+                            $(modalAlertInAjax).modal("show");
+
+                            return;
+                        }
                     },
                     success: function (data) {
 

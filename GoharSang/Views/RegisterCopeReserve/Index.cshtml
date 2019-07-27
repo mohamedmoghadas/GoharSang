@@ -21,7 +21,7 @@
                         <input type="text" class="form-control float-right" id="CustomerName">
                     </div>
                     <div class="col-sm-2 col-4 rgEnLable">
-                        <label>تاریخ بارگیری</label>
+                        <label>انقضا رزرو</label>
 
                     </div>
                     <div class="col-sm-4 col-8">
@@ -54,7 +54,7 @@
                 </div>
                 <div class="row margTop1">
                     <div class="col">
-                        <button class="btn btn-primary float-left SaveBtn" onclick="BtnExitOrder()">ذخیره</button>
+                        <button class="btn btn-primary float-left SaveBtn" onclick="BtnRegisterCopeReserve()">ذخیره</button>
                     </div>
                 </div>
             </div>
@@ -112,18 +112,18 @@
 
 
     <script>
-        function ExitOrder(Id, CustomerFullName, IdStore) {
+        function RegisterCopeReserve(Id, CustomerFullName, IdStore) {
             this.Id = Id;
             this.CustomerFullName = CustomerFullName;
             this.IdStore = IdStore;
 
         }
-        var _ExitOrder = new ExitOrder(0, "", 0);
+        var _RegisterCopeReserve = new RegisterCopeReserve(0, "", 0);
     </script>
 
 
     <script>
-        function BtnExitOrder() {
+        function BtnRegisterCopeReserve() {
 
 
             if (CustomerName.value == "" || SelectStore.value == 0) {
@@ -134,8 +134,8 @@
             }
 
             else {
-                _ExitOrder.CustomerFullName = CustomerName.value;
-                _ExitOrder.IdStore = SelectStore.value;
+                _RegisterCopeReserve.CustomerFullName = CustomerName.value;
+                _RegisterCopeReserve.IdStore = SelectStore.value;
 
                 var DateLoad = dateLoad.value;
 
@@ -144,17 +144,17 @@
                 $(':checkbox:checked').each(function (i) {
 
                     var Id = $(this).val();
-
+                   
                     item = {};
                     item["Id"] = Id;
-
+                   
                     ListProps.push(item);
                 });
                 SelectedProp["ListProps"] = ListProps;
 
                 $.ajax({
-                    url: '/ExitOrder/ExitOrder',
-                    data: { exo: _ExitOrder, date: DateLoad, prop: SelectedProp },
+                    url: '/RegisterCopeReserve/RegisterCopeReserve',
+                    data: { cb: _RegisterCopeReserve, date: DateLoad ,prop:SelectedProp},
                     type: 'post',
                     beforeSend: function () {
                         $(LoadingGift).show();
@@ -170,7 +170,7 @@
 
                         $(modalAlertInAjax).on("hidden.bs.modal", function () {
 
-                            location.href = "/ExitOrder/Index";
+                            location.href = "/RegisterCopeReserve/Index";
                         });
                     }
                 });

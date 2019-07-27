@@ -267,6 +267,8 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ConfirmationController.cs" />
+    <Compile Include="Controllers\CopeReserveController.cs" />
     <Compile Include="Controllers\CopsController.cs" />
     <Compile Include="Controllers\DefinitionsController.cs" />
     <Compile Include="Controllers\ExitOrderController.cs" />
@@ -274,7 +276,15 @@
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\minesController.cs" />
     <Compile Include="Controllers\RecordEntryController.cs" />
+    <Compile Include="Controllers\RegisterCopeReserveController.cs" />
+    <Compile Include="Controllers\RegisterExitPaperController.cs" />
+    <Compile Include="Controllers\ReportdenotativeStoreController.cs" />
+    <Compile Include="Controllers\ReportEntryController.cs" />
+    <Compile Include="Controllers\ReportExitController.cs" />
+    <Compile Include="Controllers\ReportExitOrderController.cs" />
+    <Compile Include="Controllers\ReportTotalController.cs" />
     <Compile Include="Controllers\StoresController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -305,10 +315,23 @@
     <Compile Include="Models\mine.cs">
       <DependentUpon>GoharSang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RecordEntryCopsBooking.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RecordEntryExitOrder.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Record_the_Entrry_Image.cs">
       <DependentUpon>GoharSang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Record_the_entry.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SelectedProps\ItemPropSelect.cs" />
+    <Compile Include="Models\State.cs">
       <DependentUpon>GoharSang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Store.cs">
@@ -317,9 +340,17 @@
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>GoharSang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserRole.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Users.cs">
       <DependentUpon>GoharSang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\vmModel\vmcopreserv.cs" />
+    <Compile Include="Models\vmModel\vmEditCopReserv.cs" />
+    <Compile Include="Models\vmModel\vmListRecordEntry.cs" />
+    <Compile Include="Models\vmModel\vmlistuser.cs" />
+    <Compile Include="Models\vmModel\vmReportBargirt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\clsPersianDate.cs" />
     <Compile Include="Utility\CreatHash.cs" />
@@ -378,6 +409,10 @@
     <Content Include="js\Resource\fonts\Samim-FD.ttf" />
     <Content Include="js\Resource\fonts\Samim-FD.woff" />
     <Content Include="js\Resource\fonts\Samim-FD.woff2" />
+    <Content Include="File\ReportBargiry.xlsx" />
+    <Content Include="File\ReportEntry.xlsx" />
+    <Content Include="File\ReportExitOrder.xlsx" />
+    <Content Include="File\ReporttotalEntry.xlsx" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -388,6 +423,17 @@
     <Content Include="Views\RecordEntry\Index.cshtml" />
     <Content Include="Views\ExitOrder\Index.cshtml" />
     <Content Include="Views\LogIn\Index.cshtml" />
+    <Content Include="Views\RegisterCopeReserve\Index.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\RegisterExitPaper\Index.cshtml" />
+    <Content Include="Views\CopeReserve\Index.cshtml" />
+    <Content Include="Views\CopeReserve\LoadEditCopsBooking.cshtml" />
+    <Content Include="Views\ReportExitOrder\Index.cshtml" />
+    <Content Include="Views\Confirmation\Index.cshtml" />
+    <Content Include="Views\ReportdenotativeStore\Index.cshtml" />
+    <Content Include="Views\ReportEntry\Index.cshtml" />
+    <Content Include="Views\ReportExit\Index.cshtml" />
+    <Content Include="Views\ReportTotal\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
