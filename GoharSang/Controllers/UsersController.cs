@@ -34,23 +34,9 @@ namespace GoharSang.Controllers
         }
 
 
-        public List<ListUsers> getUsers()
+        public List<Users> getUsers()
         {
-            var listuser = (from user in db.Users
-                            join userrole in db.UserRole
-                            on user.Id equals userrole.IdUser
-                            join role in db.Role
-                            on userrole.IdRole equals role.Id
-                            select new { user,userrole,role}).ToList()
-                            .Select(p=> 
-                            new ListUsers
-                            {
-                                Id = p.user.Id,
-                                FullName= p.user.FullName,
-                                UserName = p.user.UserName,
-                                Email = p.user.Email,
-                                userrole= p.userrole
-                            }).ToList();
+            List<Users> listuser = db.Users.Where(p=>p.StateDelete==0).ToList();
 
 
             return listuser;
@@ -59,10 +45,11 @@ namespace GoharSang.Controllers
         [HttpPost]
         public async Task<ActionResult> mgnUser(Users user, ItemPropSelect prop)
         {
+            var pass = CreatHash.HashPass(user.Password);
             if (user.Id == 0)
             {
                 user.StateDelete = 0;
-                
+                user.Password = pass;
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
 
@@ -91,6 +78,7 @@ namespace GoharSang.Controllers
                 Users eUser = db.Users.Find(user.Id);
 
                 eUser.StateDelete = 0;
+                eUser.Password = pass;
 
 
                 eUser.Email = eUser.Email;

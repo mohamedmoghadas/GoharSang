@@ -18,15 +18,50 @@ namespace GoharSang.Controllers
        
         public ActionResult Index(long? id)
         {
-            if (id!=null&& id!=0)
+
+            try
             {
-                var result = GetExitOrder(id);
-                return View(result);
+                string UserIdcookie = "";
+                if (Request.Cookies.AllKeys.Contains("UserId"))
+                {
+                    UserIdcookie = Request.Cookies["UserId"].Value;
+                    string _Id = UserIdcookie;
+                    long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+                    Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    if (admin == null)
+                    {
+
+                        return RedirectToAction("Index", "LogIn");
+                    }
+                    else
+                    {
+                        if (id != null && id != 0)
+                        {
+                            var result = GetExitOrder(id);
+                            return View(result);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "exitRequests");
+                        }
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+
+                }
             }
-            else
+            catch (Exception ee)
             {
-                return RedirectToAction("Index", "exitRequests");
+                return RedirectToAction("Index", "LogIn");
+
             }
+
+
+
+
+         
         }
 
         private object GetExitOrder(long? id)
