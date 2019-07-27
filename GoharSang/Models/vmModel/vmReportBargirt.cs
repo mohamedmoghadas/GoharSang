@@ -12,11 +12,21 @@ namespace GoharSang.Models.vmModel
     }
     public class listRecordEntryExitOrder
     {
+        public long Id { get; set; }
+        
         public string CustomerFullName { get; set; }
         public string Uploaddate { get; set; }
         public string StoreName { get; set; }
         public long RecordEntryExitOrderCount { get; set; }
 
         public string stateName { get; set; }
+        public string Weight { get; set; }
+        public long Countmandeh { get; set; }
+        public string Dimensions { get; set; }
+        public string minename { get; set; }
+        public string copname { get; set; }
+
+        
+
     }
 }

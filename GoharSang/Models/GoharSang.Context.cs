@@ -27,6 +27,8 @@ namespace GoharSang.Models
     
         public virtual DbSet<Cops> Cops { get; set; }
         public virtual DbSet<CopsBooking> CopsBooking { get; set; }
+        public virtual DbSet<Driver> Driver { get; set; }
+        public virtual DbSet<DriverREO> DriverREO { get; set; }
         public virtual DbSet<Exitorder> Exitorder { get; set; }
         public virtual DbSet<mine> mine { get; set; }
         public virtual DbSet<Record_the_Entrry_Image> Record_the_Entrry_Image { get; set; }

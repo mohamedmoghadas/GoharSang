@@ -12,13 +12,13 @@ namespace GoharSang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RecordEntryCopsBooking
+    public partial class DriverREO
     {
         public long Id { get; set; }
-        public Nullable<long> IdCopsBooking { get; set; }
-        public Nullable<long> IdRecordEntry { get; set; }
-        public Nullable<bool> StateExit { get; set; }
+        public Nullable<long> IdDriver { get; set; }
+        public Nullable<long> IdREO { get; set; }
     
-        public virtual CopsBooking CopsBooking { get; set; }
+        public virtual Driver Driver { get; set; }
+        public virtual RecordEntryExitOrder RecordEntryExitOrder { get; set; }
     }
 }

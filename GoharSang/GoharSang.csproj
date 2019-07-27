@@ -272,6 +272,7 @@
     <Compile Include="Controllers\CopsController.cs" />
     <Compile Include="Controllers\DefinitionsController.cs" />
     <Compile Include="Controllers\ExitOrderController.cs" />
+    <Compile Include="Controllers\exitRequestsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\minesController.cs" />
@@ -292,6 +293,12 @@
       <DependentUpon>GoharSang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CopsBooking.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Driver.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DriverREO.cs">
       <DependentUpon>GoharSang.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Exitorder.cs">
@@ -434,6 +441,7 @@
     <Content Include="Views\ReportEntry\Index.cshtml" />
     <Content Include="Views\ReportExit\Index.cshtml" />
     <Content Include="Views\ReportTotal\Index.cshtml" />
+    <Content Include="Views\exitRequests\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -4,101 +4,196 @@
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 
-    <div class="container dailyCol">
-        <div class="row dailyRow">
-            <div class="col dailyLDiv">
-                <a class="btn btn-primary d-block dailyBtnTop" href="index.html" role="button">صفحه اصلی</a>
+@model GoharSang.Models.vmModel.vmReportBargirt
+
+<div class="container dailyCol">
+    <div class="row dailyRow">
+        <div class="col dailyLDiv">
+            <a class="btn btn-primary d-block dailyBtnTop" href="index.html" role="button">صفحه اصلی</a>
+            <br>
+            <label class="buyerLable">مشخصات راننده</label>
+            <div class="entryForm">
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>نام راننده</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control float-right" id="driverName">
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>شماره شهربانی</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control txtLeft" id="mayorNumber">
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>شماره همراه</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control float-right txtLeft" id="mobile">
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>شماره گواهینامه</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control txtLeft" id="LicencNumber">
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>شماره هوشمند</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control float-right txtLeft" id="IntelligentNumber">
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>راننده کامیون</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control" id="truckType">
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>مقصد</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control" id="destination">
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>وزن ناخالص</label>
+                    </div>
+                    <div class="col-sm-2 col-8">
+                        <input type="text" class="form-control float-right txtCenter" id="ImpureWeight">
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>وزن کامیون</label>
+                    </div>
+                    <div class="col-sm-2 col-8">
+                        <input type="text" class="form-control txtCenter" id="weightTruck">
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>وزن خالص</label>
+                    </div>
+                    <div class="col-sm-2 col-8">
+                        <input type="text" class="form-control txtCenter" id="pureWeight">
+                    </div>
+                </div>
+
+
+                <label class="buyerLable">کوپ های درخواست شده</label>
                 <br>
-                <label class="buyerLable">مشخصات راننده</label>
-                <form class="entryForm">
-                    <div class="row margTop1">
-                        <div class="col-sm-2 col-4 rgEnLable">
-                            <label>نام راننده</label>
-                        </div>
-                        <div class="col-sm-4 col-8">
-                            <input type="text" class="form-control float-right" name="driver">
-                        </div>
-                        <div class="col-sm-2 col-4 rgEnLable">
-                            <label>شماره شهربانی</label>
-                        </div>
-                        <div class="col-sm-4 col-8">
-                            <input type="text" class="form-control txtLeft" name="policeNumber">
+                <div class="row margTop2 clear">
+                    <div class="col">
+                        <div class="row">
+                            @foreach (var item in Model.list)
+                            {
+                                <div class="checkbox checkbox-replace checkbox-primary">
+                                    <input type="checkbox" id="@item.Id" value="@item.Id">
+                                    <label for="@item.Id"> معدن= @item.minename  &nbsp&nbsp&nbsp   نوع کوپ= @item.copname &nbsp&nbsp&nbsp  ابعاد= @item.Dimensions  &nbsp&nbsp&nbsp  وزن= @item.Weight </label>
+                                </div>
+                            }
+
                         </div>
                     </div>
-                    <div class="row margTop1">
-                        <div class="col-sm-2 col-4 rgEnLable">
-                            <label>شماره همراه</label>
-                        </div>
-                        <div class="col-sm-4 col-8">
-                            <input type="text" class="form-control float-right txtLeft" name="mobile">
-                        </div>
-                        <div class="col-sm-2 col-4 rgEnLable">
-                            <label>شماره گواهینامه</label>
-                        </div>
-                        <div class="col-sm-4 col-8">
-                            <input type="text" class="form-control txtLeft" name="policeNumber">
-                        </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col">
+                        <button class="btn btn-primary float-left SaveBtn" onclick="Save()">ذخیره</button>
                     </div>
-                    <div class="row margTop1">
-                        <div class="col-sm-2 col-4 rgEnLable">
-                            <label>شماره هوشمند</label>
-                        </div>
-                        <div class="col-sm-4 col-8">
-                            <input type="text" class="form-control float-right txtLeft" name="Intelligent">
-                        </div>
-                        <div class="col-sm-2 col-4 rgEnLable">
-                            <label>راننده کامیون</label>
-                        </div>
-                        <div class="col-sm-4 col-8">
-                            <input type="text" class="form-control" name="truckType">
-                        </div>
-                    </div>
-                    <div class="row margTop1">
-                        <div class="col-sm-2 col-4 rgEnLable">
-                            <label>مقصد</label>
-                        </div>
-                        <div class="col-sm-4 col-8">
-                            <input type="text" class="form-control" name="destination">
-                        </div>
-                    </div>
-                    <div class="row margTop1">
-                        <div class="col-sm-2 col-4 rgEnLable">
-                            <label>وزن ناخالص</label>
-                        </div>
-                        <div class="col-sm-2 col-8">
-                            <input type="text" class="form-control float-right txtCenter" name="ImpureWeight">
-                        </div>
-                        <div class="col-sm-2 col-4 rgEnLable">
-                            <label>وزن کامیون</label>
-                        </div>
-                        <div class="col-sm-2 col-8">
-                            <input type="text" class="form-control txtCenter" name="weightTruck">
-                        </div>
-                        <div class="col-sm-2 col-4 rgEnLable">
-                            <label>وزن خالص</label>
-                        </div>
-                        <div class="col-sm-2 col-8">
-                            <input type="text" class="form-control txtCenter" name="pureWeight">
-                        </div>
-                    </div>
-                    <label class="buyerLable">کوپ های درخواست شده</label>
-                    <br>
-                    <div class="row margTop2 clear">
-                        <div class="col">
-                            <select name="stones" class="rgExSelect" multiple>
-                                <option value="volvo" class="rgExitOption"><lable>کوپ سنگ مرمریت 1000*1000 معدن لاشتر امینی</lable></option>
-                                <option value=""><lable>کوپ سنگ مرمریت 1000*1000 معدن لاشتر امینی</lable></option>
-                                <option value=""><lable>کوپ سنگ مرمریت 1000*1000 معدن لاشتر امینی</lable></option>
-                                <option value=""><lable>کوپ سنگ مرمریت 1000*1000 معدن لاشتر امینی</lable></option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row margTop1">
-                        <div class="col">
-                            <button class="btn btn-primary float-left SaveBtn" name="save">ذخیره</button>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+
+@section localscript{
+
+    <script>
+
+        function driver(Id, DriverName, mayorNumber, Mobile, LicenceNumber, InteligentNumber, DriverType, Destination, ImPureWeight, PureWeight, TruckWeight) {
+            this.Id = Id;
+            this.DriverName = DriverName;
+            this.mayorNumber = mayorNumber;
+            this.Mobile = Mobile;
+            this.LicenceNumber = LicenceNumber;
+            this.InteligentNumber = InteligentNumber;
+            this.DriverType = DriverType;
+            this.Destination = Destination;
+            this.ImPureWeight = ImPureWeight;
+            this.PureWeight = PureWeight;
+            this.TruckWeight = TruckWeight;
+        }
+
+        var _driver = new driver(0, "", "", "", "", "", "", "", "", "", "");
+
+    </script>
+
+    <script>
+        function Save() {
+
+
+            _driver.DriverName = driverName.value;
+            _driver.mayorNumber = mayorNumber.value;
+            _driver.Mobile = mobile.value;
+            _driver.LicenceNumber = LicencNumber.value;
+            _driver.InteligentNumber = IntelligentNumber.value;
+            _driver.DriverType = truckType.value;
+            _driver.Destination = destination.value;
+            _driver.ImPureWeight = ImpureWeight.value;
+            _driver.TruckWeight = weightTruck.value;
+            _driver.PureWeight = pureWeight.value;
+
+
+
+
+            SelectedProp = {};
+            ListProps = [];
+            $(':checkbox:checked').each(function (i) {
+                
+                var Id = $(this).val();
+
+                item = {};
+                item["Id"] = Id;
+
+                ListProps.push(item);
+            });
+            SelectedProp["ListProps"] = ListProps;
+
+            $.ajax({
+                url: '/RegisterExitPaper/RegisterExitPaper',
+                data: { _driver: _driver, prop: SelectedProp },
+                type: 'post',
+                beforeSend: function () {
+                    $(LoadingGift).show();
+                },
+
+                success: function (data) {
+
+                    $(LoadingGift).hide();
+
+
+                    AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                    $(modalAlertInAjax).modal("show");
+
+                    $(modalAlertInAjax).on("hidden.bs.modal", function () {
+
+                        location.href = "/RegisterExitPaper/Index";
+                    });
+                }
+            });
+
+
+
+        }
+
+
+    </script>
+
+
+}

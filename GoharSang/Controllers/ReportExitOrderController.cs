@@ -107,7 +107,7 @@ namespace GoharSang.Controllers
                 }
 
 
-                string FileName = "گزارش بارگیری.xlsx";
+                string FileName = "گزارش_بارگیری.xlsx";
 
                 Response.Clear();
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";

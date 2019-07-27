@@ -3,19 +3,17 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
-
 @model GoharSang.Models.vmModel.vmReportBargirt
-
 <div class="container dailyCol">
     <div class="row dailyRow">
         <div class="col dailyLDiv">
-            <a class="btn btn-primary dailyBtnTop" href="index.html" role="button">صفحه اصلی</a>
+            <a class="btn btn-primary d-block dailyBtnTop" href="index.html" role="button">صفحه اصلی</a>
             <br>
             <label class="d-block dailyTitle">
-                فیلتر های تاریخ رنجی | انبار | وضعیت
+                فیلتر های | نام خریدار | تاریخ بارگیری |انبار | تعداد کوپ ها | وضعیت
             </label>
             <div class="table-responsive-sm">
-                <table class="table table-info table-striped dailyTable" id="tbldata">
+                <table class="table table-info table-striped dailyTable">
 
                     <thead>
                         <tr>
@@ -23,9 +21,11 @@
                             <td>نام خریدار</td>
                             <td>تاریخ بارگیری</td>
                             <td>انبار</td>
-                            <td>تعداد کوپ ها</td>
+                            <td>کل کوپ</td>
+                            <td>مانده</td>
                             @*<td>مشاهده کامل</td>*@
                             <td>وضعیت</td>
+                            <td>عملیات</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,25 +41,42 @@
                                 <td>@item.Uploaddate</td>
                                 <td>@item.StoreName</td>
                                 <td>@item.RecordEntryExitOrderCount</td>
+                                <td>@item.Countmandeh</td>
                                 @*<td>مشاهده</td>*@
                                 <td>@item.stateName</td>
+                                <td><button class="btn btn-primary" onclick="RegisterExitPaper(@item.Id)">ثبت برگ خروج</button></td>
                             </tr>
                         }
-
                     </tbody>
                 </table>
             </div>
-
-   
-            <button class="btn btn-primary dailyBtnBottom" onclick="window.print()">چاپ گزارش</button>
-            <button class="btn btn-primary dailyBtnBottom2" onclick="location.href='@Url.Action("export", "ReportExitOrder")'">خروجی اکسل</button>
         </div>
     </div>
 </div>
+@section localscript{
+
+    <script>
+
+         function RegisterExitPaper(id) {
+            var form = document.createElement("form");
+            var element1 = document.createElement("input");
+
+
+            form.method = "Get";
+            form.action = '/RegisterExitPaper/Index';
+
+            element1.value = id;
+            element1.name = "id";
+            element1.hidden = true;
+            form.appendChild(element1);
 
 
 
+            document.body.appendChild(form);
 
+            form.submit();
+        }
 
+    </script>
 
-   
+}

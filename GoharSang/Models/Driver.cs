@@ -12,21 +12,27 @@ namespace GoharSang.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class RecordEntryExitOrder
+    public partial class Driver
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RecordEntryExitOrder()
+        public Driver()
         {
             this.DriverREO = new HashSet<DriverREO>();
         }
     
         public long Id { get; set; }
-        public Nullable<long> IdExitOrder { get; set; }
-        public Nullable<long> IdRecordEntry { get; set; }
-        public Nullable<bool> StateExit { get; set; }
+        public string DriverName { get; set; }
+        public string mayorNumber { get; set; }
+        public string Mobile { get; set; }
+        public string LicenceNumber { get; set; }
+        public string InteligentNumber { get; set; }
+        public string DriverType { get; set; }
+        public string Destination { get; set; }
+        public string ImPureWeight { get; set; }
+        public string PureWeight { get; set; }
+        public string TruckWeight { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DriverREO> DriverREO { get; set; }
-        public virtual Exitorder Exitorder { get; set; }
     }
 }

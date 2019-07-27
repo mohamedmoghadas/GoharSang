@@ -24,6 +24,30 @@
           <Property Name="StateDelete" Type="int" />
           <Property Name="IdState" Type="bigint" />
         </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DriverName" Type="nvarchar" MaxLength="50" />
+          <Property Name="mayorNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="LicenceNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="InteligentNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="DriverType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Destination" Type="nvarchar(max)" />
+          <Property Name="ImPureWeight" Type="nvarchar" MaxLength="50" />
+          <Property Name="PureWeight" Type="nvarchar" MaxLength="50" />
+          <Property Name="TruckWeight" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DriverREO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDriver" Type="bigint" />
+          <Property Name="IdREO" Type="bigint" />
+        </EntityType>
         <EntityType Name="Exitorder">
           <Key>
             <PropertyRef Name="Id" />
@@ -78,6 +102,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdCopsBooking" Type="bigint" />
           <Property Name="IdRecordEntry" Type="bigint" />
+          <Property Name="StateExit" Type="bit" />
         </EntityType>
         <EntityType Name="RecordEntryExitOrder">
           <Key>
@@ -86,6 +111,7 @@
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdExitOrder" Type="bigint" />
           <Property Name="IdRecordEntry" Type="bigint" />
+          <Property Name="StateExit" Type="bit" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -163,6 +189,34 @@
             </Principal>
             <Dependent Role="CopsBooking">
               <PropertyRef Name="IdStore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverREO_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DriverREO" Type="Self.DriverREO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DriverREO">
+              <PropertyRef Name="IdDriver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverREO_RecordEntryExitOrder">
+          <End Role="RecordEntryExitOrder" Type="Self.RecordEntryExitOrder" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DriverREO" Type="Self.DriverREO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordEntryExitOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DriverREO">
+              <PropertyRef Name="IdREO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -281,6 +335,8 @@
         <EntityContainer Name="GoharSangModelStoreContainer">
           <EntitySet Name="Cops" EntityType="Self.Cops" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CopsBooking" EntityType="Self.CopsBooking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DriverREO" EntityType="Self.DriverREO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Exitorder" EntityType="Self.Exitorder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mine" EntityType="Self.mine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Record the Entrry Image" EntityType="Self.Record the Entrry Image" Schema="dbo" store:Type="Tables" />
@@ -300,6 +356,14 @@
           <AssociationSet Name="FK_CopsBooking_Store" Association="Self.FK_CopsBooking_Store">
             <End Role="Store" EntitySet="Store" />
             <End Role="CopsBooking" EntitySet="CopsBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverREO_Driver" Association="Self.FK_DriverREO_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="DriverREO" EntitySet="DriverREO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverREO_RecordEntryExitOrder" Association="Self.FK_DriverREO_RecordEntryExitOrder">
+            <End Role="RecordEntryExitOrder" EntitySet="RecordEntryExitOrder" />
+            <End Role="DriverREO" EntitySet="DriverREO" />
           </AssociationSet>
           <AssociationSet Name="FK_Exitorder_State" Association="Self.FK_Exitorder_State">
             <End Role="State" EntitySet="State" />
@@ -341,6 +405,8 @@
         <EntityContainer Name="GoharSangEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cops" EntityType="GoharSangModel.Cops" />
           <EntitySet Name="CopsBooking" EntityType="GoharSangModel.CopsBooking" />
+          <EntitySet Name="Driver" EntityType="GoharSangModel.Driver" />
+          <EntitySet Name="DriverREO" EntityType="GoharSangModel.DriverREO" />
           <EntitySet Name="Exitorder" EntityType="GoharSangModel.Exitorder" />
           <EntitySet Name="mine" EntityType="GoharSangModel.mine" />
           <EntitySet Name="Record_the_Entrry_Image" EntityType="GoharSangModel.Record_the_Entrry_Image" />
@@ -368,6 +434,14 @@
           <AssociationSet Name="FK_RecordEntryCopsBooking_CopsBooking" Association="GoharSangModel.FK_RecordEntryCopsBooking_CopsBooking">
             <End Role="CopsBooking" EntitySet="CopsBooking" />
             <End Role="RecordEntryCopsBooking" EntitySet="RecordEntryCopsBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverREO_Driver" Association="GoharSangModel.FK_DriverREO_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="DriverREO" EntitySet="DriverREO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverREO_RecordEntryExitOrder" Association="GoharSangModel.FK_DriverREO_RecordEntryExitOrder">
+            <End Role="RecordEntryExitOrder" EntitySet="RecordEntryExitOrder" />
+            <End Role="DriverREO" EntitySet="DriverREO" />
           </AssociationSet>
           <AssociationSet Name="FK_Exitorder_State" Association="GoharSangModel.FK_Exitorder_State">
             <End Role="State" EntitySet="State" />
@@ -416,6 +490,33 @@
           <NavigationProperty Name="State" Relationship="GoharSangModel.FK_CopsBooking_State" FromRole="CopsBooking" ToRole="State" />
           <NavigationProperty Name="Store" Relationship="GoharSangModel.FK_CopsBooking_Store" FromRole="CopsBooking" ToRole="Store" />
           <NavigationProperty Name="RecordEntryCopsBooking" Relationship="GoharSangModel.FK_RecordEntryCopsBooking_CopsBooking" FromRole="CopsBooking" ToRole="RecordEntryCopsBooking" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DriverName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mayorNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LicenceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InteligentNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DriverType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Destination" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImPureWeight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PureWeight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TruckWeight" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DriverREO" Relationship="GoharSangModel.FK_DriverREO_Driver" FromRole="Driver" ToRole="DriverREO" />
+        </EntityType>
+        <EntityType Name="DriverREO">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDriver" Type="Int64" />
+          <Property Name="IdREO" Type="Int64" />
+          <NavigationProperty Name="Driver" Relationship="GoharSangModel.FK_DriverREO_Driver" FromRole="DriverREO" ToRole="Driver" />
+          <NavigationProperty Name="RecordEntryExitOrder" Relationship="GoharSangModel.FK_DriverREO_RecordEntryExitOrder" FromRole="DriverREO" ToRole="RecordEntryExitOrder" />
         </EntityType>
         <EntityType Name="Exitorder">
           <Key>
@@ -480,6 +581,7 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdCopsBooking" Type="Int64" />
           <Property Name="IdRecordEntry" Type="Int64" />
+          <Property Name="StateExit" Type="Boolean" />
           <NavigationProperty Name="CopsBooking" Relationship="GoharSangModel.FK_RecordEntryCopsBooking_CopsBooking" FromRole="RecordEntryCopsBooking" ToRole="CopsBooking" />
         </EntityType>
         <EntityType Name="RecordEntryExitOrder">
@@ -489,6 +591,8 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdExitOrder" Type="Int64" />
           <Property Name="IdRecordEntry" Type="Int64" />
+          <Property Name="StateExit" Type="Boolean" />
+          <NavigationProperty Name="DriverREO" Relationship="GoharSangModel.FK_DriverREO_RecordEntryExitOrder" FromRole="RecordEntryExitOrder" ToRole="DriverREO" />
           <NavigationProperty Name="Exitorder" Relationship="GoharSangModel.FK_RecordEntryExitOrder_Exitorder" FromRole="RecordEntryExitOrder" ToRole="Exitorder" />
         </EntityType>
         <EntityType Name="Role">
@@ -603,6 +707,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DriverREO_Driver">
+          <End Type="GoharSangModel.Driver" Role="Driver" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GoharSangModel.DriverREO" Role="DriverREO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DriverREO">
+              <PropertyRef Name="IdDriver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverREO_RecordEntryExitOrder">
+          <End Type="GoharSangModel.RecordEntryExitOrder" Role="RecordEntryExitOrder" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GoharSangModel.DriverREO" Role="DriverREO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecordEntryExitOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DriverREO">
+              <PropertyRef Name="IdREO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Exitorder_State">
           <End Type="GoharSangModel.State" Role="State" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -714,6 +846,32 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Driver">
+            <EntityTypeMapping TypeName="GoharSangModel.Driver">
+              <MappingFragment StoreEntitySet="Driver">
+                <ScalarProperty Name="TruckWeight" ColumnName="TruckWeight" />
+                <ScalarProperty Name="PureWeight" ColumnName="PureWeight" />
+                <ScalarProperty Name="ImPureWeight" ColumnName="ImPureWeight" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="DriverType" ColumnName="DriverType" />
+                <ScalarProperty Name="InteligentNumber" ColumnName="InteligentNumber" />
+                <ScalarProperty Name="LicenceNumber" ColumnName="LicenceNumber" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="mayorNumber" ColumnName="mayorNumber" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DriverREO">
+            <EntityTypeMapping TypeName="GoharSangModel.DriverREO">
+              <MappingFragment StoreEntitySet="DriverREO">
+                <ScalarProperty Name="IdREO" ColumnName="IdREO" />
+                <ScalarProperty Name="IdDriver" ColumnName="IdDriver" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Exitorder">
             <EntityTypeMapping TypeName="GoharSangModel.Exitorder">
               <MappingFragment StoreEntitySet="Exitorder">
@@ -768,6 +926,7 @@
           <EntitySetMapping Name="RecordEntryCopsBooking">
             <EntityTypeMapping TypeName="GoharSangModel.RecordEntryCopsBooking">
               <MappingFragment StoreEntitySet="RecordEntryCopsBooking">
+                <ScalarProperty Name="StateExit" ColumnName="StateExit" />
                 <ScalarProperty Name="IdRecordEntry" ColumnName="IdRecordEntry" />
                 <ScalarProperty Name="IdCopsBooking" ColumnName="IdCopsBooking" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -777,6 +936,7 @@
           <EntitySetMapping Name="RecordEntryExitOrder">
             <EntityTypeMapping TypeName="GoharSangModel.RecordEntryExitOrder">
               <MappingFragment StoreEntitySet="RecordEntryExitOrder">
+                <ScalarProperty Name="StateExit" ColumnName="StateExit" />
                 <ScalarProperty Name="IdRecordEntry" ColumnName="IdRecordEntry" />
                 <ScalarProperty Name="IdExitOrder" ColumnName="IdExitOrder" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

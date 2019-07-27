@@ -3,6 +3,93 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
+@model GoharSang.Models.vmModel.vmReportBargirt
+<div class="container dailyCol">
+    <div class="row dailyRow">
+        <div class="col dailyLDiv">
+            <a class="btn btn-primary d-block dailyBtnTop" href="index.html" role="button">صفحه اصلی</a>
+            <br>
+            <label class="d-block dailyTitle">
+                فیلتر های | نام خریدار | تاریخ بارگیری |انبار | وزن | تعداد کوپ ها | مشاهده کامل | وضعیت
+            </label>
+            <div class="table-responsive-sm">
+                <table class="table table-info table-striped dailyTable">
 
-<h2>Index</h2>
+                    <thead>
 
+
+                        <tr>
+                            <td>ردیف</td>
+                            <td>نام خریدار</td>
+                            <td>تاریخ بارگیری</td>
+                            <td>انبار</td>
+                            <td>وزن</td>
+                            <td>تعداد کوپ ها</td>
+                            @*<td>مشاهده کامل</td>*@
+                            <td>وضعیت</td>
+                            <td>عملیات</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @{
+                            long i = 0;
+                        }
+                        @foreach (var item in Model.list)
+                        {
+                            i++;
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.CustomerFullName</td>
+                                <td>@item.Uploaddate</td>
+                                <td>@item.StoreName</td>
+                                <td>@item.Weight</td>
+                                <td>@item.RecordEntryExitOrderCount</td>
+                                @*<td>مشاهده</td>*@
+                                <td>@item.stateName</td>
+                                <td><button class="btn btn-success fa fa-check" onclick="Confirm(@item.Id)"></button></td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section localscript{
+
+    <script>
+
+    function Confirm(id) {
+         $.ajax({
+                    url: '/Confirmation/Confirm',
+                    data: { id: id },
+                    type: 'post',
+                    beforeSend: function () {
+                        $(LoadingGift).show();
+                    },
+                    
+                    success: function (data) {
+
+
+                        $(LoadingGift).hide();
+
+                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                      
+                        $(modalAlertInAjax).modal("show");
+
+                        $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                            location.href = "/Confirmation/Index";
+
+                        });
+                    }
+                });
+    }
+
+    </script>
+
+}
