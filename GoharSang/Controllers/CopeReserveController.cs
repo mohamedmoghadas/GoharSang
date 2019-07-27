@@ -16,7 +16,7 @@ namespace GoharSang.Controllers
             var result = getCopReserve();
             return View(result);
         }
-
+         
         private object getCopReserve()
         {
             var list = db.CopsBooking.Where(p => p.StateDelete == 0).ToList()
