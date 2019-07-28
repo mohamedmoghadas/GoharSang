@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col">
             <a class="btn btn-primary homePageBtn" href="~/Home/Index" role="button">صفحه اصلی</a>
-            <a class="btn btn-primary homePageBtn margRight2" href="definitions.html" role="button">بازگشت</a>
+            <a class="btn btn-primary homePageBtn margRight2" href="~/Definitions/Index" role="button">بازگشت</a>
         </div>
     </div>
 
@@ -113,7 +113,7 @@
 
                         AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
                         $(modalAlertInAjax).modal("show");
-
+                       setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
                         $(modalAlertInAjax).on("hidden.bs.modal", function () {
                             GetData();
 
@@ -178,7 +178,7 @@
                         _mdata.Id = 0;
                         Name.value = "";
                         $(modalAlertInAjax).modal("show");
-
+                        setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
                         $(modalAlertInAjax).on("hidden.bs.modal", function () {
                             GetData();
 

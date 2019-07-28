@@ -170,7 +170,7 @@
 
                         AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
                         $(modalAlertInAjax).modal("show");
-
+                       setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
                         $(modalAlertInAjax).on("hidden.bs.modal", function () {
 
                             location.href = "/ExitOrder/Index";
