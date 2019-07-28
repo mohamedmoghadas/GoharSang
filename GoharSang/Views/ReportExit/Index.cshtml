@@ -3,6 +3,55 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
+@model GoharSang.Models.vmModel.vmReportBargirt
 
-<h2>Index</h2>
+<div class="container dailyCol">
+    <div class="row dailyRow">
+        <div class="col dailyLDiv">
+            <a class="btn btn-primary d-block dailyBtnTop" href="~/Home/Index" role="button">صفحه اصلی</a>
+            <br>
+            <label class="d-block dailyTitle">
+                فیلتر های | نام خریدار | تاریخ بارگیری | انبار | تعداد کوپ | وضعیت
+            </label>
+            <div class="table-responsive-sm">
+                <table class="table table-info table-striped dailyTable">
 
+                    <thead>
+                        <tr>
+                            <td>ردیف</td>
+                            <td>نام خریدار</td>
+                            <td>تاریخ بارگیری</td>
+                            <td>انبار</td>
+                            <td>کل کوپ</td>
+                            <td>مانده</td>
+                            @*<td>مشاهده کامل</td>*@
+                            <td>وضعیت</td>
+                            <td>راننده ها</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+                            int i = 0;
+                        }
+                        @foreach (var item in Model.list)
+                        {
+                            i++;
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.CustomerFullName</td>
+                                <td>@item.Uploaddate</td>
+                                <td>@item.StoreName</td>
+                                <td>@item.RecordEntryExitOrderCount</td>
+                                <td>@item.copname</td>
+                                @*<td>مشاهده</td>*@
+                                <td>@item.stateName</td>
+                                <td>@item.DriverName</td>
+                            </tr>
+                        }
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

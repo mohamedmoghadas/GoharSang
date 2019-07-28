@@ -25,8 +25,11 @@ namespace GoharSang.Models.vmModel
         public string Dimensions { get; set; }
         public string minename { get; set; }
         public string copname { get; set; }
+        public string Transfernumber { get; set; }
+        public string CopCode { get; set; }
 
-        
+        public string DriverName { get; set; }
+
 
     }
 }

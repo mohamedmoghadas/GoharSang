@@ -101,7 +101,8 @@ namespace GoharSang.Controllers
                     _p = new RecordEntryCopsBooking();
                     _p.IdCopsBooking = cb.Id;
                     _p.IdRecordEntry = item.Id;
-                   
+                    _p.StateExit = false;
+
                     _listprops.Add(_p);
                 }
                 db.RecordEntryCopsBooking.AddRange(_listprops);
@@ -139,7 +140,8 @@ namespace GoharSang.Controllers
                     _p = new RecordEntryCopsBooking();
                     _p.IdCopsBooking = cb.Id;
                     _p.IdRecordEntry = item.Id;
-                    
+
+                    _p.StateExit = false;
 
                     _listprops.Add(_p);
                 }

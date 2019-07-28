@@ -41,7 +41,7 @@
                                 <td>@item.DateExpired</td>
                                 <td>@item.StoreMame</td>
                                 <td>@item.Reserved</td>
-                                <td><button class="btn btn-danger fa fa-trash" ></button>|<button class="btn btn-primary fa fa-pencil" onclick="LoadEdit(@item.Id)"></button> </td>
+                                <td><button class="btn btn-danger fa fa-trash" onclick="DeleteCopeReserve(@item.Id)"></button>|<button class="btn btn-primary fa fa-pencil" onclick="LoadEdit(@item.Id)"></button> </td>
 
                             </tr>
                         }
@@ -84,4 +84,48 @@
 
     </script>
 
+
+
+    <script>
+        function DeleteCopeReserve(id) {
+
+
+
+            $(modaldeletedata).modal('show');
+            $(btnConfirmDelete).click(function () {
+
+                $.ajax({
+                    url: '/CopeReserve/DeleteCopeReserve',
+                    data: { id: id },
+                    type: 'post',
+                    beforeSend: function () {
+                        $(LoadingGift).show();
+                    },
+                    success: function (data) {
+
+
+                        $(LoadingGift).hide();
+                        $(modaldeletedata).modal('hide');
+                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                        $(modalAlertInAjax).modal("show");
+
+                        $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                            location.href = "/CopeReserve/Index";
+
+                        });
+                    }
+                });
+            });
+        }
+
+
+        function Editdata(id) {
+            for (var i in ListData) {
+                if (ListData[i].Id == id) {
+                    Name.value = ListData[i].Name;
+                    _mdata.Id = ListData[i].Id;
+                }
+            }
+        }
+    </script>
 }

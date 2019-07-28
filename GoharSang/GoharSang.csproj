@@ -271,6 +271,7 @@
     <Compile Include="Controllers\CopeReserveController.cs" />
     <Compile Include="Controllers\CopsController.cs" />
     <Compile Include="Controllers\DefinitionsController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ExitOrderController.cs" />
     <Compile Include="Controllers\exitRequestsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -421,6 +422,7 @@
     <Content Include="File\ReportEntry.xlsx" />
     <Content Include="File\ReportExitOrder.xlsx" />
     <Content Include="File\ReporttotalEntry.xlsx" />
+    <Content Include="File\ReportDenotativeStore.xlsx" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -445,6 +447,9 @@
     <Content Include="Views\exitRequests\Index.cshtml" />
     <Content Include="Views\Users\EditUser.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

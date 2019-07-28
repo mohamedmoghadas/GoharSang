@@ -3,6 +3,7 @@ using GoharSang.Models.vmModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -124,6 +125,23 @@ namespace GoharSang.Controllers
            
         }
 
-     
+
+        [HttpPost]
+
+        public async Task<ActionResult> DeleteCopeReserve(long id)
+        {
+            CopsBooking cb = db.CopsBooking.Find(id);
+            cb.StateDelete = 1;
+
+           await db.SaveChangesAsync();
+
+          RecordEntryCopsBooking recb = db.RecordEntryCopsBooking.Where(p => p.IdCopsBooking == id).FirstOrDefault();
+            db.RecordEntryCopsBooking.Remove(recb);
+            await db.SaveChangesAsync();
+
+            return Json("Ok",JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

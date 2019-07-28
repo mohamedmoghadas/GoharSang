@@ -99,7 +99,7 @@ namespace GoharSang.Controllers
                     _p = new RecordEntryExitOrder();
                     _p.IdExitOrder = exo.Id;
                     _p.IdRecordEntry = item.Id;
-                   
+                    _p.StateExit = false;
                     _listprops.Add(_p);
                 }
                 db.RecordEntryExitOrder.AddRange(_listprops);
@@ -139,7 +139,8 @@ namespace GoharSang.Controllers
                     _p = new RecordEntryExitOrder();
                     _p.IdExitOrder = exo.Id;
                     _p.IdRecordEntry = item.Id;
-                   
+                    _p.StateExit = false;
+
 
                     _listprops.Add(_p);
                 }
