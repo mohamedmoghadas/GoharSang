@@ -130,6 +130,9 @@
     <Content Include="css\kamadatepicker.min.css" />
     <Content Include="css\styles.css" />
     <Content Include="Global.asax" />
+    <Content Include="images\3700579640.jpg" />
+    <Content Include="images\4945077975.jpg" />
+    <Content Include="images\5945077975.jpg" />
     <Content Include="images\mine.jpg" />
     <Content Include="js\jquery-3.4.1.js" />
     <Content Include="js\kamadatepicker.js" />

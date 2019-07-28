@@ -143,10 +143,6 @@ namespace GoharSang.Controllers
                         mergeCells("L", i, "M", i);
                         workSheet.Cells["L" + (i).ToString()].Style.WrapText = true;
 
-                        setValue("N", i, item.Uploaddate);
-                        mergeCells("N", i, "O", i);
-                        workSheet.Cells["N" + (i).ToString()].Style.WrapText = true;
-
                         setValue("P", i, item.Transfernumber);
                         mergeCells("P", i, "Q", i);
                         workSheet.Cells["P" + (i).ToString()].Style.WrapText = true;

@@ -29,7 +29,9 @@ namespace GoharSang.Models.vmModel
         public string CopCode { get; set; }
 
         public string DriverName { get; set; }
+        public long IdRecordEntryExitOrder { get; set; }
+        public long IdRecord_the_entry { get; set; }
 
-
+        public List<Record_the_Entrry_Image> image { get;set; }
     }
 }
