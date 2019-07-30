@@ -5,6 +5,7 @@
 }
 
 @model GoharSang.Models.vmModel.vmEditCopReserv
+<h1>@ViewBag.Title</h1>
 
 <div class="container dailyCol">
     <div class="row dailyRow">
@@ -45,7 +46,7 @@
                 <div class="row">
                     @foreach (var item in Model.ListRecordEntry)
                     {
-                        if (item.Id==Model.RecordEntryCopsBooking.IdRecordEntry)
+                        if (item.Id == Model.RecordEntryCopsBooking.IdRecordEntry)
                         {
                             <div class="checkbox checkbox-replace checkbox-primary">
                                 <input type="checkbox" id="@item.Id" value="@item.Id" checked>

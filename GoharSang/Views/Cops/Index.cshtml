@@ -3,6 +3,7 @@
     ViewBag.Title = "کوپ";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
+<h1>@ViewBag.Title</h1>
 
 <div class="container depotsContainer">
     <div class="row">
@@ -114,7 +115,7 @@
                         $(modaldeletedata).modal('hide');
                         AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
                         $(modalAlertInAjax).modal("show");
-                       setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                        setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
                         $(modalAlertInAjax).on("hidden.bs.modal", function () {
                             GetData();
 
@@ -178,7 +179,7 @@
                         _mdata.Id = 0;
                         Name.value = "";
                         $(modalAlertInAjax).modal("show");
-                       setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                        setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
                         $(modalAlertInAjax).on("hidden.bs.modal", function () {
                             GetData();
 

@@ -3,6 +3,7 @@
     ViewBag.Title = "انبار ها";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
+<h1>@ViewBag.Title</h1>
 
 <div class="container depotsContainer">
     <div class="row">
@@ -29,8 +30,6 @@
             <label class="listLable">لیست انبارها</label>
             <table class="table table-info table-striped userTable width100">
                 <tbody id="tbody">
-                    
-                    
                 </tbody>
             </table>
         </div>
@@ -104,7 +103,7 @@
                     beforeSend: function () {
                         $(LoadingGift).show();
                     },
-                    
+
                     success: function (data) {
 
 
@@ -113,7 +112,7 @@
 
                         AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
                         $(modalAlertInAjax).modal("show");
-                       setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                        setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
                         $(modalAlertInAjax).on("hidden.bs.modal", function () {
                             GetData();
 
@@ -123,7 +122,7 @@
             });
         }
 
-       
+
 
         function Editdata(id) {
             for (var i in ListData) {

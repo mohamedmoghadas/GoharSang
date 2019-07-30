@@ -6,6 +6,7 @@
 
 @model GoharSang.Models.vmModel.vmlistuser
 
+<h1>@ViewBag.Title</h1>
 
 <div class="container depotsContainer">
     <div class="row">
@@ -144,7 +145,7 @@
 
                         AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
                         $(modalAlertInAjax).modal("show");
-                       setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                        setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
                         $(modalAlertInAjax).on("hidden.bs.modal", function () {
 
                             location.href = "/Users/Index";
@@ -177,7 +178,7 @@
 
                         AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
                         $(modalAlertInAjax).modal("show");
-                       setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                        setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
                         $(modalAlertInAjax).on("hidden.bs.modal", function () {
                             location.href = "/Users/Index";
 

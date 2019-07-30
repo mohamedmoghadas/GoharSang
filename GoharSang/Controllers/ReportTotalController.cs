@@ -61,28 +61,24 @@ namespace GoharSang.Controllers
         {
 
 
-            var lists = (from exo in db.Exitorder
-                         join reo in db.RecordEntryExitOrder
-                         on exo.Id equals reo.IdExitOrder
-                         join re in db.Record_the_entry
-                         on reo.IdRecordEntry equals re.Id
-                         where exo.StateDelete == 0
-                         select new { exo, reo, re }).ToList()
-                         .Select(p => new listRecordEntryExitOrder
-                         {
-                             Id = p.exo.Id,
-                             CustomerFullName = p.exo.CustomerFullName,
-                             Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
-                             StoreName = p.exo.Store.Name,
-                             copname = p.re.Cops.Name,
-                             CopCode = p.re.CopsCod,
-                             minename = p.re.mine.Name,
-                             RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
-                             stateName = p.exo.State.Name,
-                             Weight = p.re.Weight,
-                             Dimensions = p.re.length + "*" + p.re.width + "*" + p.re.Height,
-                             Transfernumber = p.re.Transfernumber
-                         }).ToList();
+            var lists = db.Record_the_entry.Where(p => p.StateDelete == 0)
+                .ToList().Select(p => new listRecordEntryExitOrder
+                {
+                    Id = p.Id,
+
+
+
+                    Uploaddate = clsPersianDate.MiladiToShamsi(p.Date),
+                    StoreName = p.Store.Name,
+                    copname = p.Cops.Name,
+                    CopCode = p.CopsCod,
+                    minename = p.mine.Name,
+
+                    Weight = p.Weight,
+                    Dimensions = p.length + "*" + p.width + "*" + p.Height,
+                    Transfernumber = p.Transfernumber,
+                    image = p.Record_the_Entrry_Image.ToList()
+                }).ToList();
 
 
             vmReportBargirt _vmReportBargirt = new vmReportBargirt();
@@ -134,33 +130,24 @@ namespace GoharSang.Controllers
 
         private object SGetExitOrder(listRecordEntryExitOrder vmr)
         {
-            var lists = (from exo in db.Exitorder
-                         join reo in db.RecordEntryExitOrder
-                         on exo.Id equals reo.IdExitOrder
+            var lists = db.Record_the_entry.Where(p => p.StateDelete == 0)
+                .ToList().Select(p => new listRecordEntryExitOrder
+                {
+                    Id = p.Id,
 
-                         join re in db.Record_the_entry
-                         on reo.IdRecordEntry equals re.Id
 
-                         where exo.StateDelete == 0
-                         select new { exo, reo, re }).ToList()
-                         .Select(p => new listRecordEntryExitOrder
-                         {
-                             Id = p.exo.Id,
-                             IdRecordEntryExitOrder = p.reo.Id,
-                             IdRecord_the_entry = p.re.Id,
-                             CustomerFullName = p.exo.CustomerFullName,
-                             Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
-                             StoreName = p.exo.Store.Name,
-                             copname = p.re.Cops.Name,
-                             CopCode = p.re.CopsCod,
-                             minename = p.re.mine.Name,
-                             RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
-                             stateName = p.exo.State.Name,
-                             Weight = p.re.Weight,
-                             Dimensions = p.re.length + "*" + p.re.width + "*" + p.re.Height,
-                             Transfernumber = p.re.Transfernumber,
-                             image = p.re.Record_the_Entrry_Image.ToList()
-                         }).ToList();
+
+                    Uploaddate = clsPersianDate.MiladiToShamsi(p.Date),
+                    StoreName = p.Store.Name,
+                    copname = p.Cops.Name,
+                    CopCode = p.CopsCod,
+                    minename = p.mine.Name,
+
+                    Weight = p.Weight,
+                    Dimensions = p.length + "*" + p.width + "*" + p.Height,
+                    Transfernumber = p.Transfernumber,
+                    image = p.Record_the_Entrry_Image.ToList()
+                }).ToList();
 
 
 
@@ -271,9 +258,9 @@ namespace GoharSang.Controllers
                         workSheet.Cells["P" + (i).ToString()].Style.WrapText = true;
 
 
-                        if (item.image.Where(p => p.IdRecordentry == item.IdRecord_the_entry).ToList().Count > 0)
+                        if (item.image.Where(p => p.IdRecordentry == item.Id).ToList().Count > 0)
                         {
-                            foreach (var item2 in item.image.Where(p => p.IdRecordentry == item.IdRecord_the_entry).ToList())
+                            foreach (var item2 in item.image.Where(p => p.IdRecordentry == item.Id).ToList())
                             {
                                 mergeCells("R", i, "S", i);
                                 AddImage(excelPackage, "~/images", item2.Image, "R", i);

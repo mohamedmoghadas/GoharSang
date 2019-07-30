@@ -3,36 +3,37 @@
     ViewBag.Title = "گزارشات";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
+<h1>@ViewBag.Title</h1>
 
-    <div class="container defContainer">
-        <div class="row">
-            <div class="col dailyCol1">
-                <label class="indexLableBtn">گزارشات&nbsp;</label>
-            </div>
-        </div>
-        <div class="row rtlDir">
-            <div class="col margTop1">
-                <a class="btn btn-info float-right" href="~/Home/Index" role="button">صفحه اصلی</a>
-            </div>
-        </div>
-
-        <div class="row margTop10">
-            <div class="col">
-                <a class="btn btn-info indexLinks1" href="~/ReportTotal/Index" role="button">موجودی کل</a>
-            </div>
-            <div class="col">
-                <a class="btn btn-info indexLinks1" href="~/ReportEntry/Index" role="button">گزارش ورود</a>
-            </div>
-            <div class="col">
-                <a class="btn btn-info indexLinks1" href="~/ReportExitOrder/Index" role="button">گزارش بارگیری</a>
-            </div>
-        </div>
-        <div class="row margTop10">
-            <div class="col offset-4">
-                <a class="btn btn-info indexLinks2" href="~/ReportExit/Index" role="button">گزارش خروج</a>
-            </div>
-            <div class="col">
-                <a class="btn btn-info indexLinks2" href="~/ReportdenotativeStore/Index" role="button">موجودی تفکیکی</a>
-            </div>
+<div class="container defContainer">
+    <div class="row">
+        <div class="col dailyCol1">
+            <label class="indexLableBtn">گزارشات&nbsp;</label>
         </div>
     </div>
+    <div class="row rtlDir">
+        <div class="col margTop1">
+            <a class="btn btn-info float-right" href="~/Home/Index" role="button">صفحه اصلی</a>
+        </div>
+    </div>
+
+    <div class="row margTop10">
+        <div class="col">
+            <a class="btn btn-info indexLinks1" href="~/ReportTotal/Index" role="button">موجودی کل</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-info indexLinks1" href="~/ReportEntry/Index" role="button">گزارش ورود</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-info indexLinks1" href="~/ReportExitOrder/Index" role="button">گزارش بارگیری</a>
+        </div>
+    </div>
+    <div class="row margTop10">
+        <div class="col offset-4">
+            <a class="btn btn-info indexLinks2" href="~/ReportExit/Index" role="button">گزارش خروج</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-info indexLinks2" href="~/ReportdenotativeStore/Index" role="button">موجودی تفکیکی</a>
+        </div>
+    </div>
+</div>

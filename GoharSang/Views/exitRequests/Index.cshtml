@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 @model GoharSang.Models.vmModel.vmReportBargirt
+
+
+<h1>@ViewBag.Title</h1>
+
+
 <div class="container dailyCol">
     <div class="row dailyRow">
         <div class="col dailyLDiv">
@@ -57,7 +62,7 @@
 
     <script>
 
-         function RegisterExitPaper(id) {
+        function RegisterExitPaper(id) {
             var form = document.createElement("form");
             var element1 = document.createElement("input");
 

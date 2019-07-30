@@ -6,6 +6,7 @@
 
 @model GoharSang.Models.vmModel.vmlistuser
 
+<h1>@ViewBag.Title</h1>
 
 <div class="container depotsContainer">
     <div class="row">
@@ -40,7 +41,7 @@
                 <div class="row">
                     @foreach (var item in Model.listrole)
                     {
-                        if (item.UserRole.Where(p=>p.IdUser==Model.user.Id).Any())
+                        if (item.UserRole.Where(p => p.IdUser == Model.user.Id).Any())
                         {
                             <div class="checkbox checkbox-replace checkbox-primary">
                                 <input type="checkbox" id="@item.Id" value="@item.Id" checked>
@@ -59,7 +60,7 @@
 
                     }
 
-                    
+
 
                 </div>
 
@@ -77,17 +78,17 @@
                     <tr>
                         <td>نام و نام خانوادگی</td>
                         <td>نام کاربری</td>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
 
-                    
-                        <tr>
-                            <td>@Model.user.FullName</td>
-                            <td>@Model.user.UserName</td>
-                        </tr>
-                    
+
+                    <tr>
+                        <td>@Model.user.FullName</td>
+                        <td>@Model.user.UserName</td>
+                    </tr>
+
 
 
                 </tbody>
@@ -171,6 +172,6 @@
     </script>
 
 
-    
+
 
 }

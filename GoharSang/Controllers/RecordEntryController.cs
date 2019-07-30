@@ -91,12 +91,12 @@ namespace GoharSang.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RecordEntry(Record_the_entry _re,string _Date)
+        public async Task<ActionResult> RecordEntry(Record_the_entry _re,string _Date, HttpPostedFileBase _file)
         {
 
             if (_Date != null && _Date!="")
             {
-                DateTime tempdate = clsPersianDate.ShamsiToMiladi(_Date).Value;
+                DateTime tempdate = clsPersianDate.ShamsiToMiladi(_Date).Value.Date;
 
                 _re.Date = tempdate;
             }
@@ -106,61 +106,58 @@ namespace GoharSang.Controllers
            db.Record_the_entry.Add(_re);
             await db.SaveChangesAsync();
 
-            #region upload files
 
-            Record_the_Entrry_Image reimg = new Record_the_Entrry_Image();
+           
 
-            var filename = "";
 
-                int dsdfs = 0;
+            
+                Record_the_Entrry_Image reimg = new Record_the_Entrry_Image();
 
-            if (Request.Files != null && Request.Files.Count > 0)
-            {
+                var filename = "";
 
-                dsdfs = 1222222;
-                #region
+               
 
-                for (int i = 0; i < Request.Files.Count; i++)
+                if (Request.Files.Count !=0 && Request.Files != null)
                 {
-                    HttpPostedFileBase imgre = Request.Files[i];
-                    if (imgre.ContentLength > 0)
+
+                    for (int i = 0; i < Request.Files.Count; i++)
                     {
-
-                        //if (hpf.ContentLength > 5242880)
-                        //{
-                        //    return new HttpStatusCodeResult(532);
-                        //}
-
-                        if (!imgre.ContentType.Contains("image"))
+                        HttpPostedFileBase imgre = Request.Files[i];
+                        if (imgre.ContentLength > 0)
                         {
-                            return new HttpStatusCodeResult(530);
+
+                         
+
+                            if (!imgre.ContentType.Contains("image"))
+                            {
+                                return new HttpStatusCodeResult(530);
+                            }
+
+                            var number = new Random();
+                            filename = _re.Id + "" + number.Next() + "" + i + number.Next(1, 999999999).ToString() + ".jpg";
+                            var path = Path.Combine(Server.MapPath("~/images"), filename);
+                            imgre.SaveAs(path);
+                            reimg.Image = filename;
+                            reimg.IdRecordentry = _re.Id;
+                            db.Record_the_Entrry_Image.Add(reimg);
+
+                            await db.SaveChangesAsync();
+
+
+
+
                         }
-
-                        var number = new Random();
-                        filename = _re.Id+""+number.Next()+""+ i + number.Next(1, 999999999).ToString() + ".jpg";
-                        var path = Path.Combine(Server.MapPath("~/images"), filename);
-                        imgre.SaveAs(path);
-                        reimg.Image = filename;
-                        reimg.IdRecordentry = _re.Id;
-                        db.Record_the_Entrry_Image.Add(reimg);
-
-                        await db.SaveChangesAsync();
-
-
-
-
                     }
+
                 }
+            
+           
 
 
-                #endregion
-
-            }
-
-            #endregion
 
 
-            return Json(dsdfs, JsonRequestBehavior.AllowGet);
+
+            return Json("Ok", JsonRequestBehavior.AllowGet);
         }
 
 
