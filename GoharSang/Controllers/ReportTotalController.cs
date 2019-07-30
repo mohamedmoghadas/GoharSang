@@ -4,6 +4,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -90,6 +91,128 @@ namespace GoharSang.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult Index(listRecordEntryExitOrder vmr)
+        {
+            try
+            {
+                string UserIdcookie = "";
+                if (Request.Cookies.AllKeys.Contains("UserId"))
+                {
+                    UserIdcookie = Request.Cookies["UserId"].Value;
+                    string _Id = UserIdcookie;
+                    long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+                    Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    if (admin == null)
+                    {
+
+                        return RedirectToAction("Index", "LogIn");
+                    }
+                    else
+                    {
+                        var result = SGetExitOrder(vmr);
+                        TempData["data"] = result;
+
+                        return View(result);
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+
+                }
+            }
+            catch (Exception ee)
+            {
+                return RedirectToAction("Index", "LogIn");
+
+            }
+
+
+
+        }
+
+        private object SGetExitOrder(listRecordEntryExitOrder vmr)
+        {
+            var lists = (from exo in db.Exitorder
+                         join reo in db.RecordEntryExitOrder
+                         on exo.Id equals reo.IdExitOrder
+
+                         join re in db.Record_the_entry
+                         on reo.IdRecordEntry equals re.Id
+
+                         where exo.StateDelete == 0
+                         select new { exo, reo, re }).ToList()
+                         .Select(p => new listRecordEntryExitOrder
+                         {
+                             Id = p.exo.Id,
+                             IdRecordEntryExitOrder = p.reo.Id,
+                             IdRecord_the_entry = p.re.Id,
+                             CustomerFullName = p.exo.CustomerFullName,
+                             Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
+                             StoreName = p.exo.Store.Name,
+                             copname = p.re.Cops.Name,
+                             CopCode = p.re.CopsCod,
+                             minename = p.re.mine.Name,
+                             RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
+                             stateName = p.exo.State.Name,
+                             Weight = p.re.Weight,
+                             Dimensions = p.re.length + "*" + p.re.width + "*" + p.re.Height,
+                             Transfernumber = p.re.Transfernumber,
+                             image = p.re.Record_the_Entrry_Image.ToList()
+                         }).ToList();
+
+
+
+            if (vmr.Uploaddate != null && vmr.Uploaddate != "")
+            {
+                lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
+            }
+            if (vmr.minename != null)
+            {
+                lists = lists.Where(p => p.minename.Contains(vmr.minename)).ToList();
+
+            }
+            if (vmr.copname != null)
+            {
+                lists = lists.Where(p => p.copname.Contains(vmr.copname)).ToList();
+
+            }
+
+            if (vmr.Weight != null)
+            {
+                lists = lists.Where(p => p.Weight.Contains(vmr.Weight)).ToList();
+
+            }
+            if (vmr.StoreName != null)
+            {
+                lists = lists.Where(p => p.StoreName.Contains(vmr.StoreName)).ToList();
+
+            }
+
+
+            if (vmr.Transfernumber != null)
+            {
+                lists = lists.Where(p => p.Transfernumber.Contains(vmr.Transfernumber)).ToList();
+
+            }
+
+
+            if (vmr.Dimensions != null)
+            {
+                lists = lists.Where(p => p.Dimensions.Contains(vmr.Dimensions)).ToList();
+
+            }
+
+
+
+
+
+            vmReportBargirt _vmReportBargirt = new vmReportBargirt();
+            _vmReportBargirt.list = lists;
+            return _vmReportBargirt;
+        }
+
 
 
         public ActionResult export()
@@ -147,6 +270,17 @@ namespace GoharSang.Controllers
                         mergeCells("P", i, "Q", i);
                         workSheet.Cells["P" + (i).ToString()].Style.WrapText = true;
 
+
+                        if (item.image.Where(p => p.IdRecordentry == item.IdRecord_the_entry).ToList().Count > 0)
+                        {
+                            foreach (var item2 in item.image.Where(p => p.IdRecordentry == item.IdRecord_the_entry).ToList())
+                            {
+                                mergeCells("R", i, "S", i);
+                                AddImage(excelPackage, "~/images", item2.Image, "R", i);
+                            }
+                        }
+
+
                         i++;
                         row++;
 
@@ -182,6 +316,54 @@ namespace GoharSang.Controllers
             workSheet.Cells[col1 + row1.ToString() + ":" + col2 + row2.ToString()].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
         }
 
+        private void AddImage(ExcelPackage package, string imagePath, string nameimage, string col, int row)
+        {
 
+            var cell = workSheet.Cells[col + row.ToString()];
+
+            var image = Path.Combine(Server.MapPath(imagePath), nameimage);
+            if (System.IO.File.Exists(image))
+            {
+
+                Image logo = Image.FromFile(image);
+
+                var ws = package.Workbook.Worksheets.FirstOrDefault();
+
+                for (int r = 7; r < 15; r++)
+                {
+                    ws.Row(r * 5).Height = 39.00D;
+                }
+
+
+                Random rand = new Random();
+
+                var picture = ws.Drawings.AddPicture(nameimage, logo);
+
+
+                picture.SetPosition(cell.Start.Row+ row, 0, cell.Start.Column+ row+5, 0);
+
+                picture.SetSize(Convert.ToInt32(logo.Width / 2), Convert.ToInt32(logo.Height / 2));
+
+
+
+
+
+                //Bitmap _image = new Bitmap(nameimage);
+
+                //// Bitmap image = new Bitmap();
+                //ExcelPicture excelImage = null;
+                //if (image != null)
+                //{
+
+                //    excelImage = oSheet.Drawings.AddPicture(nameimage, _image);
+                //    excelImage.From.Column = colIndex;
+                //    excelImage.From.Row = rowIndex;
+
+                //    excelImage.SetSize(160, 60);
+                //    // 2x2 px space for better alignment
+                //    excelImage.From.ColumnOff = Pixel2MTU(2);
+                //    excelImage.From.RowOff = Pixel2MTU(2);
+            }
+        }
     }
 }

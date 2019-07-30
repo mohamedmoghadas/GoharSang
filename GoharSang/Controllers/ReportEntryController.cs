@@ -359,11 +359,12 @@ namespace GoharSang.Controllers
                     Random rand = new Random();
 
                     var picture = ws.Drawings.AddPicture(nameimage, logo);
-               
 
-                picture.SetPosition(cell.Start.Row,0, cell.Start.Column,0);
 
-               picture.SetSize(Convert.ToInt32(logo.Width/2), Convert.ToInt32(logo.Height / 2));
+                picture.SetPosition(cell.Start.Row + row, 0, cell.Start.Column + row + 5, 0);
+
+
+                picture.SetSize(Convert.ToInt32(logo.Width/2), Convert.ToInt32(logo.Height / 2));
 
 
 

@@ -209,7 +209,7 @@
 
                 }
             });
-           
+
         }
 
         function getCops() {
@@ -282,21 +282,28 @@
 
 
     <script>
+
+        var StateRegister = false;
+
+
+
+
+
         function BtnRecordEntry() {
 
-            if (SelectMine.value==0||
-                SelectCope.value== 0 ||
-                weight.value=="" ||
-                lenght.value=="" ||
-                width.value=="" ||
-                height.value=="" ||
-                Copcode.value=="" ||
-                selectStore.value==0 ||
-                Trucknumber.value=="" ||
-                Transfernumber.value=="" ||
-                date.value=="" ||
+            if (SelectMine.value == 0 ||
+                SelectCope.value == 0 ||
+                weight.value == "" ||
+                lenght.value == "" ||
+                width.value == "" ||
+                height.value == "" ||
+                Copcode.value == "" ||
+                selectStore.value == 0 ||
+                Trucknumber.value == "" ||
+                Transfernumber.value == "" ||
+                date.value == "" ||
                 time.value == "" ||
-                basculenumber.value=="") {
+                basculenumber.value == "") {
                 AlertInAjax("تمامی اطلاعات را وارد نمایید", modalAlertInAjax, "alert-danger");
                 $(modalAlertInAjax).modal("show");
 
@@ -304,92 +311,102 @@
             }
             else {
 
-            }
-            
+                if (StateRegister == false) {
 
-            var formdataRecordEntry = new FormData();
-
-
-            formdataRecordEntry.append('_re.IdMine', SelectMine.value);
-
-            formdataRecordEntry.append('_re.IdCops', SelectCope.value);
-
-            formdataRecordEntry.append('_re.Weight', weight.value);
-
-            formdataRecordEntry.append('_re.length', lenght.value);
-
-            formdataRecordEntry.append('_re.width', width.value);
-
-            formdataRecordEntry.append('_re.Height', height.value);
-
-            formdataRecordEntry.append('_re.CopsCod', Copcode.value);
-
-            formdataRecordEntry.append('_re.IdStore', selectStore.value);
-            
-            formdataRecordEntry.append('_re.Transfernumber', Transfernumber.value);
-
-            formdataRecordEntry.append('_re.Trucknumber', Trucknumber.value);
-
-            formdataRecordEntry.append('_re.Time', time.value);
-
-            formdataRecordEntry.append('_re.basculenumber', basculenumber.value);
-
-            formdataRecordEntry.append('_Date', date.value);
-            
+                    StateRegister = true;
 
 
-            formdataRecordEntry.append("_file", file1.files[0]);
-            formdataRecordEntry.append("_file", file2.files[0]);
-            formdataRecordEntry.append("_file", file3.files[0]);
-            formdataRecordEntry.append("_file", file4.files[0]);
+                    var formdataRecordEntry = new FormData();
 
 
-            $.ajax({
-                url: "/RecordEntry/RecordEntry",
-                type: "POST",
-                beforeSend: function () {
-                    $(LoadingGift).show();
+                    formdataRecordEntry.append('_re.IdMine', SelectMine.value);
 
-                },
-                error: function (data) {
-                    $(LoadingGift).hide();
+                    formdataRecordEntry.append('_re.IdCops', SelectCope.value);
 
-                    if (data.status == 532) {
+                    formdataRecordEntry.append('_re.Weight', weight.value);
 
-                        AlertInAjax("سایز فایل درست انتخاب نشده", modalAlertInAjax);
-                        $(modalAlertInAjax).modal('show');
+                    formdataRecordEntry.append('_re.length', lenght.value);
 
-                        return;
-                    }
-                    if (data.status == 530) {
+                    formdataRecordEntry.append('_re.width', width.value);
 
-                        AlertInAjax("نوع فایل درست انتخاب نشده", modalAlertInAjax);
-                        $(modalAlertInAjax).modal('show');
+                    formdataRecordEntry.append('_re.Height', height.value);
 
+                    formdataRecordEntry.append('_re.CopsCod', Copcode.value);
 
-                        return;
+                    formdataRecordEntry.append('_re.IdStore', selectStore.value);
 
-                    }
+                    formdataRecordEntry.append('_re.Transfernumber', Transfernumber.value);
 
-                },
-                data: formdataRecordEntry,
-                enctype: 'multipart/form-data',
-                processData: false,
-                contentType: false,
-                success: function () {
+                    formdataRecordEntry.append('_re.Trucknumber', Trucknumber.value);
+
+                    formdataRecordEntry.append('_re.Time', time.value);
+
+                    formdataRecordEntry.append('_re.basculenumber', basculenumber.value);
+
+                    formdataRecordEntry.append('_Date', date.value);
 
 
-                    $(LoadingGift).hide();
 
-                    AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
-                    $(modalAlertInAjax).modal("show");
-       setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
-                    $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                    formdataRecordEntry.append("_file", file1.files[0]);
+                    formdataRecordEntry.append("_file", file2.files[0]);
+                    formdataRecordEntry.append("_file", file3.files[0]);
+                    formdataRecordEntry.append("_file", file4.files[0]);
 
-                        location.href = "/RecordEntry/Index";
+
+                    $.ajax({
+                        url: "/RecordEntry/RecordEntry",
+                        type: "POST",
+                        beforeSend: function () {
+                            $(LoadingGift).show();
+
+                        },
+                        error: function (data) {
+                            $(LoadingGift).hide();
+
+                            if (data.status == 532) {
+
+                                AlertInAjax("سایز فایل درست انتخاب نشده", modalAlertInAjax);
+                                $(modalAlertInAjax).modal('show');
+
+                                return;
+                            }
+                            if (data.status == 530) {
+
+                                AlertInAjax("نوع فایل درست انتخاب نشده", modalAlertInAjax);
+                                $(modalAlertInAjax).modal('show');
+
+
+                                return;
+
+                            }
+
+                        },
+                        data: formdataRecordEntry,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        contentType: false,
+                        success: function () {
+
+                            StateRegister = false;
+
+                            $(LoadingGift).hide();
+
+                            AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                            $(modalAlertInAjax).modal("show");
+                            setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                            $(modalAlertInAjax).on("hidden.bs.modal", function () {
+
+                                location.href = "/RecordEntry/Index";
+                            });
+                        }
                     });
                 }
-            });
+
+
+            }
+
+
+
         }
     </script>
 }
