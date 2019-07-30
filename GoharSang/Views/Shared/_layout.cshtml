@@ -2,6 +2,39 @@
 @{
     Layout = null;
 }
+@using GoharSang.Models;
+@{
+    GoharSangEntities db = new GoharSangEntities();
+    string UserIdcookie = "";
+    string username = "";
+
+    if (Request.Cookies.AllKeys.Contains("UserId"))
+    {
+        UserIdcookie = Request.Cookies["UserId"].Value;
+        string _Id = UserIdcookie;
+        long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+        Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+        if (admin == null)
+        {
+            username = "";
+
+        }
+        else
+        {
+            username = admin.FullName;
+
+        }
+    }
+    else
+    {
+            username = "";
+
+
+    }
+
+
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,8 +60,8 @@
 </head>
 <body>
     <img src="~/Script/loading/ajax-loader.gif" id="LoadingGift" style="display:none;position:fixed;top:50%;left:50%" />
+    <label class="control-label">کاربر : @username</label>
     <a class="fa fa-power-off" style="font-size:40px;" href="~/LogIn/Logout"></a>
-
     <br />
     <br />
 
@@ -70,6 +103,26 @@
     <script src="~/js/Resource/css/animateColors.js"></script>
 
 
+
+
+
+    <script src="~/js/Resource/js/jquery.min.js"></script>
+    <script src="~/js/Resource/js/plugins/css3-animate-it-plugin/css3-animate-it.js"></script>
+    <script src="~/js/Resource/js/bootstrap.min.js"></script>
+    <script src="~/js/Resource/js/plugins/metismenu/jquery.metisMenu.js"></script>
+    <script src="~/js/Resource/js/plugins/blockui-master/jquery-ui.js"></script>
+    <script src="~/js/Resource/js/plugins/blockui-master/jquery.blockUI.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.min.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.resize.min.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.selection.min.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.time.min.js"></script>
+    <script src="~/js/Resource/js/functions.js"></script>
+
+
+
+
     <script src="~/js/Resource/js/plugins/datepicker/bootstrap-datepicker.js"></script>
     <link href="~~/js/Resource/css/plugins/pdatepicker/css/daterangepicker.css" rel="stylesheet" />
 
@@ -78,6 +131,7 @@
     <script src="~/js/Resource/css/plugins/pdatepicker/js/moment.min.js"></script>
     <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
     <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
+
 
     <script>
         $(document).ready(function () {
@@ -109,20 +163,7 @@
 
 
 
-    <script src="~/js/Resource/js/jquery.min.js"></script>
-    <script src="~/js/Resource/js/plugins/css3-animate-it-plugin/css3-animate-it.js"></script>
-    <script src="~/js/Resource/js/bootstrap.min.js"></script>
-    <script src="~/js/Resource/js/plugins/metismenu/jquery.metisMenu.js"></script>
-    <script src="~/js/Resource/js/plugins/blockui-master/jquery-ui.js"></script>
-    <script src="~/js/Resource/js/plugins/blockui-master/jquery.blockUI.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.min.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.resize.min.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.selection.min.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.pie.min.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.time.min.js"></script>
-    <script src="~/js/Resource/js/functions.js"></script>
-    <script src="~/js/Resource/js/plugins/chartjs/Chart.min.js"></script>
+
 
 
 

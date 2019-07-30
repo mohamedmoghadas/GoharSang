@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "گزارش دستور خروج";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 
@@ -113,8 +113,8 @@
             </div>
 
 
-            <button class="btn btn-primary dailyBtnBottom" onclick="window.print()">چاپ گزارش</button>
-            <button class="btn btn-primary dailyBtnBottom2" onclick="location.href='@Url.Action("export", "ReportExitOrder")'">خروجی اکسل</button>
+            <button class="btn btn-primary btn-rounded" onclick="window.print()">چاپ گزارش</button>
+            <button class="btn btn-primary btn-rounded" onclick="location.href='@Url.Action("export", "ReportExitOrder")'">خروجی اکسل</button>
         </div>
     </div>
 </div>

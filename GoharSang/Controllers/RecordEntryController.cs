@@ -112,9 +112,12 @@ namespace GoharSang.Controllers
 
             var filename = "";
 
+                int dsdfs = 0;
 
             if (Request.Files != null && Request.Files.Count > 0)
             {
+
+                dsdfs = 1222222;
                 #region
 
                 for (int i = 0; i < Request.Files.Count; i++)
@@ -134,7 +137,7 @@ namespace GoharSang.Controllers
                         }
 
                         var number = new Random();
-                        filename = _re.Id + i + number.Next(1, 999999999).ToString() + ".jpg";
+                        filename = _re.Id+""+number.Next()+""+ i + number.Next(1, 999999999).ToString() + ".jpg";
                         var path = Path.Combine(Server.MapPath("~/images"), filename);
                         imgre.SaveAs(path);
                         reimg.Image = filename;
@@ -157,7 +160,7 @@ namespace GoharSang.Controllers
             #endregion
 
 
-            return Json("Ok", JsonRequestBehavior.AllowGet);
+            return Json(dsdfs, JsonRequestBehavior.AllowGet);
         }
 
 

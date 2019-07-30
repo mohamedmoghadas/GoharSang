@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "گزارش ورورد";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 @model GoharSang.Models.vmModel.vmReportBargirt
@@ -67,16 +67,12 @@
 
             <div class="form-group">
                 
-                <div class="checkbox-group">
-                    <div class="checkbox checkbox-replace checkbox-warning">
+                
 
                         <label for="_CheckBoxDateInsert">تاریخ ورود</label>
                         <input type="text" placeholder="تاریخ ورود" class="form-control jalali-datepicker" name="Uploaddate">
 
-                    </div>
-
-
-                </div>
+                  
             </div>
 
 
@@ -145,8 +141,8 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-primary dailyBtnBottom" onclick="window.print()">چاپ گزارش</button>
-            <button class="btn btn-primary dailyBtnBottom2" onclick="location.href='@Url.Action("export", "ReportEntry")'">خروجی اکسل</button>
+            <button class="btn btn-primary btn-rounded" onclick="window.print()">چاپ گزارش</button>
+            <button class="btn btn-primary btn-rounded" onclick="location.href='@Url.Action("export", "ReportEntry")'">خروجی اکسل</button>
         </div>
     </div>
 </div>

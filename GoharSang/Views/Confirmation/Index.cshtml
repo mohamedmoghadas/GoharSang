@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "منتظر تایید";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 @model GoharSang.Models.vmModel.vmReportBargirt
@@ -48,9 +48,9 @@
                                 <td>@item.RecordEntryExitOrderCount</td>
                                 @*<td>مشاهده</td>*@
                                 <td>@item.stateName</td>
-                                <td><button class="btn btn-success fa fa-check" onclick="Confirm(@item.Id)"></button></td>
-                                <td><button class="btn btn-success fa fa-times" onclick="NotConfirm(@item.Id)"></button></td>
-                                <td><button class="btn btn-success fa fa-eye" onclick="Checking(@item.Id)"></button></td>
+                                <td><button class="btn btn-success fa fa-check" onclick="Confirm(@item.Id)">تایید</button></td>
+                                <td><button class="btn btn-red fa fa-times" onclick="NotConfirm(@item.Id)">عدم تایید</button></td>
+                                <td><button class="btn btn-primary fa fa-eye" onclick="Checking(@item.Id)">درحال بررسی</button></td>
 
                             </tr>
                         }
