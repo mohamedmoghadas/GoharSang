@@ -56,6 +56,97 @@ namespace GoharSang.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult Index(listRecordEntryExitOrder vmr)
+        {
+            try
+            {
+                string UserIdcookie = "";
+                if (Request.Cookies.AllKeys.Contains("UserId"))
+                {
+                    UserIdcookie = Request.Cookies["UserId"].Value;
+                    string _Id = UserIdcookie;
+                    long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+                    Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    if (admin == null)
+                    {
+
+                        return RedirectToAction("Index", "LogIn");
+                    }
+                    else
+                    {
+                        var result = SGetExitOrder(vmr);
+                        TempData["data"] = result;
+
+                        return View(result);
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+
+                }
+            }
+            catch (Exception ee)
+            {
+                return RedirectToAction("Index", "LogIn");
+
+            }
+
+
+
+        }
+
+        private object SGetExitOrder(listRecordEntryExitOrder vmr)
+        {
+
+            
+
+            var lists = (from exo in db.Exitorder
+                         join reo in db.RecordEntryExitOrder
+                         on exo.Id equals reo.IdExitOrder
+                         join re in db.Record_the_entry
+                         on reo.IdRecordEntry equals re.Id
+                         where exo.StateDelete == 0 
+                        
+                         select new { exo, reo, re }).ToList()
+                        .Select(p => new listRecordEntryExitOrder
+                        {
+                            Id = p.exo.Id,
+                            CustomerFullName = p.exo.CustomerFullName,
+                            Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
+                            StoreName = p.exo.Store.Name,
+                            copname = p.re.Cops.Name,
+                            minename = p.re.mine.Name,
+                            RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
+                            stateName = p.exo.State.Name,
+                            Weight = p.re.Weight
+                        }).ToList();
+
+
+
+
+
+         //   (re.Cops.Name.Contains(vmr.copname)
+          //              && exo.RecordEntryExitOrder.Count == vmr.RecordEntryExitOrderCount)
+            if (vmr.copname!=null)
+            {
+                lists = lists.Where(p => p.copname.Contains(vmr.copname)).ToList();
+            }
+            if (vmr.RecordEntryExitOrderCount != 0)
+            {
+                lists = lists.Where(p => p.RecordEntryExitOrderCount==vmr.RecordEntryExitOrderCount).ToList();
+            }
+
+
+
+
+
+
+            vmReportBargirt _vmReportBargirt = new vmReportBargirt();
+            _vmReportBargirt.list = lists;
+            return _vmReportBargirt;
+        }
 
         private object GetExitOrder()
         {

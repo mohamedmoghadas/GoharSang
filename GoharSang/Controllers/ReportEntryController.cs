@@ -59,6 +59,128 @@ namespace GoharSang.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult Index(listRecordEntryExitOrder vmr)
+        {
+            try
+            {
+                string UserIdcookie = "";
+                if (Request.Cookies.AllKeys.Contains("UserId"))
+                {
+                    UserIdcookie = Request.Cookies["UserId"].Value;
+                    string _Id = UserIdcookie;
+                    long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+                    Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    if (admin == null)
+                    {
+
+                        return RedirectToAction("Index", "LogIn");
+                    }
+                    else
+                    {
+                        var result = SGetExitOrder(vmr);
+                        TempData["data"] = result;
+
+                        return View(result);
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+
+                }
+            }
+            catch (Exception ee)
+            {
+                return RedirectToAction("Index", "LogIn");
+
+            }
+
+
+
+        }
+
+        private object SGetExitOrder(listRecordEntryExitOrder vmr)
+        {
+            var lists = (from exo in db.Exitorder
+                         join reo in db.RecordEntryExitOrder
+                         on exo.Id equals reo.IdExitOrder
+
+                         join re in db.Record_the_entry
+                         on reo.IdRecordEntry equals re.Id
+
+                         where exo.StateDelete == 0
+                         select new { exo, reo, re }).ToList()
+                         .Select(p => new listRecordEntryExitOrder
+                         {
+                             Id = p.exo.Id,
+                             IdRecordEntryExitOrder = p.reo.Id,
+                             IdRecord_the_entry = p.re.Id,
+                             CustomerFullName = p.exo.CustomerFullName,
+                             Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
+                             StoreName = p.exo.Store.Name,
+                             copname = p.re.Cops.Name,
+                             CopCode = p.re.CopsCod,
+                             minename = p.re.mine.Name,
+                             RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
+                             stateName = p.exo.State.Name,
+                             Weight = p.re.Weight,
+                             Dimensions = p.re.length + "*" + p.re.width + "*" + p.re.Height,
+                             Transfernumber = p.re.Transfernumber,
+                             image = p.re.Record_the_Entrry_Image.ToList()
+                         }).ToList();
+
+
+
+            if (vmr.Uploaddate!=null && vmr.Uploaddate!="")
+            {
+                lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList() ;
+            }
+            if (vmr.minename != null)
+            {
+                lists = lists.Where(p => p.minename.Contains(vmr.minename)).ToList();
+
+            }
+            if (vmr.copname != null)
+            {
+                lists = lists.Where(p => p.copname.Contains(vmr.copname)).ToList();
+
+            }
+
+            if (vmr.Weight != null)
+            {
+                lists = lists.Where(p => p.Weight.Contains(vmr.Weight)).ToList();
+
+            }
+            if (vmr.StoreName != null)
+            {
+                lists = lists.Where(p => p.StoreName.Contains(vmr.StoreName)).ToList();
+
+            }
+
+
+            if (vmr.Transfernumber != null)
+            {
+                lists = lists.Where(p => p.Transfernumber.Contains(vmr.Transfernumber)).ToList();
+
+            }
+
+
+            if (vmr.Dimensions != null)
+            {
+                lists = lists.Where(p => p.Dimensions.Contains(vmr.Dimensions)).ToList();
+
+            }
+
+           
+
+
+
+            vmReportBargirt _vmReportBargirt = new vmReportBargirt();
+            _vmReportBargirt.list = lists;
+            return _vmReportBargirt;
+        }
+
         private object GetExitOrder()
         {
 

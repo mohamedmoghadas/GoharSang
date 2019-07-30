@@ -18,14 +18,14 @@ namespace GoharSang.Controllers
         [HttpPost]
         public ActionResult Index(Users _user)
         {
-            var pass = CreatHash.HashPass(_user.Password);
            
             Users admin = null;
             try
             {
-                admin = db.Users.FirstOrDefault(p => p.UserName == _user.UserName);
+                admin = db.Users.Where(p => p.UserName == _user.UserName).FirstOrDefault();
                 if (admin != null)
                 {
+                   var pass = CreatHash.HashPass(_user.Password);
                     if (admin.Password == pass)
                     {
                         string Id = CreatHash.Encrypt(admin.Id.ToString());
@@ -56,7 +56,37 @@ namespace GoharSang.Controllers
             }
             catch (Exception ee)
             {
+                ViewBag.WrongPassword = "1";
+
                 return View();
+
+            }
+        }
+
+
+        public ActionResult Logout()
+        {
+            try
+            {
+
+                if (Request.Cookies.AllKeys.Contains("UserId"))
+                {
+                    HttpCookie cookie = Request.Cookies["UserId"];
+                    cookie.Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies.Add(cookie);
+                    return RedirectToAction("Index", "LogIn");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+
+                }
+
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "LogIn");
 
             }
         }

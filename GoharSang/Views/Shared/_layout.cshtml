@@ -9,15 +9,30 @@
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="~/css/styles.css">
+    <link rel='shortcut icon' type='image/x-icon' href='~/images/headIcon.png' />
 
     <link href="~/js/Resource/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet">
 
     <meta charset="UTF-8">
     <title>@ViewBag.Title</title>
+
+    <link href="~/js/Resource/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/js/Resource/css/mouldifi-core.css" rel="stylesheet">
+    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet">
+    <link href="~/js/Resource/css/bootstrap-rtl.min.css" rel="stylesheet">
+    <link href="~/js/Resource/css/mouldifi-rtl-core.css" rel="stylesheet">
+
+
 </head>
 <body>
     <img src="~/Script/loading/ajax-loader.gif" id="LoadingGift" style="display:none;position:fixed;top:50%;left:50%" />
+    <a class="fa fa-power-off" style="font-size:40px;" href="~/LogIn/Logout"></a>
+
+    <br />
+    <br />
+
+
 
     @RenderBody()
 
@@ -90,6 +105,25 @@
             });
         });
     </script>
+
+
+
+
+    <script src="~/js/Resource/js/jquery.min.js"></script>
+    <script src="~/js/Resource/js/plugins/css3-animate-it-plugin/css3-animate-it.js"></script>
+    <script src="~/js/Resource/js/bootstrap.min.js"></script>
+    <script src="~/js/Resource/js/plugins/metismenu/jquery.metisMenu.js"></script>
+    <script src="~/js/Resource/js/plugins/blockui-master/jquery-ui.js"></script>
+    <script src="~/js/Resource/js/plugins/blockui-master/jquery.blockUI.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.min.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.resize.min.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.selection.min.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="~/js/Resource/js/plugins/flot/jquery.flot.time.min.js"></script>
+    <script src="~/js/Resource/js/functions.js"></script>
+    <script src="~/js/Resource/js/plugins/chartjs/Chart.min.js"></script>
+
 
 
     @RenderSection("localscript", false)

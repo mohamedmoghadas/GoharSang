@@ -35,6 +35,7 @@ namespace GoharSang.Models
         public string Time { get; set; }
         public Nullable<int> StateDelete { get; set; }
         public string basculenumber { get; set; }
+        public Nullable<bool> ExitState { get; set; }
     
         public virtual Cops Cops { get; set; }
         public virtual mine mine { get; set; }

@@ -4,47 +4,83 @@
 }
 
 <!DOCTYPE html>
+
+
+
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="~/text/css" href="css/styles.css">
-    <meta charset="UTF-8">
-    <title>ورود</title>
+    <meta name="description" content="Mouldifi - A fully responsive, HTML5 based admin theme">
+    <meta name="keywords" content="Responsive, HTML5, admin theme, business, professional, Mouldifi, web design, CSS3">
+    <title>ورود | Login</title>
+
+    <link rel='shortcut icon' type='image/x-icon' href='images/favicon.ico' />
+
+    <link href="~/js/Resource/css/entypo.css" rel="stylesheet">
+
+    <link href="~/js/Resource/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="~/js/Resource/css/plugins/css3-animate-it-plugin/animations.css" rel="stylesheet">
+
+    <link href="~/js/Resource/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/js/Resource/css/mouldifi-core.css" rel="stylesheet">
+
+    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet">
+
+    <link href="~/js/Resource/css/bootstrap-rtl.min.css" rel="stylesheet">
+
+    <link href="~/js/Resource/css/mouldifi-rtl-core.css" rel="stylesheet">
+
+
+
 </head>
-<body>
+<body class="login-page">
+    <div class="login-pag-inner">
+        <div class="animatedParent animateOnce z-index-50">
+            <div class="login-container animated growIn slower">
+                <div class="login-branding">
+                    <a href="#">
+                        <i class="fa fa-user" style="color:white;font-size:50px"></i>
+                        
 
-    <div class="container justify-content-center">
-        <div class="row justify-content-center">
-            <div class="col-sm-6 logCol">
-                <form class="loginForm" action="/LogIn/Index"
-                      method="post">
-                    <div class="form-group">
-                        <label class="float-right loginLable margTop10" for="UserName">نام کاربری</label>
-                        <input type="text" class="form-control loginInput clear" id="UserName" name="UserName" required>
-                    </div>
-                    <div class="form-group clear">
-                        <label class="float-right loginLable" for="Password">کلمه عبور</label>
-                        <input type="password" name="Password" id="Password" class="form-control loginInput clear" required>
-                    </div>
+                    </a>
+                </div>
+                <div class="login-content">
+                    <h2><strong>ورود</strong></h2>
+                    <form action="/LogIn/Index"
+                          method="post">
+                        <div class="form-group">
+                            <input type="text" placeholder="نام کاربری" name="UserName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="رمزعبور" name="Password" class="form-control" required>
+                        </div>
+                       
 
 
-                    <div class="form-group">
                         @if (ViewBag.WrongPassword != null)
                         {
-                        <label class="alert alert-danger">نام کاربری و یا رمز عبور اشتباه است</label>
-                        }
-                       
-                    </div>
+                            <div class="form-group">
 
-                    <div class="form-group">
-                        <button class="btn btn-primary loginBtn">ورود</button>
-                    </div>
-                </form>
+                                <label class="alert alert-danger">نام کاربری و یا رمز عبور اشتباه است</label>
+
+                            </div>
+                        }
+
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block"> ورود</button>
+                        </div>
+                       
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-
-
+    <script src="~/js/Resource/js/jquery.min.js"></script>
+    <script src="~/js/Resource/js/plugins/css3-animate-it-plugin/css3-animate-it.js"></script>
+    <script src="~/js/Resource/js/bootstrap.min.js"></script>
 </body>
 </html>

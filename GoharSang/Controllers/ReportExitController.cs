@@ -57,6 +57,105 @@ namespace GoharSang.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult Index(listRecordEntryExitOrder vmr)
+        {
+            try
+            {
+                string UserIdcookie = "";
+                if (Request.Cookies.AllKeys.Contains("UserId"))
+                {
+                    UserIdcookie = Request.Cookies["UserId"].Value;
+                    string _Id = UserIdcookie;
+                    long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+                    Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    if (admin == null)
+                    {
+
+                        return RedirectToAction("Index", "LogIn");
+                    }
+                    else
+                    {
+                        var result = SGetExitOrder(vmr);
+                        TempData["data"] = result;
+
+                        return View(result);
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+
+                }
+            }
+            catch (Exception ee)
+            {
+                return RedirectToAction("Index", "LogIn");
+
+            }
+
+
+
+        }
+
+        private object SGetExitOrder(listRecordEntryExitOrder vmr)
+        {
+            long i = 0;
+            var lists = (from exo in db.Exitorder
+                         join reo in db.RecordEntryExitOrder
+                         on exo.Id equals reo.IdExitOrder
+                         join driverREO in db.DriverREO
+                         on reo.Id equals driverREO.IdREO
+                         join re in db.Record_the_entry
+                         on reo.IdRecordEntry equals re.Id
+                         where exo.StateDelete == 0
+                         select new { exo, reo, re, driverREO }).ToList()
+                         .Select(p => new listRecordEntryExitOrder
+                         {
+                             Id = p.exo.Id,
+                             CustomerFullName = p.exo.CustomerFullName,
+                             Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
+                             StoreName = p.exo.Store.Name,
+                             RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
+                             stateName = p.exo.State.Name,
+                             Weight = p.re.Weight,
+                             Countmandeh = p.reo.StateExit == false ? i++ : 0,
+                             DriverName = p.driverREO.Driver.DriverName
+                         }).ToList();
+
+
+
+            if (vmr.Uploaddate!=null && vmr.Uploaddate != "")
+            {
+                lists = lists.Where(p => p.Uploaddate.Contains(vmr.Uploaddate)).ToList();
+            }
+
+            if (vmr.CustomerFullName != null)
+            {
+                lists = lists.Where(p => p.CustomerFullName.Contains(vmr.CustomerFullName)).ToList();
+            }
+
+            if (vmr.StoreName != null)
+            {
+                lists = lists.Where(p => p.StoreName.Contains(vmr.StoreName)).ToList();
+            }
+
+            if (vmr.RecordEntryExitOrderCount != 0)
+            {
+                lists = lists.Where(p => p.RecordEntryExitOrderCount == vmr.RecordEntryExitOrderCount).ToList();
+            }
+
+            if (vmr.stateName != null)
+            {
+                lists = lists.Where(p => p.stateName.Contains(vmr.stateName)).ToList();
+            }
+
+            vmReportBargirt _vmReportBargirt = new vmReportBargirt();
+            _vmReportBargirt.list = lists;
+
+            return _vmReportBargirt;
+        }
+
         private object GetExitOrder()
         {
 

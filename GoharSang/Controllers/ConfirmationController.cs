@@ -89,5 +89,29 @@ namespace GoharSang.Controllers
             await db.SaveChangesAsync();
             return Json("Ok", JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> NotConfirm(long id)
+        {
+            Exitorder exo = db.Exitorder.Find(id);
+            exo.IdState = 2;
+
+            await db.SaveChangesAsync();
+            return Json("Ok", JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        [HttpPost]
+        public async Task<ActionResult> Checking(long id)
+        {
+            Exitorder exo = db.Exitorder.Find(id);
+            exo.IdState = 3;
+
+            await db.SaveChangesAsync();
+            return Json("Ok", JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }

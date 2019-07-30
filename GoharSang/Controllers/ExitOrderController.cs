@@ -55,7 +55,8 @@ namespace GoharSang.Controllers
 
         private object getRecordEntry()
         {
-            var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0).ToList()
+            var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0 && p.ExitState==false).ToList()
+
                 .Select(p => new vmListRecordEntry
                 {
                     Id = p.Id,
@@ -96,6 +97,11 @@ namespace GoharSang.Controllers
 
                 foreach (var item in prop.ListProps)
                 {
+
+                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
+                    re.ExitState = true;
+                    await db.SaveChangesAsync();
+
                     _p = new RecordEntryExitOrder();
                     _p.IdExitOrder = exo.Id;
                     _p.IdRecordEntry = item.Id;
@@ -136,6 +142,12 @@ namespace GoharSang.Controllers
 
                 foreach (var item in prop.ListProps)
                 {
+
+                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
+                    re.ExitState = true;
+                    await db.SaveChangesAsync();
+
+
                     _p = new RecordEntryExitOrder();
                     _p.IdExitOrder = exo.Id;
                     _p.IdRecordEntry = item.Id;

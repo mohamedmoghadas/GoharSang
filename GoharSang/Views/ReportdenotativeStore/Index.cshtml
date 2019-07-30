@@ -4,6 +4,76 @@
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 @model GoharSang.Models.vmModel.vmReportBargirt
+
+
+
+
+
+<div class="tab-wrapper clearfix">
+
+    <ul class="nav nav-pills nav-icons pull-right">
+
+        <li role="presentation"><a href="#" class="toggle-filter" data-block-id="filter-box"><i class="fa fa-filter"></i></a></li>
+    </ul>
+</div>
+
+<div class="row filter-wrapper visible-box" id="filter-box">
+    <div class="col-lg-12">
+
+        <!-- Filter header -->
+        <div class="filter-header">
+            <button aria-label="Close" class="close toggle-filter" type="button" data-block-id="filter-box"><i class="icon-cancel"></i></button>
+            <h3 class="title" style="text-align:right">جستجو</h3>
+        </div>
+        <!-- /filter header -->
+        <!-- Filter form -->
+        <form class="form-inline" method="post">
+            <div class="form-group">
+                <label class="form-label">نوع کوپ</label>
+                <input type="text" placeholder="جستجو" name="copname" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">تعداد</label>
+                <input type="text" placeholder="جستجو" name="RecordEntryExitOrderCount" class="form-control">
+            </div>
+           
+            @*<div class="form-group">
+                <br />
+                <label class="form-label">تاریخ</label>
+                <div class="checkbox-group">
+                    <div class="checkbox checkbox-replace checkbox-warning">
+                        <input type="checkbox" id="_CheckBoxDateInsert" name="checkboxDateInsert">
+                        <label for="_CheckBoxDateInsert">ثبت</label>
+                        <input type="text" placeholder="تاریخ ثبت" class="form-control jalali-datepicker" name="inpcheckboxDateInsert">
+
+                    </div>
+                    <div class="checkbox checkbox-replace checkbox-warning">
+                        <input type="checkbox" id="_CheckBoxDateUpdate" name="checkboxDateEdit">
+                        <label for="_CheckBoxDateUpdate">ویرایش</label>
+                        <input type="text" placeholder="تاریخ ویرایش" class="form-control jalali-datepicker" name="inpcheckboxDateEdit">
+
+                    </div>
+                    <div class="checkbox checkbox-replace checkbox-warning">
+                        <input type="checkbox" id="_CheckBoxDateDelete" name="checkboxDateDeletes">
+                        <label for="_CheckBoxDateDelete">حذف</label>
+                        <input type="text" placeholder="تاریخ حذف" class="form-control jalali-datepicker" name="inpcheckboxDateDeletes">
+
+                    </div>
+                </div>
+            </div>*@
+
+
+            <div class="form-group filter-btn">
+                <button class="btn btn-default">جستجو</button>
+            </div>
+        </form>
+        <!-- /filter form -->
+
+    </div>
+</div>
+
+
 <div class="container dailyCol">
     <div class="row dailyRow">
         <div class="col dailyLDiv">
@@ -43,8 +113,10 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-primary dailyBtnBottom" onclick="window.print()">چاپ گزارش</button>
-            <button class="btn btn-primary dailyBtnBottom2" onclick="location.href='@Url.Action("export", "ReportdenotativeStore")'">خروجی اکسل</button>
+            <button class="btn btn-primary btn-rounded" onclick="window.print()">چاپ گزارش</button> 
+            <button class="btn btn-primary btn-rounded" onclick="location.href='@Url.Action("export", "ReportdenotativeStore")'">خروجی اکسل</button>
         </div>
     </div>
 </div>
+
+
