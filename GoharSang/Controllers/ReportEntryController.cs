@@ -17,8 +17,9 @@ namespace GoharSang.Controllers
     {
         GoharSangEntities db = new GoharSangEntities();
         ExcelWorksheet workSheet = null;
+        int PageOffSet = 10;
 
-        public ActionResult Index()
+        public ActionResult Index(int? PageNumber)
         {
             try
             {
@@ -36,10 +37,21 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = GetExitOrder();
-                        TempData["data"] = result;
+                        if (PageNumber == null)
+                        {
+                            var result = GetExitOrder(1);
+                            TempData["data"] = result;
 
-                        return View(result);
+                            return View(result);
+                        }
+                        else
+                        {
+                            var result = GetExitOrder((int)PageNumber);
+                            TempData["data"] = result;
+
+                            return View(result);
+                        }
+                           
                     }
                 }
                 else
@@ -173,11 +185,15 @@ namespace GoharSang.Controllers
             return _vmReportBargirt;
         }
 
-        private object GetExitOrder()
+        private object GetExitOrder(int PageNumber)
         {
+            if (PageNumber <= 0)
+            {
+                PageNumber = 1;
+            }
+            int PageSkip = (PageNumber - 1) * PageOffSet;
 
-
-         var lists = db.Record_the_entry.Where(p => p.StateDelete == 0)
+            var lists = db.Record_the_entry.Where(p => p.StateDelete == 0)
                .ToList().Select(p => new listRecordEntryExitOrder
                 {
                     Id = p.Id,
@@ -194,7 +210,11 @@ namespace GoharSang.Controllers
                     Dimensions = p.length + "*" + p.width + "*" + p.Height,
                     Transfernumber = p.Transfernumber,
                     image = p.Record_the_Entrry_Image.ToList()
-                }).ToList();
+                })
+               .OrderBy(u => u.Id)
+                .Skip(PageSkip)
+                .Take(PageOffSet)
+                .ToList();
 
 
 
