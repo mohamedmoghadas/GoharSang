@@ -29,33 +29,118 @@
                         <input type="text" class="form-control jalali-datepicker" id="dateLoad">
                     </div>
                 </div>
-                <div class="row margTop1">
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>انبار</label>
-                    </div>
-                    <div class="col-sm-4 col-8">
-                        <select id="SelectStore" class="form-control float-right width100" style="padding:2px 8px"></select>
+
+
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-4">
+                            <label>انبار</label>
+                            <select id="SelectStore" class="form-control float-right width100" style="padding:2px 8px"></select>
+
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-4">
+                            <label>کدکوپ</label>
+
+                            <input class="form-control" id="InputeSearch" />
+
+                        </div>
+
                     </div>
                 </div>
+
+
+
+             
+
+
                 <div class="row margTop1">
                     <div class="col-sm-2 col-4 rgEnLable">
                         <label>کد محصول</label>
                     </div>
 
                 </div>
+
+
                 <div class="row">
-                    @foreach (var item in Model)
-                    {
-                        <div class="checkbox checkbox-replace checkbox-primary">
-                            <input type="checkbox" id="@item.Id" value="@item.Id">
-                            <label for="@item.Id">
-                                &nbsp&nbsp&nbsp معدن= @item.minename &nbsp&nbsp&nbsp نوع کوپ= @item.copname &nbsp&nbsp&nbsp
-                                ابعاد= @item.Dimensions &nbsp&nbsp&nbsp وزن= @item.Weight &nbsp&nbsp&nbsp کد کوپ= @item.CopsCod &nbsp&nbsp&nbsp شماره حواله= @item.Transfernumber
-                            </label>
+
+
+                    <div class="col-sm-12">
+
+                        <div class="col-sm-4">
+
                         </div>
-                    }
+
+                        <div class="col-sm-8">
+                            <table class="table-active" style="border:solid">
+                                <thead>
+                                    <tr>
+                                        <td style="border:solid;text-align:center">انتخاب</td>
+                                        <td style="border:solid;text-align:center">معدن</td>
+                                        <td style="border:solid;text-align:center">نوع کوپ</td>
+                                        <td style="border:solid;text-align:center">ابعاد</td>
+                                        <td style="border:solid;text-align:center">وزن</td>
+                                        <td style="border:solid;text-align:center">کد کوپ</td>
+                                        <td style="border:solid;text-align:center">شماره حواله</td>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="BodyModel">
+
+                                    @foreach (var item in Model)
+                                    {
+
+                                        <tr style="border:solid;text-align:center">
+                                            <td style="border:solid;text-align:center">
+                                                <div class="checkbox checkbox-replace checkbox-primary">
+                                                    <input type="checkbox" id="@item.Id" value="@item.Id">
+                                                    <label for="@item.Id" id="lblproduct"></label>
+                                                </div>
+                                            </td>
+                                            <td style="border:solid;text-align:center">
+                                                @item.minename
+                                            </td>
+                                            <td style="border:solid;text-align:center">
+                                                @item.copname
+                                            </td>
+
+                                            <td style="border:solid;text-align:center">
+                                                @item.Dimensions
+                                            </td>
+
+                                            <td style="border:solid;text-align:center">
+                                                @item.Weight
+                                            </td>
+
+                                            <td style="border:solid;text-align:center">
+                                                @item.CopsCod
+                                            </td>
+                                            <td style="border:solid;text-align:center">
+                                                @item.Transfernumber
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+
+
+
+
 
                 </div>
+
+
+
                 <div class="row margTop1">
                     <div class="col">
                         <button class="btn btn-primary float-left SaveBtn" onclick="BtnRegisterCopeReserve()">ذخیره</button>
@@ -184,4 +269,15 @@
         }
     </script>
 
+
+    <script>
+        $(InputeSearch).keyup(function () {
+            var value = $(this).val().toLowerCase();
+            $("#lblproduct").filter(function () {
+
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+
+            });
+        });
+    </script>
 }

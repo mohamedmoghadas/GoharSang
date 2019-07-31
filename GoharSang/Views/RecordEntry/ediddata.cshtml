@@ -1,0 +1,453 @@
+﻿
+@{
+    ViewBag.Title = "ویرایش ثبت ورودی";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+@model GoharSang.Models.Record_the_entry
+
+
+<h1>@ViewBag.Title</h1>
+
+
+<div class="container dailyCol">
+    <div class="row dailyRow">
+        <div class="col dailyLDiv">
+            <a class="btn btn-primary dailyBtnTop" href="~/Home/Index" role="button">صفحه اصلی</a>
+            <br>
+            <div class="entryForm">
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>اسم معدن</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <select id="SelectMine" class="form-control float-right width100" style="padding:2px 8px"></select>
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>نوع کوپ</label>
+
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <select id="SelectCope" class="form-control float-right width100" style="padding:2px 8px"></select>
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>وزن</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control txtLeft" id="weight" value="@Model.Weight">
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>طول</label>
+
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control txtLeft" id="lenght" value="@Model.length">
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>عرض</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control txtLeft" id="width" value="@Model.width">
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable txtLeft">
+                        <label>ارتفاع</label>
+
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control txtLeft" id="height" value="@Model.Height">
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>کد کوپ</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control txtLeft" id="Copcode" value="@Model.CopsCod">
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>انبار</label>
+
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <select id="selectStore" class="form-control float-right width100" style="padding:2px 8px"></select>
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>شماره ماشین</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" id="Trucknumber" class="form-control txtLeft" value="@Model.Trucknumber">
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>شماره حواله</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" id="Transfernumber" class="form-control txtLeft" value="@Model.Transfernumber">
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>شماره باسکول</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control txtLeft" id="basculenumber" value="@Model.basculenumber">
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>تصاویر</label>
+
+                    </div>
+                    <div class="col-sm-4 col-8" style="display:none">
+                        <input type="file" id="file1" class="float-right" accept="image/*">
+                        <input type="file" id="file2" class="float-right">
+                        <input type="file" id="file3" class="float-right">
+                        <input type="file" id="file4" class="float-right">
+
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <div class="row">
+                            <div class="col-3">
+                                <button class="btn btn-primary fa fa-upload" onclick="file1.click()"></button>
+                            </div>
+                            <div class="col-3">
+                                <button class="btn btn-primary fa fa-upload" onclick="file2.click()"></button>
+                            </div>
+                            <div class="col-3">
+                                <button class="btn btn-primary fa fa-upload" onclick="file3.click()"></button>
+                            </div>
+                            <div class="col-3">
+                                <button class="btn btn-primary fa fa-upload" onclick="file4.click()"></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>تاریخ</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" id="date"
+                               class="form-control jalali-datepicker">
+                    </div>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>نمایش</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <div class="row">
+                            <div class="col-3">
+                                @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).FirstOrDefault() != null)
+                                {
+
+                                    <img id="img1" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p=>p.IdRecordentry==Model.Id).FirstOrDefault().Image">
+                                }
+                                else
+                                {
+
+                                    <img id="img1" class="rounded entryImg" />
+                                }
+                            </div>
+                            <div class="col-3">
+                                @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(1).FirstOrDefault() != null)
+                                {
+                                    <img id="img2" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p=>p.IdRecordentry==Model.Id).Skip(1).FirstOrDefault().Image">
+
+                                }
+                                else
+                                {
+                                    <img id="img2" class="rounded entryImg" />
+                                }
+                            </div>
+                            <div class="col-3">
+
+                                @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(2).FirstOrDefault() != null)
+                                {
+                                    <img id="img3" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(2).FirstOrDefault().Image">
+                                }
+                                else
+                                {
+                                    <img id="img3" class="rounded entryImg" />
+                                }
+                            </div>
+                            <div class="col-3">
+                                @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(3).FirstOrDefault() != null)
+                                {
+                                    <img id="img4" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(3).FirstOrDefault().Image">
+                                }
+                                else
+                                {
+                                    <img id="img4" class="rounded entryImg" />
+                                }
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>ساعت</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="time" id="time" class="form-control">
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col">
+                        <button class="btn btn-primary float-left SaveBtn" onclick="BtnRecordEntry()" name="lenght">ذخیره</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section localscript{
+
+
+
+    <script>
+        window.onload = load();
+
+        function load() {
+            getMine();
+            getCops();
+            getStore();
+        }
+
+        function getMine() {
+            $.ajax({
+                url: '/RecordEntry/getMine',
+                data: null,
+                type: 'post',
+                beforeSend: function () {
+                    $(LoadingGift).show();
+                },
+                success: function (data) {
+
+                    $(LoadingGift).hide();
+
+
+                    var str = "<option value='0'>لطفا موردی را انتخاب نمایید</option>";
+
+
+                    for (var i in data) {
+
+                        str += "<option value=" + data[i].Id + ">" + data[i].Display + "</option>";
+                    }
+                    SelectMine.innerHTML = str;
+
+
+                }
+            });
+
+        }
+
+        function getCops() {
+            $.ajax({
+                url: '/RecordEntry/getCops',
+                data: null,
+                type: 'post',
+                beforeSend: function () {
+                    $(LoadingGift).show();
+                },
+                success: function (data) {
+
+                    $(LoadingGift).hide();
+
+
+                    var str = "<option value='0'>لطفا موردی را انتخاب نمایید</option>";
+
+
+                    for (var i in data) {
+
+                        str += "<option value=" + data[i].Id + ">" + data[i].Display + "</option>";
+                    }
+                    SelectCope.innerHTML = str;
+
+
+                }
+            });
+
+        }
+
+        function getStore() {
+            $.ajax({
+                url: '/RecordEntry/getStore',
+                data: null,
+                type: 'post',
+                beforeSend: function () {
+                    $(LoadingGift).show();
+                },
+                success: function (data) {
+
+                    $(LoadingGift).hide();
+
+
+                    var str = "<option value='0'>لطفا موردی را انتخاب نمایید</option>";
+
+
+                    for (var i in data) {
+
+                        str += "<option value=" + data[i].Id + ">" + data[i].Display + "</option>";
+                    }
+                    selectStore.innerHTML = str;
+
+
+                }
+            });
+
+        }
+
+
+    </script>
+
+
+    <script>
+        jsShowPic(file1, img1);
+        jsShowPic(file2, img2);
+        jsShowPic(file3, img3);
+        jsShowPic(file4, img4);
+
+    </script>
+
+
+    <script>
+
+        var StateRegister = false;
+
+
+
+
+
+        function BtnRecordEntry() {
+
+            if (SelectMine.value == 0 ||
+                SelectCope.value == 0 ||
+                weight.value == "" ||
+                lenght.value == "" ||
+                width.value == "" ||
+                height.value == "" ||
+                Copcode.value == "" ||
+                selectStore.value == 0 ||
+                Trucknumber.value == "" ||
+                Transfernumber.value == "" ||
+                date.value == "" ||
+                time.value == "" ||
+                basculenumber.value == "") {
+                AlertInAjax("تمامی اطلاعات را وارد نمایید", modalAlertInAjax, "alert-danger");
+                $(modalAlertInAjax).modal("show");
+
+                return;
+            }
+            else {
+
+                if (StateRegister == false) {
+
+                    StateRegister = true;
+
+
+                    var formdataRecordEntry = new FormData();
+
+
+                    formdataRecordEntry.append('_re.IdMine', SelectMine.value);
+
+                    formdataRecordEntry.append('_re.IdCops', SelectCope.value);
+
+                    formdataRecordEntry.append('_re.Weight', weight.value);
+
+                    formdataRecordEntry.append('_re.length', lenght.value);
+
+                    formdataRecordEntry.append('_re.width', width.value);
+
+                    formdataRecordEntry.append('_re.Height', height.value);
+
+                    formdataRecordEntry.append('_re.CopsCod', Copcode.value);
+
+                    formdataRecordEntry.append('_re.IdStore', selectStore.value);
+
+                    formdataRecordEntry.append('_re.Transfernumber', Transfernumber.value);
+
+                    formdataRecordEntry.append('_re.Trucknumber', Trucknumber.value);
+
+                    formdataRecordEntry.append('_re.Time', time.value);
+
+                    formdataRecordEntry.append('_re.basculenumber', basculenumber.value);
+
+                    formdataRecordEntry.append('_Date', date.value);
+
+
+
+                    formdataRecordEntry.append("_file", file1.files[0]);
+                    formdataRecordEntry.append("_file", file2.files[0]);
+                    formdataRecordEntry.append("_file", file3.files[0]);
+                    formdataRecordEntry.append("_file", file4.files[0]);
+
+
+                    $.ajax({
+                        url: "/RecordEntry/RecordEntry",
+                        type: "POST",
+                        beforeSend: function () {
+                            $(LoadingGift).show();
+
+                        },
+                        error: function (data) {
+
+                          
+
+
+                            $(LoadingGift).hide();
+
+                            if (data.status == 532) {
+
+                                AlertInAjax("سایز فایل درست انتخاب نشده", modalAlertInAjax, "alert-danger");
+                                $(modalAlertInAjax).modal('show');
+
+                                return;
+                            }
+                            if (data.status == 530) {
+
+                                AlertInAjax("نوع فایل درست انتخاب نشده", modalAlertInAjax, "alert-danger");
+                                $(modalAlertInAjax).modal('show');
+
+
+                                return;
+
+                            }
+
+                        },
+                        data: formdataRecordEntry,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+
+                            StateRegister = false;
+
+                            $(LoadingGift).hide();
+
+                            AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                            $(modalAlertInAjax).modal("show");
+                            setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                            $(modalAlertInAjax).on("hidden.bs.modal", function () {
+
+                                location.href = "/RecordEntry/Index";
+                            });
+                        }
+                    });
+                }
+
+
+            }
+
+
+
+        }
+    </script>
+}

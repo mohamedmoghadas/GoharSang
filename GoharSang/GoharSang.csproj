@@ -451,6 +451,8 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\RecordEntry\RegisterPage.cshtml" />
+    <Content Include="Views\RecordEntry\ediddata.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

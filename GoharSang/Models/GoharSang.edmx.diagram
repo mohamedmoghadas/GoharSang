@@ -20,7 +20,7 @@
         <EntityTypeShape EntityType="GoharSangModel.Store" Width="1.5" PointX="0.75" PointY="6.25" />
         <EntityTypeShape EntityType="GoharSangModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="9.75" />
         <EntityTypeShape EntityType="GoharSangModel.UserRole" Width="1.5" PointX="10" PointY="0.875" />
-        <EntityTypeShape EntityType="GoharSangModel.Users" Width="1.5" PointX="7.75" PointY="15" />
+        <EntityTypeShape EntityType="GoharSangModel.Users" Width="1.5" PointX="7.75" PointY="14.25" />
         <AssociationConnector Association="GoharSangModel.FK_Record_the_entry_Cops" />
         <AssociationConnector Association="GoharSangModel.FK_CopsBooking_State" />
         <AssociationConnector Association="GoharSangModel.FK_CopsBooking_Store" />

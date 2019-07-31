@@ -19,19 +19,19 @@
             <div class="userForm">
                 <div class="form-group">
                     <label class="labelSignIn">نام کاربر</label>
-                    <input type="text" class="form-control textSignIn" id="FullName">
+                    <input type="text" class="form-control" id="FullName">
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn">نام کاربری</label>
-                    <input type="text" class="form-control textSignIn txtLeft" id="UserName">
+                    <input type="text" class="form-control textSignIn" id="UserName">
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn">ایمیل</label>
-                    <input type="text" class="form-control textSignIn txtLeft" id="Email">
+                    <input type="text" class="form-control textSignIn" id="Email">
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn txtLeft">کلمه عبور</label>
-                    <input type="password" class="form-control textSignIn txtLeft" id="Password">
+                    <input type="password" class="form-control textSignIn" id="Password">
                 </div>
 
                 <label class="labelSignIn margTop2">سطوح دسترسی</label>
@@ -73,7 +73,11 @@
                         <tr>
                             <td>@item.FullName</td>
                             <td>@item.UserName</td>
+                            @if (item.StateAdmin==false)
+                            {
+
                             <td><button class="btn btn-danger fa fa-trash" onclick="deleteUser(@item.Id)"></button>| <button class="btn btn-primary fa fa-pencil" onclick="EditUser(@item.Id)"></button></td>
+                            }
                         </tr>
                     }
 

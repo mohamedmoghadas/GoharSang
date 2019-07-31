@@ -164,6 +164,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="StateDelete" Type="int" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StateAdmin" Type="bit" />
         </EntityType>
         <Association Name="FK_CopsBooking_State">
           <End Role="State" Type="Self.State" Multiplicity="0..1">
@@ -699,6 +700,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StateDelete" Type="Int32" />
           <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StateAdmin" Type="Boolean" />
           <NavigationProperty Name="UserRole" Relationship="GoharSangModel.FK_UserRole_Users" FromRole="Users" ToRole="UserRole" />
         </EntityType>
         <Association Name="FK_Record_the_entry_Cops">
@@ -1070,6 +1072,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="GoharSangModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="StateAdmin" ColumnName="StateAdmin" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="StateDelete" ColumnName="StateDelete" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
