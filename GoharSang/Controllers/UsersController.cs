@@ -138,6 +138,7 @@ namespace GoharSang.Controllers
             if (user.Id == 0)
             {
                 user.StateDelete = 0;
+                user.StateAdmin = false;
                 user.Password = pass;
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
