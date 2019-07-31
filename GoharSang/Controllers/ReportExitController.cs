@@ -39,14 +39,16 @@ namespace GoharSang.Controllers
                         {
                             var result = GetExitOrder(1);
                             TempData["data"] = result;
-
+                            ViewBag.PageNumber = 1;
+                            ViewBag.AllPage = getTotalList();
                             return View(result);
                         }
                         else
                         {
                             var result = GetExitOrder((int)PageNumber);
                             TempData["data"] = result;
-
+                            ViewBag.PageNumber = (int)PageNumber;
+                            ViewBag.AllPage = getTotalList();
                             return View(result);
                         }
                     }
@@ -67,6 +69,19 @@ namespace GoharSang.Controllers
 
         }
 
+        private dynamic getTotalList()
+        {
+            var lists = ((from exo in db.Exitorder
+                          join reo in db.RecordEntryExitOrder
+                          on exo.Id equals reo.IdExitOrder
+                          join driverREO in db.DriverREO
+                          on reo.Id equals driverREO.IdREO
+                          join re in db.Record_the_entry
+                          on reo.IdRecordEntry equals re.Id
+                          where exo.StateDelete == 0
+                          select new { exo, reo, re, driverREO }).Count() / 10) + 1;
+            return lists;
+        }
 
         [HttpPost]
         public ActionResult Index(listRecordEntryExitOrder vmr)
