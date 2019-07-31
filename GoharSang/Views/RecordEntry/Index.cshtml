@@ -9,7 +9,8 @@
 @model GoharSang.Models.vmModel.vmReportBargirt
 
 
-<h1>@ViewBag.Title</h1>
+<h1 style="float:right">@ViewBag.Title</h1>
+
 
 <div class="tab-wrapper clearfix">
 
@@ -155,7 +156,7 @@
     <script>
 
         function deletedata(id) {
-             $(modaldeletedata).modal('show');
+            $(modaldeletedata).modal('show');
             $(btnConfirmDelete).click(function () {
 
                 $.ajax({
@@ -189,7 +190,7 @@
     <script>
 
         function ediddata(id) {
-             var form = document.createElement("form");
+            var form = document.createElement("form");
             var element1 = document.createElement("input");
 
 

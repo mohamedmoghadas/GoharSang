@@ -5,7 +5,8 @@
 }
 
 @model IEnumerable<GoharSang.Models.vmModel.vmListRecordEntry>
-<h1>@ViewBag.Title</h1>
+<h1 style="float:right">@ViewBag.Title</h1>
+
 
 <div class="container dailyCol">
     <div class="row dailyRow">
@@ -53,9 +54,9 @@
                         </div>
 
                     </div>
-                    </div>
+                </div>
 
-              
+
 
 
 
@@ -135,9 +136,9 @@
 
                     </div>
 
-                       
 
-                    
+
+
 
                 </div>
 
@@ -272,13 +273,13 @@
 
 
     <script>
-         $(InputeSearch).keyup(function () {
-        var value = $(this).val().toLowerCase();
-        $("#BodyModel tr").filter(function () {
+        $(InputeSearch).keyup(function () {
+            var value = $(this).val().toLowerCase();
+            $("#BodyModel tr").filter(function () {
 
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
 
+            });
         });
-    });
     </script>
 }

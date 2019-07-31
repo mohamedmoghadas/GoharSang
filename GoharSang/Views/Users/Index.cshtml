@@ -6,7 +6,8 @@
 
 @model GoharSang.Models.vmModel.vmlistuser
 
-<h1>@ViewBag.Title</h1>
+<h1 style="float:right">@ViewBag.Title</h1>
+
 
 <div class="container depotsContainer">
     <div class="row">
@@ -73,10 +74,10 @@
                         <tr>
                             <td>@item.FullName</td>
                             <td>@item.UserName</td>
-                            @if (item.StateAdmin==false)
+                            @if (item.StateAdmin == false)
                             {
 
-                            <td><button class="btn btn-danger fa fa-trash" onclick="deleteUser(@item.Id)"></button>| <button class="btn btn-primary fa fa-pencil" onclick="EditUser(@item.Id)"></button></td>
+                                <td><button class="btn btn-danger fa fa-trash" onclick="deleteUser(@item.Id)"></button>| <button class="btn btn-primary fa fa-pencil" onclick="EditUser(@item.Id)"></button></td>
                             }
                         </tr>
                     }
