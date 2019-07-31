@@ -65,9 +65,7 @@
         <div class="col dailyLDiv">
             <a class="btn btn-primary dailyBtnTop" href="~/Home/Index" role="button">صفحه اصلی</a>
             <br>
-            <label class="d-block dailyTitle">
-                فیلتر های تاریخ رنجی | انبار | وضعیت
-            </label>
+           
             <div class="table-responsive-sm">
                 <table class="table table-info table-striped dailyTable" id="tbldata">
 
@@ -104,6 +102,7 @@
                 </table>
             </div>
 
+            <div style="float:right" id="pagination"></div>
 
             <button class="btn btn-primary btn-rounded" onclick="window.print()">چاپ گزارش</button>
             <button class="btn btn-primary btn-rounded" onclick="location.href='@Url.Action("export", "ReportExitOrder")'">خروجی اکسل</button>
@@ -112,7 +111,7 @@
 </div>
 
 
-<div id="pagination"></div>
+
 
 
 
