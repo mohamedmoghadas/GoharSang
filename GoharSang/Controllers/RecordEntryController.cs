@@ -13,7 +13,10 @@ namespace GoharSang.Controllers
     public class RecordEntryController : Controller
     {
         GoharSangEntities db = new GoharSangEntities();
-        public ActionResult Index()
+
+        int PageOffSet = 10;
+
+        public ActionResult Index(int? PageNumber)
         {
             try
             {
@@ -31,8 +34,21 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = GetExitOrder();
-                        return View(result);
+                        if (PageNumber==null)
+                        {
+                            var result = GetExitOrder(1);
+                            ViewBag.PageNumber = 1;
+
+                            return View(result);
+                        }
+                        else
+                        {
+                            var result = GetExitOrder((int)PageNumber);
+                            ViewBag.PageNumber = (int)PageNumber;
+
+                            return View(result);
+                        }
+                        
                     }
                 }
                 else
@@ -165,9 +181,14 @@ namespace GoharSang.Controllers
             return _vmReportBargirt;
         }
 
-        private object GetExitOrder()
+        private object GetExitOrder(int PageNumber)
         {
 
+            if (PageNumber <= 0)
+            {
+                PageNumber = 1;
+            }
+            int PageSkip = (PageNumber - 1) * PageOffSet;
 
             var lists = db.Record_the_entry.Where(p => p.StateDelete == 0)
                   .ToList().Select(p => new listRecordEntryExitOrder
@@ -186,7 +207,10 @@ namespace GoharSang.Controllers
                       Dimensions = p.length + "*" + p.width + "*" + p.Height,
                       Transfernumber = p.Transfernumber,
                       image = p.Record_the_Entrry_Image.ToList()
-                  }).ToList();
+                  }).OrderBy(u => u.Id)
+                .Skip(PageSkip)
+                .Take(PageOffSet)
+                .ToList();
 
 
 
@@ -194,6 +218,7 @@ namespace GoharSang.Controllers
 
             vmReportBargirt _vmReportBargirt = new vmReportBargirt();
             _vmReportBargirt.list = lists;
+            _vmReportBargirt.AllPage = (db.Record_the_entry.Where(p => p.StateDelete == 0).Count() / 10) + 1;
             return _vmReportBargirt;
         }
 
@@ -362,10 +387,6 @@ namespace GoharSang.Controllers
                 _ere.Weight = _re.Weight;
                 _ere.width = _re.width;
 
-
-
-
-                db.Record_the_entry.Add(_re);
                 await db.SaveChangesAsync();
 
 

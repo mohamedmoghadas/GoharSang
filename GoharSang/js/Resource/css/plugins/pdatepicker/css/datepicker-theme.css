@@ -45,7 +45,7 @@ body {
 }
 
 .daterangepicker.dropdown-menu {
-    padding: 0;
+    padding: 2px 8px;
     z-index: 99;
 }
 
@@ -57,7 +57,7 @@ body {
         position: relative;
         border: 1px solid #f2f2f2;
         min-width: 35px;
-        padding: 7px;
+        padding: 2px 8px;
         font-weight: 300;
         line-height: 1.6;
         /*-webkit-transition: all 0.3s linear;
@@ -88,7 +88,7 @@ body {
         }
 
         .daterangepicker .calendar th.next, .daterangepicker .calendar th.prev {
-            padding: 0;
+            padding: 2px 8px;
             cursor: pointer;
         }
 
@@ -100,7 +100,7 @@ body {
                 border: 1px solid #f2f2f2;
                 color: #7d7c8f;
                 display: block;
-                padding: 7px;
+                padding: 2px 8px;
                 max-width: 30px;
             }
 
@@ -136,7 +136,7 @@ body {
         }
 
         .daterangepicker .calendar.left .calendar-table {
-            padding: 0;
+            padding: 2px 8px;
         }
 
 @media (max-width: 770px) {
@@ -162,7 +162,7 @@ body {
 }
 
 .daterangepicker .daterangepicker_input {
-    padding: 0 !important;
+    padding: 2px 8px !important;
     margin: 10px 0 0;
 }
 
@@ -243,7 +243,7 @@ body {
     }
 
 .daterangepicker .calendar-table {
-    padding: 0;
+    padding: 2px 8px;
     border: 0;
 }
 
@@ -275,14 +275,17 @@ body {
 }
 
 .daterangepicker .input-mini {
+    
     padding: 0 28px 0 6px;
 }
 
 .daterangepicker .drp-angle-left:before {
+    padding: 2px 8px;
     content: "\f105";
 }
 
 .daterangepicker .drp-angle-right:before {
+    padding: 2px 8px;
     content: "\f104";
 }
 

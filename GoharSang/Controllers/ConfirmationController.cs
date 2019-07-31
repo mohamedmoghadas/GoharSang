@@ -48,9 +48,91 @@ namespace GoharSang.Controllers
 
             }
 
-           
+
         }
         private object GetExitOrder()
+        {
+
+
+            var lists = db.Exitorder.Where(p => p.StateDelete == 0)
+                .ToList()
+                .Select(p => new listRecordEntryExitOrder
+                {
+                    Id = p.Id,
+                    CustomerFullName = p.CustomerFullName,
+                    Uploaddate = clsPersianDate.MiladiToShamsi(p.Uploaddate),
+
+                    StoreName = p.Store.Name,
+                    stateName = p.State.Name,
+                    RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count()
+                }).ToList();
+
+
+            //var lists = (from exo in db.Exitorder
+            //             join reo in db.RecordEntryExitOrder
+            //             on exo.Id equals reo.IdExitOrder
+            //             join re in db.Record_the_entry
+            //             on reo.IdRecordEntry equals re.Id
+            //             where exo.StateDelete == 0
+            //             select new { exo, reo,re }).ToList()
+            //             .Select(p => new listRecordEntryExitOrder
+            //             {
+            //                 Id=p.exo.Id,
+            //                 CustomerFullName = p.exo.CustomerFullName,
+            //                 Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
+            //                 StoreName = p.exo.Store.Name,
+            //                 RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
+            //                 stateName = p.exo.State.Name,
+            //                 Weight= p.re.Weight
+            //             }).ToList();
+
+
+            vmReportBargirt _vmReportBargirt = new vmReportBargirt();
+            _vmReportBargirt.list = lists;
+
+            return _vmReportBargirt;
+        }
+
+
+        [HttpPost]
+        public ActionResult Index(listRecordEntryExitOrder vmr)
+        {
+
+            try
+            {
+                string UserIdcookie = "";
+                if (Request.Cookies.AllKeys.Contains("UserId"))
+                {
+                    UserIdcookie = Request.Cookies["UserId"].Value;
+                    string _Id = UserIdcookie;
+                    long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+                    Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    if (admin == null)
+                    {
+
+                        return RedirectToAction("Index", "LogIn");
+                    }
+                    else
+                    {
+                        var result = SGetExitOrder(vmr);
+                        return View(result);
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+
+                }
+            }
+            catch (Exception ee)
+            {
+                return RedirectToAction("Index", "LogIn");
+
+            }
+
+
+        }
+        private object SGetExitOrder(listRecordEntryExitOrder vmr)
         {
 
 
@@ -60,24 +142,50 @@ namespace GoharSang.Controllers
                          join re in db.Record_the_entry
                          on reo.IdRecordEntry equals re.Id
                          where exo.StateDelete == 0
-                         select new { exo, reo,re }).ToList()
+                         select new { exo, reo, re }).ToList()
                          .Select(p => new listRecordEntryExitOrder
                          {
-                             Id=p.exo.Id,
+                             Id = p.exo.Id,
                              CustomerFullName = p.exo.CustomerFullName,
                              Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
                              StoreName = p.exo.Store.Name,
                              RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
                              stateName = p.exo.State.Name,
-                             Weight= p.re.Weight
+                             Weight = p.re.Weight
                          }).ToList();
 
+            if (vmr.Uploaddate != "" || vmr.Uploaddate != null)
+            {
+                lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
+            }
+
+            if (vmr.CustomerFullName != null)
+            {
+                lists = lists.Where(p => p.CustomerFullName.Contains(vmr.CustomerFullName)).ToList();
+            }
+            if (vmr.StoreName != null)
+            {
+                lists = lists.Where(p => p.StoreName.Contains(vmr.StoreName)).ToList();
+            }
+            if (vmr.Weight != null)
+            {
+                lists = lists.Where(p => p.Weight.Contains(vmr.Weight)).ToList();
+            }
+            if (vmr.RecordEntryExitOrderCount != 0)
+            {
+                lists = lists.Where(p => p.RecordEntryExitOrderCount == vmr.RecordEntryExitOrderCount).ToList();
+            }
+            if (vmr.stateName != null)
+            {
+                lists = lists.Where(p => p.stateName.Contains(vmr.stateName)).ToList();
+            }
 
             vmReportBargirt _vmReportBargirt = new vmReportBargirt();
             _vmReportBargirt.list = lists;
 
             return _vmReportBargirt;
         }
+
 
 
         [HttpPost]
@@ -112,6 +220,28 @@ namespace GoharSang.Controllers
             return Json("Ok", JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult ShowDetail(long id)
+        {
 
+
+            var list = db.RecordEntryExitOrder.Where(p => p.IdExitOrder == id).ToList().Select(p => new
+            {
+                p.IdExitOrder,
+                CustomerFullName = p.Exitorder.CustomerFullName,
+                StoreName = p.Exitorder.Store.Name,
+                stateName = p.Exitorder.State.Name,
+
+                Uploaddate = clsPersianDate.MiladiToShamsi(p.Exitorder.Uploaddate),
+                p.Record_the_entry.Weight,
+                p.Record_the_entry.Transfernumber,
+                Dimensions = p.Record_the_entry.length + "*" + p.Record_the_entry.width + "*" + p.Record_the_entry.Height,
+
+            }).ToList();
+
+
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

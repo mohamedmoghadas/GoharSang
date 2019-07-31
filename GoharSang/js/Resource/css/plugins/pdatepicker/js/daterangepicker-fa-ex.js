@@ -518,7 +518,7 @@
                 console.log(calendar[1][1])
                 console.log(currentMonth)
                 console.log(currentYear)
-                var monthHtml = '<select class="monthselect form-control">';
+                var monthHtml = '<select class="monthselect form-control" style="padding:2px 8px">';
                 for (var m = 0; m < 12; m++) {
                     if ((!inMinYear || m >= minDate[localMonth]()) && (!inMaxYear || m <= maxDate[localMonth]())) {
                         monthHtml += "<option value='" + m + "'" +
@@ -529,7 +529,7 @@
                     }
                 }
                 monthHtml += "</select>";
-                var yearHtml = '<select class="yearselect form-control">';
+                var yearHtml = '<select class="yearselect form-control" style="padding:2px 8px">';
                 for (var y = minYear; y <= maxYear; y++) {
                     yearHtml += '<option value="' + y + '"' +
                         (y === currentYear ? ' selected="selected"' : '') + '>' + y + '</option>';

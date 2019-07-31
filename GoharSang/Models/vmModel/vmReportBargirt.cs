@@ -8,7 +8,9 @@ namespace GoharSang.Models.vmModel
     public class vmReportBargirt
     {
         public List<listRecordEntryExitOrder> list { get; set; }
-       
+        public long AllPage { get; set; }
+
+
     }
     public class listRecordEntryExitOrder
     {

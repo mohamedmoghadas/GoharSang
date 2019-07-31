@@ -67,13 +67,13 @@ namespace GoharSang.Controllers
         private object GetExitOrder(long? id)
         {
 
-            long i = 0;
+          
             var lists = (from exo in db.Exitorder
                          join reo in db.RecordEntryExitOrder
                          on exo.Id equals reo.IdExitOrder
                          join re in db.Record_the_entry
                          on reo.IdRecordEntry equals re.Id
-                         where exo.StateDelete == 0 && exo.Id==id && reo.StateExit==false
+                         where exo.StateDelete == 0 && exo.Id==id && reo.StateExit==false && exo.IdState==4
                          select new { exo, reo, re }).ToList()
                          .Select(p => new listRecordEntryExitOrder
                          {

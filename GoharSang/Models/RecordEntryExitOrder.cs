@@ -28,5 +28,6 @@ namespace GoharSang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DriverREO> DriverREO { get; set; }
         public virtual Exitorder Exitorder { get; set; }
+        public virtual Record_the_entry Record_the_entry { get; set; }
     }
 }

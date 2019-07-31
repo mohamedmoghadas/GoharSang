@@ -13,6 +13,7 @@ namespace GoharSang.Controllers
     public class RegisterCopeReserveController : Controller
     {
         GoharSangEntities db = new GoharSangEntities();
+       
         public ActionResult Index()
         {
             try
@@ -31,8 +32,13 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = getRecordEntry();
-                        return View(result);
+                        
+                            var result = getRecordEntry();
+                           
+                            return View(result);
+                        
+                        
+                       
                     }
                 }
                 else
@@ -56,6 +62,8 @@ namespace GoharSang.Controllers
 
         private object getRecordEntry()
         {
+          
+
             var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0).ToList()
                 .Select(p => new vmListRecordEntry
                 {
@@ -68,9 +76,10 @@ namespace GoharSang.Controllers
                     Transfernumber= p.Transfernumber,
                     image=db.Record_the_Entrry_Image.Where(q=>q.Id==p.Id).FirstOrDefault()==null?""
                     : db.Record_the_Entrry_Image.Where(q => q.Id == p.Id).FirstOrDefault().Image,
-                }).ToList();
+                }).OrderBy(u => u.Id)
+               .ToList();
 
-           
+
 
             return listrecordentry;
         }

@@ -18,6 +18,7 @@ namespace GoharSang.Models
         public Record_the_entry()
         {
             this.Record_the_Entrry_Image = new HashSet<Record_the_Entrry_Image>();
+            this.RecordEntryExitOrder = new HashSet<RecordEntryExitOrder>();
         }
     
         public long Id { get; set; }
@@ -42,5 +43,7 @@ namespace GoharSang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record_the_Entrry_Image> Record_the_Entrry_Image { get; set; }
         public virtual Store Store { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RecordEntryExitOrder> RecordEntryExitOrder { get; set; }
     }
 }

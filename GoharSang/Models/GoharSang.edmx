@@ -334,6 +334,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RecordEntryExitOrder_Record the entry">
+          <End Role="Record the entry" Type="Self.Record the entry" Multiplicity="0..1" />
+          <End Role="RecordEntryExitOrder" Type="Self.RecordEntryExitOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Record the entry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordEntryExitOrder">
+              <PropertyRef Name="IdRecordEntry" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserRole_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -427,6 +439,10 @@
             <End Role="Exitorder" EntitySet="Exitorder" />
             <End Role="RecordEntryExitOrder" EntitySet="RecordEntryExitOrder" />
           </AssociationSet>
+          <AssociationSet Name="FK_RecordEntryExitOrder_Record the entry" Association="Self.FK_RecordEntryExitOrder_Record the entry">
+            <End Role="Record the entry" EntitySet="Record the entry" />
+            <End Role="RecordEntryExitOrder" EntitySet="RecordEntryExitOrder" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="UserRole" EntitySet="UserRole" />
@@ -504,6 +520,10 @@
           <AssociationSet Name="FK_Record_the_entry_Store" Association="GoharSangModel.FK_Record_the_entry_Store">
             <End Role="Store" EntitySet="Store" />
             <End Role="Record_the_entry" EntitySet="Record_the_entry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecordEntryExitOrder_Record_the_entry" Association="GoharSangModel.FK_RecordEntryExitOrder_Record_the_entry">
+            <End Role="Record_the_entry" EntitySet="Record_the_entry" />
+            <End Role="RecordEntryExitOrder" EntitySet="RecordEntryExitOrder" />
           </AssociationSet>
           <AssociationSet Name="FK_UserRole_Role" Association="GoharSangModel.FK_UserRole_Role">
             <End Role="Role" EntitySet="Role" />
@@ -620,6 +640,7 @@
           <NavigationProperty Name="mine" Relationship="GoharSangModel.FK_Record_the_entry_mine" FromRole="Record_the_entry" ToRole="mine" />
           <NavigationProperty Name="Record_the_Entrry_Image" Relationship="GoharSangModel.FK_Record_the_Entrry_Image_Record_the_entry" FromRole="Record_the_entry" ToRole="Record_the_Entrry_Image" />
           <NavigationProperty Name="Store" Relationship="GoharSangModel.FK_Record_the_entry_Store" FromRole="Record_the_entry" ToRole="Store" />
+          <NavigationProperty Name="RecordEntryExitOrder" Relationship="GoharSangModel.FK_RecordEntryExitOrder_Record_the_entry" FromRole="Record_the_entry" ToRole="RecordEntryExitOrder" />
         </EntityType>
         <EntityType Name="RecordEntryCopsBooking">
           <Key>
@@ -641,6 +662,7 @@
           <Property Name="StateExit" Type="Boolean" />
           <NavigationProperty Name="DriverREO" Relationship="GoharSangModel.FK_DriverREO_RecordEntryExitOrder" FromRole="RecordEntryExitOrder" ToRole="DriverREO" />
           <NavigationProperty Name="Exitorder" Relationship="GoharSangModel.FK_RecordEntryExitOrder_Exitorder" FromRole="RecordEntryExitOrder" ToRole="Exitorder" />
+          <NavigationProperty Name="Record_the_entry" Relationship="GoharSangModel.FK_RecordEntryExitOrder_Record_the_entry" FromRole="RecordEntryExitOrder" ToRole="Record_the_entry" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -868,6 +890,18 @@
             </Principal>
             <Dependent Role="Record_the_entry">
               <PropertyRef Name="IdStore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecordEntryExitOrder_Record_the_entry">
+          <End Type="GoharSangModel.Record_the_entry" Role="Record_the_entry" Multiplicity="0..1" />
+          <End Type="GoharSangModel.RecordEntryExitOrder" Role="RecordEntryExitOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Record_the_entry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecordEntryExitOrder">
+              <PropertyRef Name="IdRecordEntry" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

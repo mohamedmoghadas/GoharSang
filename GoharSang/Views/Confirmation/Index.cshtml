@@ -28,9 +28,9 @@
                             <td>نام خریدار</td>
                             <td>تاریخ بارگیری</td>
                             <td>انبار</td>
-                            <td>وزن</td>
+                            @*<td>وزن</td>*@
                             <td>تعداد کوپ ها</td>
-                            @*<td>مشاهده کامل</td>*@
+                            <td>مشاهده کامل</td>
                             <td>وضعیت</td>
                             <td>عملیات</td>
                         </tr>
@@ -49,9 +49,9 @@
                                 <td>@item.CustomerFullName</td>
                                 <td>@item.Uploaddate</td>
                                 <td>@item.StoreName</td>
-                                <td>@item.Weight</td>
+                                @*<td>@item.Weight</td>*@
                                 <td>@item.RecordEntryExitOrderCount</td>
-                                @*<td>مشاهده</td>*@
+                                <td><button class="btn btn-outline-primary" onclick="ShowDetail(@item.Id)">مشاهده</button></td>
                                 <td>@item.stateName</td>
                                 <td><button class="btn btn-success fa fa-check" onclick="Confirm(@item.Id)">تایید</button></td>
                                 <td><button class="btn btn-red fa fa-times" onclick="NotConfirm(@item.Id)">عدم تایید</button></td>
@@ -67,6 +67,50 @@
         </div>
     </div>
 </div>
+
+
+
+
+<div class="modal fade" id="ModalDetail" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">جزییات</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-info table-striped dailyTable">
+
+                            <thead>
+
+
+                                <tr>
+                                    <td>ردیف</td>
+                                    <td>نام خریدار</td>
+                                    <td>تاریخ بارگیری</td>
+                                    <td>انبار</td>
+                                    <td>وضعیت</td>
+                                </tr>
+                            </thead>
+
+                            <tbody id="bodyDetail">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
 @section localscript{
 
@@ -176,6 +220,70 @@
 
     </script>
 
+    <script>
 
+        function ShowDetail(id) {
+            $.ajax({
+                url: '/Confirmation/ShowDetail',
+                data: { id: id },
+                type: 'post',
+                beforeSend: function () {
+                    $(LoadingGift).show();
+                },
+
+                success: function (data) {
+
+
+
+
+                    var str = "";
+
+                    
+
+                    for (var i in data) {
+
+                        var r = parseInt(i)+1;
+
+                       
+
+                        if (i <= 0) {
+
+                             str += '<tr>';
+                        str += '<td>' + r + '</td>';
+                        str += '<td>' + data[i].CustomerFullName + '</td>';
+                        str += '<td>' + data[i].Uploaddate + '</td>';
+                        str += '<td>' + data[i].StoreName + '</td>';
+                        str += '<td>' + data[i].stateName + '</td>';
+                        str += '</tr>';
+
+                             str += '<tr>';
+                        str += '<td>ردیف</td>';
+                        str += '<td>وزن</td>';
+                        str += '<td>ابعاد</td>';
+                        str += '<td>شماره حواله</td>';
+                        
+                        str += '</tr>'
+                        }
+                       
+
+                        str += '<tr>';
+                        str += '<td>' + r + '</td>';
+
+                        str += '<td>' + data[i].Weight + '</td>';
+                        str += '<td>' + data[i].Dimensions + '</td>';
+                        str += '<td>' + data[i].Transfernumber + '</td>';
+
+                        str += '</tr>';
+
+
+                    }
+
+                    bodyDetail.innerHTML = str;
+                    $(ModalDetail).modal('show');
+                }
+            });
+        }
+
+    </script>
 
 }
