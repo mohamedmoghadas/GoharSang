@@ -166,6 +166,14 @@
           <Property Name="FullName" Type="nvarchar" MaxLength="50" />
           <Property Name="StateAdmin" Type="bit" />
         </EntityType>
+        <EntityType Name="UserStoreRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="bigint" />
+          <Property Name="IdStore" Type="bigint" />
+        </EntityType>
         <Association Name="FK_CopsBooking_State">
           <End Role="State" Type="Self.State" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -374,6 +382,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserStoreRole_Store">
+          <End Role="Store" Type="Self.Store" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserStoreRole" Type="Self.UserStoreRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserStoreRole">
+              <PropertyRef Name="IdStore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserStoreRole_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserStoreRole" Type="Self.UserStoreRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserStoreRole">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="GoharSangModelStoreContainer">
           <EntitySet Name="Cops" EntityType="Self.Cops" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CopsBooking" EntityType="Self.CopsBooking" Schema="dbo" store:Type="Tables" />
@@ -391,6 +427,7 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserStoreRole" EntityType="Self.UserStoreRole" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CopsBooking_State" Association="Self.FK_CopsBooking_State">
             <End Role="State" EntitySet="State" />
             <End Role="CopsBooking" EntitySet="CopsBooking" />
@@ -451,6 +488,14 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserStoreRole_Store" Association="Self.FK_UserStoreRole_Store">
+            <End Role="Store" EntitySet="Store" />
+            <End Role="UserStoreRole" EntitySet="UserStoreRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserStoreRole_Users" Association="Self.FK_UserStoreRole_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserStoreRole" EntitySet="UserStoreRole" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -473,6 +518,7 @@
           <EntitySet Name="sysdiagrams" EntityType="GoharSangModel.sysdiagrams" />
           <EntitySet Name="UserRole" EntityType="GoharSangModel.UserRole" />
           <EntitySet Name="Users" EntityType="GoharSangModel.Users" />
+          <EntitySet Name="UserStoreRole" EntityType="GoharSangModel.UserStoreRole" />
           <AssociationSet Name="FK_Record_the_entry_Cops" Association="GoharSangModel.FK_Record_the_entry_Cops">
             <End Role="Cops" EntitySet="Cops" />
             <End Role="Record_the_entry" EntitySet="Record_the_entry" />
@@ -529,9 +575,17 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserStoreRole_Store" Association="GoharSangModel.FK_UserStoreRole_Store">
+            <End Role="Store" EntitySet="Store" />
+            <End Role="UserStoreRole" EntitySet="UserStoreRole" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserRole_Users" Association="GoharSangModel.FK_UserRole_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserStoreRole_Users" Association="GoharSangModel.FK_UserStoreRole_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserStoreRole" EntitySet="UserStoreRole" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cops">
@@ -691,6 +745,7 @@
           <NavigationProperty Name="CopsBooking" Relationship="GoharSangModel.FK_CopsBooking_Store" FromRole="Store" ToRole="CopsBooking" />
           <NavigationProperty Name="Exitorder" Relationship="GoharSangModel.FK_Exitorder_Store" FromRole="Store" ToRole="Exitorder" />
           <NavigationProperty Name="Record_the_entry" Relationship="GoharSangModel.FK_Record_the_entry_Store" FromRole="Store" ToRole="Record_the_entry" />
+          <NavigationProperty Name="UserStoreRole" Relationship="GoharSangModel.FK_UserStoreRole_Store" FromRole="Store" ToRole="UserStoreRole" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -724,6 +779,17 @@
           <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StateAdmin" Type="Boolean" />
           <NavigationProperty Name="UserRole" Relationship="GoharSangModel.FK_UserRole_Users" FromRole="Users" ToRole="UserRole" />
+          <NavigationProperty Name="UserStoreRole" Relationship="GoharSangModel.FK_UserStoreRole_Users" FromRole="Users" ToRole="UserStoreRole" />
+        </EntityType>
+        <EntityType Name="UserStoreRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int64" />
+          <Property Name="IdStore" Type="Int64" />
+          <NavigationProperty Name="Store" Relationship="GoharSangModel.FK_UserStoreRole_Store" FromRole="UserStoreRole" ToRole="Store" />
+          <NavigationProperty Name="Users" Relationship="GoharSangModel.FK_UserStoreRole_Users" FromRole="UserStoreRole" ToRole="Users" />
         </EntityType>
         <Association Name="FK_Record_the_entry_Cops">
           <End Type="GoharSangModel.Cops" Role="Cops" Multiplicity="0..1">
@@ -919,6 +985,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserStoreRole_Store">
+          <End Type="GoharSangModel.Store" Role="Store" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GoharSangModel.UserStoreRole" Role="UserStoreRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserStoreRole">
+              <PropertyRef Name="IdStore" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserRole_Users">
           <End Type="GoharSangModel.Users" Role="Users" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -929,6 +1009,20 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserRole">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserStoreRole_Users">
+          <End Type="GoharSangModel.Users" Role="Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GoharSangModel.UserStoreRole" Role="UserStoreRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserStoreRole">
               <PropertyRef Name="IdUser" />
             </Dependent>
           </ReferentialConstraint>
@@ -1112,6 +1206,15 @@
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserStoreRole">
+            <EntityTypeMapping TypeName="GoharSangModel.UserStoreRole">
+              <MappingFragment StoreEntitySet="UserStoreRole">
+                <ScalarProperty Name="IdStore" ColumnName="IdStore" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

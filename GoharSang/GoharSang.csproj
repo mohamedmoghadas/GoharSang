@@ -358,6 +358,9 @@
     <Compile Include="Models\Users.cs">
       <DependentUpon>GoharSang.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserStoreRole.cs">
+      <DependentUpon>GoharSang.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\vmModel\vmcopreserv.cs" />
     <Compile Include="Models\vmModel\vmEditCopReserv.cs" />
     <Compile Include="Models\vmModel\vmListRecordEntry.cs" />

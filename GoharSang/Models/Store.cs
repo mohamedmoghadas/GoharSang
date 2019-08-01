@@ -20,6 +20,7 @@ namespace GoharSang.Models
             this.CopsBooking = new HashSet<CopsBooking>();
             this.Exitorder = new HashSet<Exitorder>();
             this.Record_the_entry = new HashSet<Record_the_entry>();
+            this.UserStoreRole = new HashSet<UserStoreRole>();
         }
     
         public long Id { get; set; }
@@ -32,5 +33,7 @@ namespace GoharSang.Models
         public virtual ICollection<Exitorder> Exitorder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Record_the_entry> Record_the_entry { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserStoreRole> UserStoreRole { get; set; }
     }
 }

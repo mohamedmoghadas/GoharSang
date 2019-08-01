@@ -20,19 +20,19 @@
             <div class="userForm">
                 <div class="form-group">
                     <label class="labelSignIn">نام کاربر</label>
-                    <input type="text" class="form-control textSignIn" value="@Model.user.FullName" id="FullName">
+                    <input type="text" class="form-control" value="@Model.user.FullName" id="FullName">
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn">نام کاربری</label>
-                    <input type="text" class="form-control textSignIn txtLeft" value="@Model.user.UserName" id="UserName">
+                    <input type="text" class="form-control" value="@Model.user.UserName" id="UserName">
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn">ایمیل</label>
-                    <input type="text" class="form-control textSignIn txtLeft" value="@Model.user.Email" id="Email">
+                    <input type="text" class="form-control" value="@Model.user.Email" id="Email">
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn txtLeft">کلمه عبور</label>
-                    <input type="password" class="form-control textSignIn txtLeft" id="Password">
+                    <input type="password" class="form-control" id="Password">
                 </div>
 
                 <label class="labelSignIn margTop2">سطوح دسترسی</label>
@@ -65,7 +65,41 @@
 
                 </div>
 
+                <div class="row">
+                    <label class="control-label">انبار</label>
+                    <select id="selectStore" class="form-control" style="padding:2px 8px;margin-bottom:10px">
+                        @{
+                            var Exist = Model.listUserStoreRole.Where(p => p.IdUser == Model.user.Id).FirstOrDefault();
+                            if (Exist != null)
+                            {
+                                <option value="@Exist.Store.Id">@Exist.Store.Name</option>
 
+                                foreach (var item in Model.listStore)
+                                {
+                                    if (item.Id==Exist.IdStore)
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+
+                                    <option value="@item.Id">@item.Name</option>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <option value="0">لطفا موردی را انتخاب کنید</option>
+
+                                foreach (var item in Model.listStore)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                
 
                 <div class="form-group userChDiv">
                     <button class="btn btn-primary saveButton" onclick="mgnUser()">ذخیره</button>
@@ -101,6 +135,9 @@
 @section localscript{
 
 
+   
+
+
     <script>
 
         function mUSer(Id, UserName, Password, Email, FullName) {
@@ -132,6 +169,10 @@
                 _muser.Email = Email.value;
                 _muser.Password = Password.value;
 
+                var idstore = selectStore.value;
+
+
+
                 SelectedProp = {};
                 ListProps = [];
                 $(':checkbox:checked').each(function (i) {
@@ -147,7 +188,7 @@
 
                 $.ajax({
                     url: '/Users/mgnUser',
-                    data: { user: _muser, prop: SelectedProp },
+                    data: { user: _muser, prop: SelectedProp,idstore:idstore },
                     type: 'post',
                     beforeSend: function () {
                         $(LoadingGift).show();

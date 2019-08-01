@@ -18,6 +18,7 @@ namespace GoharSang.Models
         public Users()
         {
             this.UserRole = new HashSet<UserRole>();
+            this.UserStoreRole = new HashSet<UserStoreRole>();
         }
     
         public long Id { get; set; }
@@ -30,5 +31,7 @@ namespace GoharSang.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserStoreRole> UserStoreRole { get; set; }
     }
 }

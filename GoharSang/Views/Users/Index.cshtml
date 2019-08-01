@@ -24,15 +24,15 @@
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn">نام کاربری</label>
-                    <input type="text" class="form-control textSignIn" id="UserName">
+                    <input type="text" class="form-control" id="UserName">
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn">ایمیل</label>
-                    <input type="text" class="form-control textSignIn" id="Email">
+                    <input type="text" class="form-control" id="Email">
                 </div>
                 <div class="form-group">
                     <label class="labelSignIn txtLeft">کلمه عبور</label>
-                    <input type="password" class="form-control textSignIn" id="Password">
+                    <input type="password" class="form-control" id="Password">
                 </div>
 
                 <label class="labelSignIn margTop2">سطوح دسترسی</label>
@@ -49,7 +49,13 @@
                     }
 
                 </div>
+                <br />
 
+                <div class="row">
+                    <label class="control-label">انبار</label>
+                    <select id="selectStore" class="form-control" style="padding:2px 8px;margin-bottom:10px"></select>
+
+                </div>
 
 
                 <div class="form-group userChDiv">
@@ -91,6 +97,39 @@
 
 @section localscript{
 
+    <script>
+        window.onload = function () {
+            
+                $.ajax({
+                    url: '/RecordEntry/getStore',
+                    data: null,
+                    type: 'post',
+                    beforeSend: function () {
+                        $(LoadingGift).show();
+                    },
+                    success: function (data) {
+
+                        $(LoadingGift).hide();
+
+
+                        var str = "<option value='0'>لطفا موردی را انتخاب نمایید</option>";
+
+
+                        for (var i in data) {
+
+                            str += "<option value=" + data[i].Id + ">" + data[i].Display + "</option>";
+                        }
+                        selectStore.innerHTML = str;
+
+
+                    }
+                });
+
+            
+        }
+    </script>
+
+
 
     <script>
 
@@ -122,6 +161,9 @@
                 _muser.Email = Email.value;
                 _muser.Password = Password.value;
 
+                var idstore = selectStore.value;
+
+
                 SelectedProp = {};
                 ListProps = [];
                 $(':checkbox:checked').each(function (i) {
@@ -137,7 +179,7 @@
 
                 $.ajax({
                     url: '/Users/mgnUser',
-                    data: { user: _muser, prop: SelectedProp },
+                    data: { user: _muser, prop: SelectedProp,idstore:idstore },
                     type: 'post',
                     beforeSend: function () {
                         $(LoadingGift).show();

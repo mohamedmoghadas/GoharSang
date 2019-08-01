@@ -41,5 +41,6 @@ namespace GoharSang.Models
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UserRole> UserRole { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<UserStoreRole> UserStoreRole { get; set; }
     }
 }

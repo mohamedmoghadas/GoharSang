@@ -14,6 +14,8 @@ namespace GoharSang.Models.vmModel
         public List<Role> listrole { get; set; }
         public List<UserRole> userrole { get; set; }
 
+        public List<Store> listStore { get; set; }
+        public List<UserStoreRole> listUserStoreRole { get; set; }
 
     }
 

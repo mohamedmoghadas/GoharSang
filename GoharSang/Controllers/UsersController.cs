@@ -90,12 +90,19 @@ namespace GoharSang.Controllers
                             Users user = db.Users.Find(id);
                             List<Role> listrole = db.Role.ToList();
                             List<UserRole> listuserrole = db.UserRole.ToList();
+                            List<Store> listStore = db.Store.Where(p=>p.StateDelete==0).ToList();
+                            List<UserStoreRole> listUserStoreRole = db.UserStoreRole.ToList();
+
 
 
                             vmlistuser _vmlistuser = new vmlistuser();
                             _vmlistuser.listrole = listrole;
                             _vmlistuser.user = user;
                             _vmlistuser.userrole = listuserrole;
+
+                            _vmlistuser.listStore = listStore;
+                            _vmlistuser.listUserStoreRole = listUserStoreRole;
+
 
 
                             return View(_vmlistuser);
@@ -132,7 +139,7 @@ namespace GoharSang.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> mgnUser(Users user, ItemPropSelect prop)
+        public async Task<ActionResult> mgnUser(Users user, ItemPropSelect prop,long? idstore)
         {
             var pass = CreatHash.HashPass(user.Password);
             if (user.Id == 0)
@@ -145,14 +152,31 @@ namespace GoharSang.Controllers
 
                 List<UserRole> _listprops = new List<UserRole>();
                 UserRole _p = null;
+               
+
+
+                if (idstore!=null && idstore!=0)
+                {
+
+                    UserStoreRole usst = new UserStoreRole();
+                    Store store = db.Store.Find(idstore);
+
+                    usst.IdStore = store.Id;
+
+                    usst.IdUser = user.Id;
+
+                    db.UserStoreRole.Add(usst);
+                    await db.SaveChangesAsync();
+
+                }
 
                 foreach (var item in prop.ListProps)
                 {
                     _p = new UserRole();
                     _p.IdUser = user.Id;
                     _p.IdRole = item.Id;
-
-                    _listprops.Add(_p);
+                   
+                        _listprops.Add(_p);
                 }
                 db.UserRole.AddRange(_listprops);
                 await db.SaveChangesAsync();
