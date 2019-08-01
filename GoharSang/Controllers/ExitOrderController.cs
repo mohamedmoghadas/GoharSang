@@ -24,6 +24,9 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
+
                     if (admin == null)
                     {
 
@@ -31,8 +34,18 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = getRecordEntry();
-                        return View(result);
+                        if (usr.IdRole==5)
+                        {
+                            var result = getRecordEntry();
+                            return View(result);
+                        }
+                       
+                        else
+                        {
+                            return RedirectToAction("AccessDenied", "Error");
+
+
+                        }
                     }
                 }
                 else

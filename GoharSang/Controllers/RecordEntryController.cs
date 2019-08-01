@@ -27,6 +27,8 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
                     if (admin == null)
                     {
 
@@ -34,21 +36,31 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (PageNumber==null)
+                        if (usr.IdRole==3)
                         {
-                            var result = GetExitOrder(1);
-                            ViewBag.PageNumber = 1;
+                            if (PageNumber == null)
+                            {
+                                var result = GetExitOrder(1);
+                                ViewBag.PageNumber = 1;
 
-                            return View(result);
+                                return View(result);
+                            }
+                            else
+                            {
+                                var result = GetExitOrder((int)PageNumber);
+                                ViewBag.PageNumber = (int)PageNumber;
+
+                                return View(result);
+                            }
                         }
                         else
                         {
-                            var result = GetExitOrder((int)PageNumber);
-                            ViewBag.PageNumber = (int)PageNumber;
+                            return RedirectToAction("AccessDenied", "Error");
 
-                            return View(result);
+
                         }
-                        
+
+
                     }
                 }
                 else
@@ -79,6 +91,8 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
                     if (admin == null)
                     {
 
@@ -86,10 +100,18 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = SGetExitOrder(vmr);
-                       
+                        if (usr.IdRole==3)
+                        {
+                            var result = SGetExitOrder(vmr);
+                            return View(result);
+                        }
+                        else
+                        {
+                            return RedirectToAction("AccessDenied", "Error");
 
-                        return View(result);
+
+                        }
+
                     }
                 }
                 else

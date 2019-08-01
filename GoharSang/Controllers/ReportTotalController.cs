@@ -29,6 +29,9 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+
+                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
                     if (admin == null)
                     {
 
@@ -36,22 +39,32 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (PageNumber == null)
+                        if (usr.IdRole == 2)
                         {
-                            var result = GetExitOrder(1);
-                            TempData["data"] = result;
-                            ViewBag.PageNumber = 1;
-                            ViewBag.AllPage = getTotalList();
-                            return View(result);
+                            if (PageNumber == null)
+                            {
+                                var result = GetExitOrder(1);
+                                TempData["data"] = result;
+                                ViewBag.PageNumber = 1;
+                                ViewBag.AllPage = getTotalList();
+                                return View(result);
+                            }
+                            else
+                            {
+                                var result = GetExitOrder((int)PageNumber);
+                                TempData["data"] = result;
+                                ViewBag.PageNumber = (int)PageNumber;
+                                ViewBag.AllPage = getTotalList();
+                                return View(result);
+                            }
                         }
                         else
                         {
-                            var result = GetExitOrder((int)PageNumber);
-                            TempData["data"] = result;
-                            ViewBag.PageNumber = (int)PageNumber;
-                            ViewBag.AllPage = getTotalList();
-                            return View(result);
+                            return RedirectToAction("AccessDenied", "Error");
+
+
                         }
+                        
                     }
                 }
                 else
@@ -126,6 +139,8 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
                     if (admin == null)
                     {
 
@@ -133,10 +148,21 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = SGetExitOrder(vmr);
-                        TempData["data"] = result;
 
-                        return View(result);
+                        if (usr.IdRole == 2)
+                        {
+                            var result = SGetExitOrder(vmr);
+                            TempData["data"] = result;
+
+                            return View(result);
+                        }
+                        else
+                        {
+                            return RedirectToAction("AccessDenied", "Error");
+
+
+                        }
+                      
                     }
                 }
                 else

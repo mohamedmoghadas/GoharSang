@@ -25,6 +25,8 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
                     if (admin == null)
                     {
 
@@ -32,8 +34,18 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = GetListUser();
-                        return View(result);
+                        if (usr.IdRole==4)
+                        {
+                            var result = GetListUser();
+                            return View(result);
+                        }
+                        else
+                        {
+                            return RedirectToAction("AccessDenied", "Error");
+
+
+                        }
+                       
                     }
                 }
                 else
@@ -78,6 +90,8 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
                     if (admin == null)
                     {
 
@@ -87,25 +101,36 @@ namespace GoharSang.Controllers
                     {
                         if (id!=null && id!=0)
                         {
-                            Users user = db.Users.Find(id);
-                            List<Role> listrole = db.Role.ToList();
-                            List<UserRole> listuserrole = db.UserRole.ToList();
-                            List<Store> listStore = db.Store.Where(p=>p.StateDelete==0).ToList();
-                            List<UserStoreRole> listUserStoreRole = db.UserStoreRole.ToList();
+
+                            if (usr.IdRole==4)
+                            {
+                                Users user = db.Users.Find(id);
+                                List<Role> listrole = db.Role.ToList();
+                                List<UserRole> listuserrole = db.UserRole.ToList();
+                                List<Store> listStore = db.Store.Where(p => p.StateDelete == 0).ToList();
+                                List<UserStoreRole> listUserStoreRole = db.UserStoreRole.ToList();
 
 
 
-                            vmlistuser _vmlistuser = new vmlistuser();
-                            _vmlistuser.listrole = listrole;
-                            _vmlistuser.user = user;
-                            _vmlistuser.userrole = listuserrole;
+                                vmlistuser _vmlistuser = new vmlistuser();
+                                _vmlistuser.listrole = listrole;
+                                _vmlistuser.user = user;
+                                _vmlistuser.userrole = listuserrole;
 
-                            _vmlistuser.listStore = listStore;
-                            _vmlistuser.listUserStoreRole = listUserStoreRole;
+                                _vmlistuser.listStore = listStore;
+                                _vmlistuser.listUserStoreRole = listUserStoreRole;
 
 
 
-                            return View(_vmlistuser);
+                                return View(_vmlistuser);
+                            }
+                            else
+                            {
+                                return RedirectToAction("AccessDenied", "Error");
+
+
+                            }
+
                         }
                         else
                         {

@@ -23,6 +23,9 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
+
                     if (admin == null)
                     {
 
@@ -30,8 +33,17 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = GetExitOrder();
-                        return View(result);
+                        if (usr.IdRole == 7)
+                        {
+                            var result = GetExitOrder();
+                            return View(result);
+                        }
+                        else
+                        {
+                            return RedirectToAction("AccessDenied", "Error");
+
+
+                        }
                     }
                 }
                 else
@@ -95,6 +107,9 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+
+                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
                     if (admin == null)
                     {
 
@@ -102,8 +117,18 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = SGetExitOrder( vmr);
-                        return View(result);
+                        if (usr.IdRole==7)
+                        {
+                            var result = SGetExitOrder(vmr);
+                            return View(result);
+                        }
+                        else
+                        {
+                            return RedirectToAction("AccessDenied", "Error");
+
+
+                        }
+
                     }
                 }
                 else

@@ -40,13 +40,16 @@
 
                 <br />
                 <div class="row">
-                    @foreach (var item in Model.listrole)
-                    {
-                        <div class="checkbox checkbox-replace checkbox-primary">
-                            <input type="checkbox" id="@item.Id" value="@item.Id">
-                            <label for="@item.Id"> @item.Name</label>
-                        </div>
-                    }
+                    <div class="col-sm-12">
+                        @foreach (var item in Model.listrole)
+                        {
+                            <div class="checkbox checkbox-replace checkbox-primary">
+                                <input type="checkbox" id="@item.Id" value="@item.Id">
+                                <label for="@item.Id"> @item.Name</label>
+                            </div>
+                        }
+                    </div>
+                    
 
                 </div>
                 <br />

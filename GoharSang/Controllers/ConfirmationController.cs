@@ -25,6 +25,8 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
                     if (admin == null)
                     {
 
@@ -32,8 +34,17 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = GetExitOrder();
-                        return View(result);
+                        if (usr.IdRole == 6)
+                        {
+                            var result = GetExitOrder();
+                            return View(result);
+                        }
+                        else
+                        {
+                            return RedirectToAction("AccessDenied", "Error");
+
+                        }
+
                     }
                 }
                 else
@@ -52,29 +63,71 @@ namespace GoharSang.Controllers
         }
         private object GetExitOrder()
         {
+            string UserIdcookie = "";
+
+            UserIdcookie = Request.Cookies["UserId"].Value;
+            string _Id = UserIdcookie;
+            long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+            Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+            UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+            UserStoreRole UserStoreRole = db.UserStoreRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
+            if (usr.IdRole == 8)
+            {
+                var lists = db.Exitorder.Where(p => p.StateDelete == 0)
+             .ToList()
+             .Select(p => new listRecordEntryExitOrder
+             {
+                 Id = p.Id,
+                 CustomerFullName = p.CustomerFullName,
+                 Uploaddate = clsPersianDate.MiladiToShamsi(p.Uploaddate),
+
+                 StoreName = p.Store.Name,
+                 stateName = p.State.Name,
+                 RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count()
+             }).ToList();
 
 
-            var lists = db.Exitorder.Where(p => p.StateDelete == 0)
-                .ToList()
-                .Select(p => new listRecordEntryExitOrder
-                {
-                    Id = p.Id,
-                    CustomerFullName = p.CustomerFullName,
-                    Uploaddate = clsPersianDate.MiladiToShamsi(p.Uploaddate),
-
-                    StoreName = p.Store.Name,
-                    stateName = p.State.Name,
-                    RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count()
-                }).ToList();
 
 
-          
+
+                vmReportBargirt _vmReportBargirt = new vmReportBargirt();
+                _vmReportBargirt.list = lists;
+
+                return _vmReportBargirt;
+            }
+            else
+            {
+                var lists = db.Exitorder.Where(p => p.StateDelete == 0 && p.IdStore == UserStoreRole.IdStore)
+            .ToList()
+            .Select(p => new listRecordEntryExitOrder
+            {
+                Id = p.Id,
+                CustomerFullName = p.CustomerFullName,
+                Uploaddate = clsPersianDate.MiladiToShamsi(p.Uploaddate),
+
+                StoreName = p.Store.Name,
+                stateName = p.State.Name,
+                RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count()
+            }).ToList();
 
 
-            vmReportBargirt _vmReportBargirt = new vmReportBargirt();
-            _vmReportBargirt.list = lists;
 
-            return _vmReportBargirt;
+
+
+                vmReportBargirt _vmReportBargirt = new vmReportBargirt();
+                _vmReportBargirt.list = lists;
+
+                return _vmReportBargirt;
+            }
+
+
+
+
+
+
+
+
         }
 
 
@@ -91,6 +144,9 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+
+
                     if (admin == null)
                     {
 
@@ -98,8 +154,17 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = SGetExitOrder(vmr);
-                        return View(result);
+                        if (usr.IdRole == 6)
+                        {
+                            var result = SGetExitOrder(vmr);
+                            return View(result);
+                        }
+                        else
+                        {
+                            return RedirectToAction("AccessDenied", "Error");
+
+                        }
+
                     }
                 }
                 else
@@ -118,9 +183,19 @@ namespace GoharSang.Controllers
         }
         private object SGetExitOrder(listRecordEntryExitOrder vmr)
         {
+            string UserIdcookie = "";
 
+            UserIdcookie = Request.Cookies["UserId"].Value;
+            string _Id = UserIdcookie;
+            long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+            Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+            UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+            UserStoreRole UserStoreRole = db.UserStoreRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
 
-            var lists = db.Exitorder.Where(p => p.StateDelete == 0)
+            if (usr.IdRole == 8)
+            {
+
+                var lists = db.Exitorder.Where(p => p.StateDelete == 0)
                  .ToList()
                  .Select(p => new listRecordEntryExitOrder
                  {
@@ -133,34 +208,79 @@ namespace GoharSang.Controllers
                      RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count()
                  }).ToList();
 
-            if (vmr.Uploaddate != "" || vmr.Uploaddate != null)
+                if (vmr.Uploaddate != "" || vmr.Uploaddate != null)
+                {
+                    lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
+                }
+
+                if (vmr.CustomerFullName != null)
+                {
+                    lists = lists.Where(p => p.CustomerFullName.Contains(vmr.CustomerFullName)).ToList();
+                }
+                if (vmr.StoreName != null)
+                {
+                    lists = lists.Where(p => p.StoreName.Contains(vmr.StoreName)).ToList();
+                }
+
+                if (vmr.RecordEntryExitOrderCount != 0)
+                {
+                    lists = lists.Where(p => p.RecordEntryExitOrderCount == vmr.RecordEntryExitOrderCount).ToList();
+                }
+                if (vmr.stateName != null)
+                {
+                    lists = lists.Where(p => p.stateName.Contains(vmr.stateName)).ToList();
+                }
+
+                vmReportBargirt _vmReportBargirt = new vmReportBargirt();
+                _vmReportBargirt.list = lists;
+
+                return _vmReportBargirt;
+            }
+            else
             {
-                lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
+                var lists = db.Exitorder.Where(p => p.StateDelete == 0 && p.IdStore == UserStoreRole.IdStore)
+                .ToList()
+                .Select(p => new listRecordEntryExitOrder
+                {
+                    Id = p.Id,
+                    CustomerFullName = p.CustomerFullName,
+                    Uploaddate = clsPersianDate.MiladiToShamsi(p.Uploaddate),
+
+                    StoreName = p.Store.Name,
+                    stateName = p.State.Name,
+                    RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count()
+                }).ToList();
+
+                if (vmr.Uploaddate != "" || vmr.Uploaddate != null)
+                {
+                    lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
+                }
+
+                if (vmr.CustomerFullName != null)
+                {
+                    lists = lists.Where(p => p.CustomerFullName.Contains(vmr.CustomerFullName)).ToList();
+                }
+                if (vmr.StoreName != null)
+                {
+                    lists = lists.Where(p => p.StoreName.Contains(vmr.StoreName)).ToList();
+                }
+
+                if (vmr.RecordEntryExitOrderCount != 0)
+                {
+                    lists = lists.Where(p => p.RecordEntryExitOrderCount == vmr.RecordEntryExitOrderCount).ToList();
+                }
+                if (vmr.stateName != null)
+                {
+                    lists = lists.Where(p => p.stateName.Contains(vmr.stateName)).ToList();
+                }
+
+                vmReportBargirt _vmReportBargirt = new vmReportBargirt();
+                _vmReportBargirt.list = lists;
+
+                return _vmReportBargirt;
             }
 
-            if (vmr.CustomerFullName != null)
-            {
-                lists = lists.Where(p => p.CustomerFullName.Contains(vmr.CustomerFullName)).ToList();
             }
-            if (vmr.StoreName != null)
-            {
-                lists = lists.Where(p => p.StoreName.Contains(vmr.StoreName)).ToList();
-            }
-          
-            if (vmr.RecordEntryExitOrderCount != 0)
-            {
-                lists = lists.Where(p => p.RecordEntryExitOrderCount == vmr.RecordEntryExitOrderCount).ToList();
-            }
-            if (vmr.stateName != null)
-            {
-                lists = lists.Where(p => p.stateName.Contains(vmr.stateName)).ToList();
-            }
-
-            vmReportBargirt _vmReportBargirt = new vmReportBargirt();
-            _vmReportBargirt.list = lists;
-
-            return _vmReportBargirt;
-        }
 
 
 

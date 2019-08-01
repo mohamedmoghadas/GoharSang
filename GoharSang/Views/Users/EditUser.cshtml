@@ -40,71 +40,73 @@
 
                 <br />
                 <div class="row">
-                    @foreach (var item in Model.listrole)
-                    {
-                        if (item.UserRole.Where(p => p.IdUser == Model.user.Id).Any())
+                    <div class="col-sm-12">
+                        @foreach (var item in Model.listrole)
                         {
-                            <div class="checkbox checkbox-replace checkbox-primary">
-                                <input type="checkbox" id="@item.Id" value="@item.Id" checked>
-                                <label for="@item.Id"> @item.Name</label>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="checkbox checkbox-replace checkbox-primary">
-                                <input type="checkbox" id="@item.Id" value="@item.Id">
-                                <label for="@item.Id"> @item.Name</label>
-                            </div>
-                        }
-
-
-
-                    }
-
-
-
-                </div>
-
-                <div class="row">
-                    <label class="control-label">انبار</label>
-                    <select id="selectStore" class="form-control" style="padding:2px 8px;margin-bottom:10px">
-                        @{
-                            var Exist = Model.listUserStoreRole.Where(p => p.IdUser == Model.user.Id).FirstOrDefault();
-                            if (Exist != null)
+                            if (item.UserRole.Where(p => p.IdUser == Model.user.Id).Any())
                             {
-                                <option value="@Exist.Store.Id">@Exist.Store.Name</option>
-
-                                foreach (var item in Model.listStore)
-                                {
-                                    if (item.Id==Exist.IdStore)
-                                    {
-                                        continue;
-                                    }
-                                    else
-                                    {
-
-                                    <option value="@item.Id">@item.Name</option>
-                                    }
-                                }
+                                <div class="checkbox checkbox-replace checkbox-primary">
+                                    <input type="checkbox" id="@item.Id" value="@item.Id" checked>
+                                    <label for="@item.Id"> @item.Name</label>
+                                </div>
                             }
                             else
                             {
-                                <option value="0">لطفا موردی را انتخاب کنید</option>
+                                <div class="checkbox checkbox-replace checkbox-primary">
+                                    <input type="checkbox" id="@item.Id" value="@item.Id">
+                                    <label for="@item.Id"> @item.Name</label>
+                                </div>
+                            }
 
-                                foreach (var item in Model.listStore)
+
+
+                        }
+
+                    </div>
+
+
+                </div>
+
+                    <div class="row">
+                        <label class="control-label">انبار</label>
+                        <select id="selectStore" class="form-control" style="padding:2px 8px;margin-bottom:10px">
+                            @{
+                                var Exist = Model.listUserStoreRole.Where(p => p.IdUser == Model.user.Id).FirstOrDefault();
+                                if (Exist != null)
                                 {
-                                    <option value="@item.Id">@item.Name</option>
+                                    <option value="@Exist.Store.Id">@Exist.Store.Name</option>
+
+                                    foreach (var item in Model.listStore)
+                                    {
+                                        if (item.Id == Exist.IdStore)
+                                        {
+                                            continue;
+                                        }
+                                        else
+                                        {
+
+                                            <option value="@item.Id">@item.Name</option>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="0">لطفا موردی را انتخاب کنید</option>
+
+                                    foreach (var item in Model.listStore)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
                                 }
                             }
-                        }
-                    </select>
-                </div>
-                
+                        </select>
+                    </div>
 
-                <div class="form-group userChDiv">
-                    <button class="btn btn-primary saveButton" onclick="mgnUser()">ذخیره</button>
+
+                    <div class="form-group userChDiv">
+                        <button class="btn btn-primary saveButton" onclick="mgnUser()">ذخیره</button>
+                    </div>
                 </div>
-            </div>
         </div>
         <div class="col-sm-6 divCo12">
             <label class="listLable">لیست کاربران</label>
