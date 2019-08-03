@@ -155,7 +155,14 @@
 
 @section localscript{
 
+    <script>
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                BtnExitOrder();
 
+            }
+        });
+    </script>
 
     <script>
         window.onload = load();
@@ -213,6 +220,8 @@
 
 
     <script>
+        var State = false;
+
         function BtnExitOrder() {
 
 
@@ -224,7 +233,11 @@
             }
 
             else {
-                _ExitOrder.CustomerFullName = CustomerName.value;
+
+                if (State == false) {
+                    State = true;
+
+                    _ExitOrder.CustomerFullName = CustomerName.value;
                 _ExitOrder.IdStore = SelectStore.value;
 
                 var DateLoad = dateLoad.value;
@@ -251,7 +264,7 @@
                     },
 
                     success: function (data) {
-
+                        State = false;
                         $(LoadingGift).hide();
 
 
@@ -264,6 +277,9 @@
                         });
                     }
                 });
+                }
+
+                
             }
 
 

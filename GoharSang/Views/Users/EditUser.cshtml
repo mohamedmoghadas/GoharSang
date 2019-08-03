@@ -76,7 +76,7 @@
 
                 <div class="row">
                     <label class="control-label">انبار</label>
-                    
+
 
                     <select id="selectStore" class="select2-placeholer form-control" style="padding:2px 8px;margin-bottom:10px">
                         @{
@@ -181,7 +181,14 @@
     <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
     <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
 
+    <script>
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                mgnUser();
 
+            }
+        });
+    </script>
 
     <script>
 
@@ -198,7 +205,7 @@
     </script>
 
     <script>
-
+        var State = false;
         function mgnUser() {
             if (FullName.value == "" || UserName.value == "" || Email.value == "" || Password.value == "") {
                 AlertInAjax("تمامی اطلاعات را وارد نمایید", modalAlertInAjax, "alert-danger");
@@ -208,7 +215,10 @@
             }
 
             else {
-                _muser.Id=@Model.user.Id;
+                if (State == false) {
+                    State = true;
+
+                     _muser.Id=@Model.user.Id;
                 _muser.FullName = FullName.value;
                 _muser.UserName = UserName.value;
                 _muser.Email = Email.value;
@@ -240,7 +250,7 @@
                     },
 
                     success: function (data) {
-
+                        State = false;
                         $(LoadingGift).hide();
 
 
@@ -253,6 +263,8 @@
                         });
                     }
                 });
+                }
+               
             }
         }
 

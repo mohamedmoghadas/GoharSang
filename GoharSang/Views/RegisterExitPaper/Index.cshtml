@@ -116,6 +116,16 @@
 
 @section localscript{
 
+
+    <script>
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                Save();
+
+            }
+        });
+    </script>
+
     <script>
 
         function driver(Id, DriverName, mayorNumber, Mobile, LicenceNumber, InteligentNumber, DriverType, Destination, ImPureWeight, PureWeight, TruckWeight) {
@@ -137,10 +147,14 @@
     </script>
 
     <script>
+        var State = false;
         function Save() {
 
+            if (State == false) {
+                State = true;
 
-            _driver.DriverName = driverName.value;
+
+                  _driver.DriverName = driverName.value;
             _driver.mayorNumber = mayorNumber.value;
             _driver.Mobile = mobile.value;
             _driver.LicenceNumber = LicencNumber.value;
@@ -177,6 +191,8 @@
 
                 success: function (data) {
 
+                    State = false;
+
                     $(LoadingGift).hide();
 
 
@@ -189,6 +205,9 @@
                     });
                 }
             });
+            }
+
+          
 
 
 

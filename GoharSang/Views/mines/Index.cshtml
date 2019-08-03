@@ -39,7 +39,14 @@
 </div>
 
 @section localscript{
+    <script>
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                mgndata();
 
+            }
+        });
+    </script>
 
     <script>
 
@@ -154,84 +161,84 @@
                     _mdata.Name = Name.value;
 
                     if (_mdata.Id != 0) {
-                         $.ajax({
-                        url: '/mines/mgndata',
-                        data: { _mdata: _mdata },
-                        type: 'post',
-                        beforeSend: function () {
-                            $(LoadingGift).show();
-                        },
-                        error: function (data) {
-                            $(LoadingGift).hide();
+                        $.ajax({
+                            url: '/mines/mgndata',
+                            data: { _mdata: _mdata },
+                            type: 'post',
+                            beforeSend: function () {
+                                $(LoadingGift).show();
+                            },
+                            error: function (data) {
+                                $(LoadingGift).hide();
                                 State = false;
 
-                            if (data.status == 510) {
-                                AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
+                                if (data.status == 510) {
+                                    AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
+                                    $(modalAlertInAjax).modal("show");
+
+                                    return;
+                                }
+                            },
+                            success: function (data) {
+
+
+                                $(LoadingGift).hide();
+
+                                AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                                _mdata.Id = 0;
+                                Name.value = "";
                                 $(modalAlertInAjax).modal("show");
+                                setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                                $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                                    GetData();
 
-                                return;
+                                });
                             }
-                        },
-                        success: function (data) {
-
-
-                            $(LoadingGift).hide();
-
-                            AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
-                            _mdata.Id = 0;
-                            Name.value = "";
-                            $(modalAlertInAjax).modal("show");
-                            setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
-                            $(modalAlertInAjax).on("hidden.bs.modal", function () {
-                                GetData();
-
-                            });
-                        }
-                    });
+                        });
                     }
                     else {
                         $.ajax({
-                        url: '/mines/mgndata',
-                        data: { _mdata: _mdata },
-                        type: 'post',
-                        beforeSend: function () {
-                            $(LoadingGift).show();
-                        },
-                        error: function (data) {
-                            $(LoadingGift).hide();
+                            url: '/mines/mgndata',
+                            data: { _mdata: _mdata },
+                            type: 'post',
+                            beforeSend: function () {
+                                $(LoadingGift).show();
+                            },
+                            error: function (data) {
+                                $(LoadingGift).hide();
                                 State = false;
 
-                            if (data.status == 510) {
-                                AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
+                                if (data.status == 510) {
+                                    AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
+                                    $(modalAlertInAjax).modal("show");
+
+                                    return;
+                                }
+                            },
+                            success: function (data) {
+
+
+                                $(LoadingGift).hide();
+
+                                AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                                _mdata.Id = 0;
+                                Name.value = "";
                                 $(modalAlertInAjax).modal("show");
+                                setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                                $(modalAlertInAjax).on("hidden.bs.modal", function () {
 
-                                return;
-                            }
-                        },
-                        success: function (data) {
-
-
-                            $(LoadingGift).hide();
-
-                            AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
-                            _mdata.Id = 0;
-                            Name.value = "";
-                            $(modalAlertInAjax).modal("show");
-                            setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
-                            $(modalAlertInAjax).on("hidden.bs.modal", function () {
-                               
-                                  var str = "<tr>";
+                                    var str = "<tr>";
                                     str += '<td>' + data.Name + '</td>';
                                     str += '<td><button onclick="Removedata(' + data.Id + ')" class="btn btn-danger fa fa-trash"></button><button onclick="Editdata(' + data.Id + ')"   class="btn btn-primary fa fa-pencil"></button></td>';
                                     str += '</tr>';
 
                                     $(tbody).append(str);
-                            });
-                        }
-                    });
+                                });
+                            }
+                        });
                     }
 
-                   
+
                 }
 
 

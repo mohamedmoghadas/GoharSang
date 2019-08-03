@@ -166,7 +166,14 @@
 
 @section localscript{
 
+    <script>
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                BtnRegisterCopeReserve();
 
+            }
+        });
+    </script>
 
     <script>
         window.onload = load();
@@ -224,6 +231,8 @@
 
 
     <script>
+        var State = false;
+
         function BtnRegisterCopeReserve() {
 
 
@@ -235,7 +244,10 @@
             }
 
             else {
-                _RegisterCopeReserve.CustomerFullName = CustomerName.value;
+                if (State == false) {
+                    State = true;
+
+                    _RegisterCopeReserve.CustomerFullName = CustomerName.value;
                 _RegisterCopeReserve.IdStore = SelectStore.value;
 
                 var DateLoad = dateLoad.value;
@@ -263,8 +275,8 @@
 
                     success: function (data) {
 
+                        State = false;
                         $(LoadingGift).hide();
-
 
                         AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
                         $(modalAlertInAjax).modal("show");
@@ -275,6 +287,9 @@
                         });
                     }
                 });
+
+                }
+                
             }
 
 
@@ -292,14 +307,6 @@
             });
         });
     </script>
-    
-    @*<script src="~/Script/Pagination/JavaScript.js"></script>
-    <script>
-        $(document).ready(function () {
-            Paging();
-        });
-        
 
-    </script>*@
-    
+
 }

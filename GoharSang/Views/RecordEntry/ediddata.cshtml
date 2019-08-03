@@ -198,7 +198,7 @@
                         <label>ساعت</label>
                     </div>
                     <div class="col-sm-4 col-8">
-                        <input type="time" id="time" class="form-control">
+                        <input type="time" id="time" class="form-control" value=" @DateTime.Now.TimeOfDay.Minutes : @DateTime.Now.TimeOfDay.Hours @DateTime.Now.AddHours(24).ToString("tt", System.Globalization.CultureInfo.CreateSpecificCulture("fa-IR"))">
                     </div>
                 </div>
                 <div class="row margTop1">
@@ -250,6 +250,14 @@
     <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
     <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
 
+    <script>
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                BtnRecordEntry();
+
+            }
+        });
+    </script>
 
     <script>
         $(document).ready(function () {
@@ -375,9 +383,6 @@
     <script>
 
         var StateRegister = false;
-
-
-
 
 
         function BtnRecordEntry() {

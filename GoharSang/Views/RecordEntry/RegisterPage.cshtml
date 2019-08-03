@@ -152,7 +152,7 @@
                                 <img id="img2" class="rounded entryImg">
                             </div>
                             <div class="col-3">
-                                <img id="img3" src="images/mine.jpg" class="rounded entryImg">
+                                <img id="img3" class="rounded entryImg">
                             </div>
                             <div class="col-3">
                                 <img id="img4" class="rounded entryImg">
@@ -167,7 +167,7 @@
                         <label>ساعت</label>
                     </div>
                     <div class="col-sm-4 col-8">
-                        <input type="time" id="time" class="form-control">
+                        <input id="time" class="form-control" value=" @DateTime.Now.TimeOfDay.Minutes : @DateTime.Now.TimeOfDay.Hours @DateTime.Now.AddHours(24).ToString("tt", System.Globalization.CultureInfo.CreateSpecificCulture("fa-IR"))">
                     </div>
                 </div>
                 <div class="row margTop1">
@@ -220,11 +220,18 @@
     <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
     <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
 
+    <script>
+        $(document).keyup(function (event) {
+            if (event.keyCode == 13) {
+                BtnRecordEntry();
 
+            }
+        });
+    </script>
     <script>
         $(document).ready(function () {
 
-            
+
             $(".select2").select2();
             $(".select2-placeholer").select2({
                 allowClear: true
@@ -422,7 +429,7 @@
 
                         },
                         error: function (data) {
-                                State = false;
+                            State = false;
 
                             $(LoadingGift).hide();
 
