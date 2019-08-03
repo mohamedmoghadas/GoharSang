@@ -71,7 +71,7 @@
         <div class="col dailyLDiv">
             <a class="btn btn-primary d-block dailyBtnTop" href="~/Home/Index" role="button">صفحه اصلی</a>
             <br>
-           
+
             <div class="table-responsive-sm">
                 <table class="table table-info table-striped dailyTable">
 
@@ -179,7 +179,15 @@
                 beforeSend: function () {
                     $(LoadingGift).show();
                 },
+                error: function (data) {
+                    $(LoadingGift).hide();
+                    if (data.status == 513) {
+                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
 
+                        $(modalAlertInAjax).modal("show");
+                    }
+
+                },
                 success: function (data) {
 
 
@@ -214,7 +222,15 @@
                 beforeSend: function () {
                     $(LoadingGift).show();
                 },
+                error: function (data) {
+                    $(LoadingGift).hide();
+                    if (data.status == 513) {
+                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
 
+                        $(modalAlertInAjax).modal("show");
+                    }
+
+                },
                 success: function (data) {
 
 
@@ -251,7 +267,15 @@
                 beforeSend: function () {
                     $(LoadingGift).show();
                 },
+                error: function (data) {
+                    $(LoadingGift).hide();
+                    if (data.status == 513) {
+                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
 
+                        $(modalAlertInAjax).modal("show");
+                    }
+
+                },
                 success: function (data) {
 
 

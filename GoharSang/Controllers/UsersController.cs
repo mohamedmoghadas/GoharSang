@@ -25,7 +25,7 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+                    List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
 
                     if (admin == null)
                     {
@@ -34,7 +34,7 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.IdRole==4)
+                        if (usr.Where(p=>p.IdRole ==4).Any())
                         {
                             var result = GetListUser();
                             return View(result);
@@ -90,7 +90,7 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+                    List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
 
                     if (admin == null)
                     {
@@ -102,7 +102,7 @@ namespace GoharSang.Controllers
                         if (id!=null && id!=0)
                         {
 
-                            if (usr.IdRole==4)
+                            if (usr.Where(p=>p.IdRole ==4).Any())
                             {
                                 Users user = db.Users.Find(id);
                                 List<Role> listrole = db.Role.ToList();

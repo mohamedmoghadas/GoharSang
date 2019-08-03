@@ -30,7 +30,7 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+                    List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
 
                     if (admin == null)
                     {
@@ -39,7 +39,7 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.IdRole==2)
+                        if (usr.Where(p=>p.IdRole ==2).Any())
                         {
                             if (PageNumber == null)
                             {
@@ -103,7 +103,7 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+                    List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
 
                     if (admin == null)
                     {
@@ -112,7 +112,7 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.IdRole==2)
+                        if (usr.Where(p=>p.IdRole ==2).Any())
                         {
                             var result = SGetExitOrder(vmr);
                             TempData["data"] = result;

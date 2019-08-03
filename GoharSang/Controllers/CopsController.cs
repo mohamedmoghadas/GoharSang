@@ -22,7 +22,7 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+                    List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
 
 
                     if (admin == null)
@@ -32,7 +32,7 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.IdRole == 1)
+                        if (usr.Where(p=>p.IdRole == 1).Any())
                         {
                             return View();
 
@@ -107,7 +107,8 @@ namespace GoharSang.Controllers
                 _mdata.StateDelete = 0;
                 db.Cops.Add(_mdata);
                 await db.SaveChangesAsync();
-                return Json("Ok", JsonRequestBehavior.AllowGet);
+                
+                return Json(_mdata, JsonRequestBehavior.AllowGet);
             }
             else
             {

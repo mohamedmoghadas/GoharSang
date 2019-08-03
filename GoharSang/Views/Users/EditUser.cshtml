@@ -40,73 +40,82 @@
 
                 <br />
                 <div class="row">
-                    <div class="col-sm-12">
-                        @foreach (var item in Model.listrole)
+
+                    @foreach (var item in Model.listrole)
+                    {
+                        if (item.UserRole.Where(p => p.IdUser == Model.user.Id).Any())
                         {
-                            if (item.UserRole.Where(p => p.IdUser == Model.user.Id).Any())
-                            {
+                            <div class="col-sm-3">
                                 <div class="checkbox checkbox-replace checkbox-primary">
                                     <input type="checkbox" id="@item.Id" value="@item.Id" checked>
                                     <label for="@item.Id"> @item.Name</label>
                                 </div>
-                            }
-                            else
-                            {
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="col-sm-3">
+
                                 <div class="checkbox checkbox-replace checkbox-primary">
                                     <input type="checkbox" id="@item.Id" value="@item.Id">
                                     <label for="@item.Id"> @item.Name</label>
                                 </div>
-                            }
-
-
+                            </div>
 
                         }
 
-                    </div>
+
+
+                    }
+
+
 
 
                 </div>
 
-                    <div class="row">
-                        <label class="control-label">انبار</label>
-                        <select id="selectStore" class="form-control" style="padding:2px 8px;margin-bottom:10px">
-                            @{
-                                var Exist = Model.listUserStoreRole.Where(p => p.IdUser == Model.user.Id).FirstOrDefault();
-                                if (Exist != null)
+                <div class="row">
+                    <label class="control-label">انبار</label>
+                    
+
+                    <select id="selectStore" class="select2-placeholer form-control" style="padding:2px 8px;margin-bottom:10px">
+                        @{
+                            var Exist = Model.listUserStoreRole.Where(p => p.IdUser == Model.user.Id).FirstOrDefault();
+                            if (Exist != null)
+                            {
+                                <option value="@Exist.Store.Id">@Exist.Store.Name</option>
+
+                                foreach (var item in Model.listStore)
                                 {
-                                    <option value="@Exist.Store.Id">@Exist.Store.Name</option>
-
-                                    foreach (var item in Model.listStore)
+                                    if (item.Id == Exist.IdStore)
                                     {
-                                        if (item.Id == Exist.IdStore)
-                                        {
-                                            continue;
-                                        }
-                                        else
-                                        {
-
-                                            <option value="@item.Id">@item.Name</option>
-                                        }
+                                        continue;
                                     }
-                                }
-                                else
-                                {
-                                    <option value="0">لطفا موردی را انتخاب کنید</option>
-
-                                    foreach (var item in Model.listStore)
+                                    else
                                     {
+
                                         <option value="@item.Id">@item.Name</option>
                                     }
                                 }
                             }
-                        </select>
-                    </div>
+                            else
+                            {
+                                <option value="0">لطفا موردی را انتخاب کنید</option>
 
-
-                    <div class="form-group userChDiv">
-                        <button class="btn btn-primary saveButton" onclick="mgnUser()">ذخیره</button>
-                    </div>
+                                foreach (var item in Model.listStore)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+                        }
+                    </select>
                 </div>
+
+
+                <div class="form-group userChDiv">
+                    <button class="btn btn-primary saveButton" onclick="mgnUser()">ذخیره</button>
+                </div>
+            </div>
         </div>
         <div class="col-sm-6 divCo12">
             <label class="listLable">لیست کاربران</label>
@@ -136,8 +145,42 @@
 
 @section localscript{
 
+    <link href="~/js/Resource/css/entypo.css" rel="stylesheet">
+    <link href="~/js/Resource/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/css3-animate-it-plugin/animations.css" rel="stylesheet">
+    <link href="~/js/Resource/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/js/Resource/css/mouldifi-core.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/datepicker/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/colorpicker/bootstrap-colorpicker.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/nouislider/nouislider.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/select2/select2.css" rel="stylesheet">
+    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet">
+    <link href="~/js/Resource/css/bootstrap-rtl.min.css" rel="stylesheet">
+    <link href="~/js/Resource/css/mouldifi-rtl-core.css" rel="stylesheet">
 
-   
+
+
+    <link href="~/js/Resource/css/plugins/colorpicker/bootstrap-colorpicker.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/nouislider/nouislider.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/select2/select2.css" rel="stylesheet">
+    <script src="~/js/Resource/js/jquery.min.js"></script>
+    <script src="~/js/Resource/js/bootstrap.min.js"></script>
+    <script src="~/js/Resource/js/plugins/select2/select2.full.min.js"></script>
+    <script src="~/js/Resource/js/plugins/css3-animate-it-plugin/css3-animate-it.js"></script>
+    <script src="~/js/Resource/js/bootstrap.min.js"></script>
+    <script src="~/js/Resource/js/plugins/metismenu/jquery.metisMenu.js"></script>
+    <script src="~/js/Resource/js/plugins/blockui-master/jquery-ui.js"></script>
+    <script src="~/js/Resource/js/plugins/blockui-master/jquery.blockUI.js"></script>
+    <script src="~/js/Resource/js/plugins/nouislider/nouislider.min.js"></script>
+    <script src="~/js/Resource/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <script src="~/js/Resource/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <script src="~/js/Resource/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <link href="c~/js/Resource/ss/plugins/pdatepicker/css/daterangepicker.css" rel="stylesheet" />
+    <link href="c~/js/Resource/ss/plugins/pdatepicker/css/datepicker-theme.css" rel="stylesheet" />
+    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment.min.js"></script>
+    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
+    <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
+
 
 
     <script>

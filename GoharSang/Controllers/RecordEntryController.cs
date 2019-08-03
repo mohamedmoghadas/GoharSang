@@ -27,7 +27,7 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+                    List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
 
                     if (admin == null)
                     {
@@ -36,7 +36,7 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.IdRole==3)
+                        if (usr.Where(p=>p.IdRole ==3).Any())
                         {
                             if (PageNumber == null)
                             {
@@ -91,7 +91,7 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+                    List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
 
                     if (admin == null)
                     {
@@ -100,7 +100,7 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.IdRole==3)
+                        if (usr.Where(p=>p.IdRole ==3).Any())
                         {
                             var result = SGetExitOrder(vmr);
                             return View(result);

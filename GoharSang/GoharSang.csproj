@@ -261,7 +261,6 @@
       <LastGenOutput>GoharSang.cs</LastGenOutput>
     </Content>
     <Content Include="Script\jsShowPic\jsShowPic.js" />
-    <Content Include="Script\loading\ajax-loader.gif" />
     <Content Include="Script\modalmessag\jsAlert.js" />
     <Content Include="Script\Pagination\pagination.js" />
     <Content Include="Script\Pagination\Pgination.css" />

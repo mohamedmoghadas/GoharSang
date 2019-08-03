@@ -140,7 +140,7 @@
 
 
     <script>
-
+        var State = false;
         function mgndata() {
             if (Name.value == 0) {
                 AlertInAjax("تمامی اطلاعات را وارد نمایید", modalAlertInAjax, "alert-danger");
@@ -150,42 +150,93 @@
             }
             else {
 
+                if (State == false) {
+                    State = true;
 
-                _mdata.Name = Name.value;
+                    _mdata.Name = Name.value;
+                    if (_mdata.Id != 0) {
+                        $.ajax({
+                            url: '/Cops/mgndata',
+                            data: { _mdata: _mdata },
+                            type: 'post',
+                            beforeSend: function () {
+                                $(LoadingGift).show();
+                            },
+                            error: function (data) {
+                                $(LoadingGift).hide();
+                                State = false;
+
+                                if (data.status == 510) {
+                                    AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
+                                    $(modalAlertInAjax).modal("show");
+
+                                    return;
+                                }
+                            },
+                            success: function (data) {
+                                State = false;
 
 
-                $.ajax({
-                    url: '/Cops/mgndata',
-                    data: { _mdata: _mdata },
-                    type: 'post',
-                    beforeSend: function () {
-                        $(LoadingGift).show();
-                    },
-                    error: function (data) {
-                        $(LoadingGift).hide();
-                        if (data.status == 510) {
-                            AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
-                            $(modalAlertInAjax).modal("show");
+                                $(LoadingGift).hide();
 
-                            return;
-                        }
-                    },
-                    success: function (data) {
+                                AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                                _mdata.Id = 0;
+                                Name.value = "";
+                                $(modalAlertInAjax).modal("show");
+                                setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                                $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                                    GetData();
 
-
-                        $(LoadingGift).hide();
-
-                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
-                        _mdata.Id = 0;
-                        Name.value = "";
-                        $(modalAlertInAjax).modal("show");
-                        setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
-                        $(modalAlertInAjax).on("hidden.bs.modal", function () {
-                            GetData();
-
+                                });
+                            }
                         });
                     }
-                });
+                    else {
+                        $.ajax({
+                            url: '/Cops/mgndata',
+                            data: { _mdata: _mdata },
+                            type: 'post',
+                            beforeSend: function () {
+                                $(LoadingGift).show();
+                            },
+                            error: function (data) {
+                                $(LoadingGift).hide();
+                                State = false;
+                                if (data.status == 510) {
+                                    AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
+                                    $(modalAlertInAjax).modal("show");
+
+                                    return;
+                                }
+                            },
+                            success: function (data) {
+                                State = false;
+
+
+                                $(LoadingGift).hide();
+
+                                AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                                _mdata.Id = 0;
+                                Name.value = "";
+                                $(modalAlertInAjax).modal("show");
+                                setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                                $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                                    // GetData();
+
+
+                                    var str = "<tr>";
+                                    str += '<td>' + data.Name + '</td>';
+                                    str += '<td><button onclick="Removedata(' + data.Id + ')" class="btn btn-danger fa fa-trash"></button><button onclick="Editdata(' + data.Id + ')"   class="btn btn-primary fa fa-pencil"></button></td>';
+                                    str += '</tr>';
+
+                                    $(tbody).append(str);
+                                });
+                            }
+                        });
+                    }
+
+                }
+
 
             }
         }

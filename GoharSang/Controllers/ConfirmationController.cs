@@ -25,7 +25,7 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+                    //List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
 
                     if (admin == null)
                     {
@@ -34,16 +34,10 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.IdRole == 6)
-                        {
+                       
                             var result = GetExitOrder();
                             return View(result);
-                        }
-                        else
-                        {
-                            return RedirectToAction("AccessDenied", "Error");
-
-                        }
+                       
 
                     }
                 }
@@ -69,10 +63,10 @@ namespace GoharSang.Controllers
             string _Id = UserIdcookie;
             long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
             Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-            UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+            List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
             UserStoreRole UserStoreRole = db.UserStoreRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
 
-            if (usr.IdRole == 8)
+            if (usr.Where(p=>p.IdRole == 8).Any())
             {
                 var lists = db.Exitorder.Where(p => p.StateDelete == 0)
              .ToList()
@@ -144,7 +138,7 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-                    UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+                 //   List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
 
 
                     if (admin == null)
@@ -154,16 +148,13 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.IdRole == 6)
-                        {
+                       
                             var result = SGetExitOrder(vmr);
                             return View(result);
-                        }
-                        else
-                        {
+                       
                             return RedirectToAction("AccessDenied", "Error");
 
-                        }
+                        
 
                     }
                 }
@@ -189,10 +180,10 @@ namespace GoharSang.Controllers
             string _Id = UserIdcookie;
             long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
             Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-            UserRole usr = db.UserRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
+            List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
             UserStoreRole UserStoreRole = db.UserStoreRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
 
-            if (usr.IdRole == 8)
+            if (usr.Where(p=>p.IdRole== 8).Any())
             {
 
                 var lists = db.Exitorder.Where(p => p.StateDelete == 0)
@@ -287,21 +278,52 @@ namespace GoharSang.Controllers
         [HttpPost]
         public async Task<ActionResult> Confirm(long id)
         {
-            Exitorder exo = db.Exitorder.Find(id);
-            exo.IdState = 4;
+            string UserIdcookie = "";
 
-            await db.SaveChangesAsync();
-            return Json("Ok", JsonRequestBehavior.AllowGet);
+            UserIdcookie = Request.Cookies["UserId"].Value;
+            string _Id = UserIdcookie;
+            long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+            Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+            List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
+
+            if (usr.Where(p=>p.IdRole==6).Any())
+            {
+                Exitorder exo = db.Exitorder.Find(id);
+                exo.IdState = 4;
+
+                await db.SaveChangesAsync();
+                return Json("Ok", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(513);
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult> NotConfirm(long id)
         {
-            Exitorder exo = db.Exitorder.Find(id);
-            exo.IdState = 2;
+            string UserIdcookie = "";
 
-            await db.SaveChangesAsync();
-            return Json("Ok", JsonRequestBehavior.AllowGet);
+            UserIdcookie = Request.Cookies["UserId"].Value;
+            string _Id = UserIdcookie;
+            long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+            Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+            List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
+
+            if (usr.Where(p => p.IdRole == 6).Any())
+            {
+
+                Exitorder exo = db.Exitorder.Find(id);
+                exo.IdState = 2;
+
+                await db.SaveChangesAsync();
+                return Json("Ok", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(513);
+            }
         }
 
 
@@ -309,11 +331,26 @@ namespace GoharSang.Controllers
         [HttpPost]
         public async Task<ActionResult> Checking(long id)
         {
-            Exitorder exo = db.Exitorder.Find(id);
-            exo.IdState = 3;
+            string UserIdcookie = "";
 
-            await db.SaveChangesAsync();
+            UserIdcookie = Request.Cookies["UserId"].Value;
+            string _Id = UserIdcookie;
+            long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+            Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+            List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
+
+            if (usr.Where(p => p.IdRole == 6).Any())
+            {
+                Exitorder exo = db.Exitorder.Find(id);
+                exo.IdState = 3;
+
+                await db.SaveChangesAsync();
             return Json("Ok", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(513);
+            }
         }
 
         [HttpPost]
