@@ -94,7 +94,8 @@ namespace GoharSang.Controllers
         }
 
 
-       
+        [HttpPost]
+
         public ActionResult Index(listRecordEntryExitOrder vmr)
         {
 

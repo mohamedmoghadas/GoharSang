@@ -204,9 +204,21 @@
     </script>
     <script>
         $(document).keyup(function (event) {
-            if (event.keyCode == 13) {
-                BtnExitOrder();
 
+            if (CustomerName.value != "" && SelectStore.value != 0) {
+                var Check;
+                if (event.keyCode == 13) {
+                    $(':checkbox').each(function () {
+                        Check = this;
+                    });
+
+                    if (Check.checked) {
+                        BtnExitOrder();
+                    }
+
+                    //
+
+                }
             }
         });
     </script>
@@ -268,6 +280,7 @@
 
     <script>
         var State = false;
+        var Check;
 
         function BtnExitOrder() {
 
@@ -284,46 +297,68 @@
                 if (State == false) {
                     State = true;
 
-                    _ExitOrder.CustomerFullName = CustomerName.value;
-                    _ExitOrder.IdStore = SelectStore.value;
-
-                    var DateLoad = dateLoad.value;
-
-                    SelectedProp = {};
-                    ListProps = [];
-                    $(':checkbox:checked').each(function (i) {
-
-                        var Id = $(this).val();
-
-                        item = {};
-                        item["Id"] = Id;
-
-                        ListProps.push(item);
+                    $(':checkbox').each(function () {
+                        Check = this;
                     });
-                    SelectedProp["ListProps"] = ListProps;
+                    if (Check.checked) {
 
-                    $.ajax({
-                        url: '/ExitOrder/ExitOrder',
-                        data: { exo: _ExitOrder, date: DateLoad, prop: SelectedProp },
-                        type: 'post',
-                        beforeSend: function () {
-                            $(LoadingGift).show();
-                        },
+                        _ExitOrder.CustomerFullName = CustomerName.value;
+                        _ExitOrder.IdStore = SelectStore.value;
 
-                        success: function (data) {
-                            State = false;
-                            $(LoadingGift).hide();
+                        var DateLoad = dateLoad.value;
+
+                        SelectedProp = {};
+                        ListProps = [];
+                        $(':checkbox:checked').each(function (i) {
+
+                            var Id = $(this).val();
+
+                            item = {};
+                            item["Id"] = Id;
+
+                            ListProps.push(item);
+                        });
+                        SelectedProp["ListProps"] = ListProps;
+
+                        $.ajax({
+                            url: '/ExitOrder/ExitOrder',
+                            data: { exo: _ExitOrder, date: DateLoad, prop: SelectedProp },
+                            type: 'post',
+                            beforeSend: function () {
+                                $(LoadingGift).show();
+                            },
+                            error: function (data) {
+                                State = false;
+                                $(LoadingGift).hide();
+                                if (data.status == 514) {
+                                    AlertInAjax("یکی از موارد انتخابی برای شخص دیگری رزو شده است", modalAlertInAjax, "alert-danger");
+                                    $(modalAlertInAjax).modal("show");
+                                }
+                            },
+                            success: function (data) {
+                                State = false;
+                                $(LoadingGift).hide();
 
 
-                            AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
-                            $(modalAlertInAjax).modal("show");
-                            setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
-                            $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                                AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                                $(modalAlertInAjax).modal("show");
+                                setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                                $(modalAlertInAjax).on("hidden.bs.modal", function () {
 
-                                location.href = "/ExitOrder/Index";
-                            });
-                        }
-                    });
+                                    location.href = "/ExitOrder/Index";
+                                });
+                            }
+                        });
+                    }
+                    else {
+                        State = false;
+                        AlertInAjax("موردی را انتخاب نمایید", modalAlertInAjax, "alert-danger");
+                        $(modalAlertInAjax).modal("show");
+
+                        return;
+
+                    }
+
                 }
 
 
