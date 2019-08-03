@@ -115,11 +115,33 @@ namespace GoharSang.Controllers
                     re.ExitState = true;
                     await db.SaveChangesAsync();
 
-                    _p = new RecordEntryExitOrder();
-                    _p.IdExitOrder = exo.Id;
-                    _p.IdRecordEntry = item.Id;
-                    _p.StateExit = false;
-                    _listprops.Add(_p);
+                    RecordEntryCopsBooking recb = db.RecordEntryCopsBooking.Where(p => p.IdRecordEntry == item.Id).FirstOrDefault();
+
+                    if (recb!=null)
+                    {
+                        if (exo.CustomerFullName== recb.CopsBooking.CustomerFullName)
+                        {
+                            _p = new RecordEntryExitOrder();
+                            _p.IdExitOrder = exo.Id;
+                            _p.IdRecordEntry = item.Id;
+                            _p.StateExit = false;
+                            _listprops.Add(_p);
+                        }
+                        else
+                        {
+                            return new HttpStatusCodeResult(514);
+                        }
+                    }
+                    else
+                    {
+                        _p = new RecordEntryExitOrder();
+                        _p.IdExitOrder = exo.Id;
+                        _p.IdRecordEntry = item.Id;
+                        _p.StateExit = false;
+                        _listprops.Add(_p);
+                    }
+
+                  
                 }
                 db.RecordEntryExitOrder.AddRange(_listprops);
                 await db.SaveChangesAsync();
@@ -160,14 +182,36 @@ namespace GoharSang.Controllers
                     re.ExitState = true;
                     await db.SaveChangesAsync();
 
+                    RecordEntryCopsBooking recb = db.RecordEntryCopsBooking.Where(p => p.IdRecordEntry == item.Id).FirstOrDefault();
 
-                    _p = new RecordEntryExitOrder();
-                    _p.IdExitOrder = exo.Id;
-                    _p.IdRecordEntry = item.Id;
-                    _p.StateExit = false;
+                    if (recb != null)
+                    {
+                        if (exo.CustomerFullName == recb.CopsBooking.CustomerFullName)
+                        {
+                            _p = new RecordEntryExitOrder();
+                            _p.IdExitOrder = exo.Id;
+                            _p.IdRecordEntry = item.Id;
+                            _p.StateExit = false;
 
 
-                    _listprops.Add(_p);
+                            _listprops.Add(_p);
+                        }
+                        else
+                        {
+                            return new HttpStatusCodeResult(514);
+
+                        }
+                    }
+                    else
+                    {
+                        _p = new RecordEntryExitOrder();
+                        _p.IdExitOrder = exo.Id;
+                        _p.IdRecordEntry = item.Id;
+                        _p.StateExit = false;
+
+
+                        _listprops.Add(_p);
+                    }
                 }
                 db.RecordEntryExitOrder.AddRange(_listprops);
                 await db.SaveChangesAsync();

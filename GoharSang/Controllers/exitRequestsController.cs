@@ -72,7 +72,7 @@ namespace GoharSang.Controllers
                          on exo.Id equals reo.IdExitOrder
                          join re in db.Record_the_entry
                          on reo.IdRecordEntry equals re.Id
-                         where exo.StateDelete == 0
+                         where exo.StateDelete == 0  && reo.StateExit == false && exo.IdState == 4
                          select new { exo, reo, re }).ToList()
                          .Select(p => new listRecordEntryExitOrder
                          {
@@ -94,7 +94,7 @@ namespace GoharSang.Controllers
         }
 
 
-        [HttpPost]
+       
         public ActionResult Index(listRecordEntryExitOrder vmr)
         {
 
@@ -157,7 +157,7 @@ namespace GoharSang.Controllers
                          on exo.Id equals reo.IdExitOrder
                          join re in db.Record_the_entry
                          on reo.IdRecordEntry equals re.Id
-                         where exo.StateDelete == 0
+                         where exo.StateDelete == 0  && reo.StateExit == false && exo.IdState == 4
                          select new { exo, reo, re }).ToList()
                          .Select(p => new listRecordEntryExitOrder
                          {

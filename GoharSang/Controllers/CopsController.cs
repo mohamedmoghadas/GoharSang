@@ -108,7 +108,7 @@ namespace GoharSang.Controllers
                 db.Cops.Add(_mdata);
                 await db.SaveChangesAsync();
                 
-                return Json(_mdata, JsonRequestBehavior.AllowGet);
+                return GetData();
             }
             else
             {
@@ -116,7 +116,7 @@ namespace GoharSang.Controllers
                 Cops _emdata = db.Cops.Find(_mdata.Id);
                 _emdata.Name = _mdata.Name;
                 await db.SaveChangesAsync();
-                return Json("Ok", JsonRequestBehavior.AllowGet);
+                return GetData();
 
             }
         }

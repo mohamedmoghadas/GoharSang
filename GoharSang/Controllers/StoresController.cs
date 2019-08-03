@@ -104,7 +104,7 @@ namespace GoharSang.Controllers
                 _mdata.StateDelete = 0;
                 db.Store.Add(_mdata);
                 await db.SaveChangesAsync();
-                return Json(_mdata, JsonRequestBehavior.AllowGet);
+                return GetData();
             }
             else
             {
@@ -112,7 +112,7 @@ namespace GoharSang.Controllers
                 Store _emdata = db.Store.Find(_mdata.Id);
                 _emdata.Name = _mdata.Name;
                 await db.SaveChangesAsync();
-                return Json("Ok", JsonRequestBehavior.AllowGet);
+                return GetData();
 
             }
         }

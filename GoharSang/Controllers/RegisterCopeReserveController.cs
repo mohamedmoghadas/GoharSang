@@ -64,7 +64,7 @@ namespace GoharSang.Controllers
         {
           
 
-            var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0).ToList()
+            var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0 && p.ExitState==false && p.StateCopReserve == false).ToList()
                 .Select(p => new vmListRecordEntry
                 {
                     Id=p.Id,
@@ -107,6 +107,10 @@ namespace GoharSang.Controllers
 
                 foreach (var item in prop.ListProps)
                 {
+                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
+                    re.StateCopReserve = true;
+                    await db.SaveChangesAsync();
+
                     _p = new RecordEntryCopsBooking();
                     _p.IdCopsBooking = cb.Id;
                     _p.IdRecordEntry = item.Id;
@@ -146,6 +150,10 @@ namespace GoharSang.Controllers
 
                 foreach (var item in prop.ListProps)
                 {
+                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
+                    re.StateCopReserve = true;
+                    await db.SaveChangesAsync();
+
                     _p = new RecordEntryCopsBooking();
                     _p.IdCopsBooking = cb.Id;
                     _p.IdRecordEntry = item.Id;

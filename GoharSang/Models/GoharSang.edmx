@@ -95,6 +95,7 @@
           <Property Name="StateDelete" Type="int" />
           <Property Name="basculenumber" Type="nvarchar" MaxLength="50" />
           <Property Name="ExitState" Type="bit" />
+          <Property Name="StateCopReserve" Type="bit" />
         </EntityType>
         <EntityType Name="RecordEntryCopsBooking">
           <Key>
@@ -690,6 +691,7 @@
           <Property Name="StateDelete" Type="Int32" />
           <Property Name="basculenumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ExitState" Type="Boolean" />
+          <Property Name="StateCopReserve" Type="Boolean" />
           <NavigationProperty Name="Cops" Relationship="GoharSangModel.FK_Record_the_entry_Cops" FromRole="Record_the_entry" ToRole="Cops" />
           <NavigationProperty Name="mine" Relationship="GoharSangModel.FK_Record_the_entry_mine" FromRole="Record_the_entry" ToRole="mine" />
           <NavigationProperty Name="Record_the_Entrry_Image" Relationship="GoharSangModel.FK_Record_the_Entrry_Image_Record_the_entry" FromRole="Record_the_entry" ToRole="Record_the_Entrry_Image" />
@@ -1113,6 +1115,7 @@
           <EntitySetMapping Name="Record_the_entry">
             <EntityTypeMapping TypeName="GoharSangModel.Record_the_entry">
               <MappingFragment StoreEntitySet="Record the entry">
+                <ScalarProperty Name="StateCopReserve" ColumnName="StateCopReserve" />
                 <ScalarProperty Name="ExitState" ColumnName="ExitState" />
                 <ScalarProperty Name="basculenumber" ColumnName="basculenumber" />
                 <ScalarProperty Name="StateDelete" ColumnName="StateDelete" />

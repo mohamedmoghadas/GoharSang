@@ -79,7 +79,7 @@ namespace GoharSang.Controllers
 
         }
 
-        [HttpPost]
+        
         public ActionResult Index(listRecordEntryExitOrder vmr)
         {
             try
@@ -333,6 +333,8 @@ namespace GoharSang.Controllers
                 }
 
                 _re.ExitState = false;
+                _re.StateCopReserve = false;
+
                 _re.StateDelete = 0;
                 db.Record_the_entry.Add(_re);
                 await db.SaveChangesAsync();

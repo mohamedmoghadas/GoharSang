@@ -252,9 +252,25 @@
 
     <script>
         $(document).keyup(function (event) {
-            if (event.keyCode == 13) {
-                BtnRecordEntry();
 
+            
+            if (SelectMine.value != 0 ||
+                SelectCope.value != 0 ||
+                weight.value != "" ||
+                lenght.value != "" ||
+                width.value != "" ||
+                height.value != "" ||
+                Copcode.value != "" ||
+                selectStore.value != 0 ||
+                Trucknumber.value != "" ||
+                Transfernumber.value != "" ||
+                date.value != "" ||
+                time.value != "" ||
+                basculenumber.value == "") {
+                if (event.keyCode == 13) {
+                    BtnRecordEntry();
+
+                }
             }
         });
     </script>

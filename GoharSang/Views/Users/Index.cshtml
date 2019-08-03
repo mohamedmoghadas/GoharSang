@@ -119,8 +119,6 @@
     <link href="~/js/Resource/css/bootstrap-rtl.min.css" rel="stylesheet">
     <link href="~/js/Resource/css/mouldifi-rtl-core.css" rel="stylesheet">
 
-
-
     <link href="~/js/Resource/css/plugins/colorpicker/bootstrap-colorpicker.css" rel="stylesheet">
     <link href="~/js/Resource/css/plugins/nouislider/nouislider.css" rel="stylesheet">
     <link href="~/js/Resource/css/plugins/select2/select2.css" rel="stylesheet">
@@ -143,15 +141,6 @@
     <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
 
     <script>
-        $(document).keyup(function (event) {
-            if (event.keyCode == 13) {
-                mgnUser();
-
-            }
-        });
-    </script>
-
-    <script>
         $(document).ready(function () {
 
 
@@ -165,6 +154,19 @@
 
 
     </script>
+
+    <script>
+        $(document).keyup(function (event) {
+            if (FullName.value != "" || UserName.value != "" || Email.value != "" || Password.value != "") {
+                if (event.keyCode == 13) {
+                    mgnUser();
+
+                }
+            }
+        });
+    </script>
+
+
 
     <script>
         window.onload = function () {

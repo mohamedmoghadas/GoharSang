@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-sm-4">
                             <label>انبار</label>
-                            <select id="SelectStore" class="form-control float-right width100" style="padding:2px 8px"></select>
+                            <select id="SelectStore" class="select2-placeholer form-control" style="padding:2px 8px"></select>
 
                         </div>
                         <div class="col-sm-2">
@@ -154,7 +154,54 @@
 
 
 @section localscript{
+    <link href="~/js/Resource/css/entypo.css" rel="stylesheet">
+    <link href="~/js/Resource/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/css3-animate-it-plugin/animations.css" rel="stylesheet">
+    <link href="~/js/Resource/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/js/Resource/css/mouldifi-core.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/datepicker/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/colorpicker/bootstrap-colorpicker.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/nouislider/nouislider.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/select2/select2.css" rel="stylesheet">
+    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet">
+    <link href="~/js/Resource/css/bootstrap-rtl.min.css" rel="stylesheet">
+    <link href="~/js/Resource/css/mouldifi-rtl-core.css" rel="stylesheet">
 
+    <link href="~/js/Resource/css/plugins/colorpicker/bootstrap-colorpicker.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/nouislider/nouislider.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/select2/select2.css" rel="stylesheet">
+    <script src="~/js/Resource/js/jquery.min.js"></script>
+    <script src="~/js/Resource/js/bootstrap.min.js"></script>
+    <script src="~/js/Resource/js/plugins/select2/select2.full.min.js"></script>
+    <script src="~/js/Resource/js/plugins/css3-animate-it-plugin/css3-animate-it.js"></script>
+    <script src="~/js/Resource/js/bootstrap.min.js"></script>
+    <script src="~/js/Resource/js/plugins/metismenu/jquery.metisMenu.js"></script>
+    <script src="~/js/Resource/js/plugins/blockui-master/jquery-ui.js"></script>
+    <script src="~/js/Resource/js/plugins/blockui-master/jquery.blockUI.js"></script>
+    <script src="~/js/Resource/js/plugins/nouislider/nouislider.min.js"></script>
+    <script src="~/js/Resource/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <script src="~/js/Resource/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <script src="~/js/Resource/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <link href="c~/js/Resource/ss/plugins/pdatepicker/css/daterangepicker.css" rel="stylesheet" />
+    <link href="c~/js/Resource/ss/plugins/pdatepicker/css/datepicker-theme.css" rel="stylesheet" />
+    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment.min.js"></script>
+    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
+    <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            $(".select2").select2();
+            $(".select2-placeholer").select2({
+                allowClear: true
+            });
+
+
+        });
+
+
+    </script>
     <script>
         $(document).keyup(function (event) {
             if (event.keyCode == 13) {
@@ -238,48 +285,48 @@
                     State = true;
 
                     _ExitOrder.CustomerFullName = CustomerName.value;
-                _ExitOrder.IdStore = SelectStore.value;
+                    _ExitOrder.IdStore = SelectStore.value;
 
-                var DateLoad = dateLoad.value;
+                    var DateLoad = dateLoad.value;
 
-                SelectedProp = {};
-                ListProps = [];
-                $(':checkbox:checked').each(function (i) {
+                    SelectedProp = {};
+                    ListProps = [];
+                    $(':checkbox:checked').each(function (i) {
 
-                    var Id = $(this).val();
+                        var Id = $(this).val();
 
-                    item = {};
-                    item["Id"] = Id;
+                        item = {};
+                        item["Id"] = Id;
 
-                    ListProps.push(item);
-                });
-                SelectedProp["ListProps"] = ListProps;
+                        ListProps.push(item);
+                    });
+                    SelectedProp["ListProps"] = ListProps;
 
-                $.ajax({
-                    url: '/ExitOrder/ExitOrder',
-                    data: { exo: _ExitOrder, date: DateLoad, prop: SelectedProp },
-                    type: 'post',
-                    beforeSend: function () {
-                        $(LoadingGift).show();
-                    },
+                    $.ajax({
+                        url: '/ExitOrder/ExitOrder',
+                        data: { exo: _ExitOrder, date: DateLoad, prop: SelectedProp },
+                        type: 'post',
+                        beforeSend: function () {
+                            $(LoadingGift).show();
+                        },
 
-                    success: function (data) {
-                        State = false;
-                        $(LoadingGift).hide();
+                        success: function (data) {
+                            State = false;
+                            $(LoadingGift).hide();
 
 
-                        AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
-                        $(modalAlertInAjax).modal("show");
-                        setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
-                        $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                            AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                            $(modalAlertInAjax).modal("show");
+                            setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                            $(modalAlertInAjax).on("hidden.bs.modal", function () {
 
-                            location.href = "/ExitOrder/Index";
-                        });
-                    }
-                });
+                                location.href = "/ExitOrder/Index";
+                            });
+                        }
+                    });
                 }
 
-                
+
             }
 
 

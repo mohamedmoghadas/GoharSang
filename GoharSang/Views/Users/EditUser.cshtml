@@ -181,11 +181,30 @@
     <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
     <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
 
+
+    <script>
+        $(document).ready(function () {
+
+
+            $(".select2").select2();
+            $(".select2-placeholer").select2({
+                allowClear: true
+            });
+
+
+        });
+
+
+    </script>
+
     <script>
         $(document).keyup(function (event) {
-            if (event.keyCode == 13) {
-                mgnUser();
+            if (FullName.value != "" || UserName.value != "" || Email.value != "" || Password.value != "") {
 
+                if (event.keyCode == 13) {
+                    mgnUser();
+
+                }
             }
         });
     </script>
@@ -264,7 +283,7 @@
                     }
                 });
                 }
-               
+
             }
         }
 

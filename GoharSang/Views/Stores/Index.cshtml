@@ -143,7 +143,25 @@
         }
     </script>
 
+    <script>
 
+        function FillData(data) {
+            tbody.innerHTML = "";
+            var str = "<tr><td>نام معدن</td><td>عملیات</td></tr>";
+            for (var i in data) {
+                ListData = data;
+
+                str += '<tr>';
+                str += '<td>' + data[i].Name + '</td>';
+                str += '<td><button onclick="Removedata(' + data[i].Id + ')" class="btn btn-danger fa fa-trash"></button><button onclick="Editdata(' + data[i].Id + ')"   class="btn btn-primary fa fa-pencil"></button></td>';
+
+                str += '</tr>';
+
+            }
+            tbody.innerHTML = str;
+        }
+
+    </script>
 
 
     <script>
@@ -161,83 +179,41 @@
 
                     _mdata.Name = Name.value;
 
-                    if (_mdata.Id != 0) {
-                        $.ajax({
-                            url: '/Stores/mgndata',
-                            data: { _mdata: _mdata },
-                            type: 'post',
-                            beforeSend: function () {
-                                $(LoadingGift).show();
-                            },
-                            error: function (data) {
-                                $(LoadingGift).hide();
-                                State = false;
 
-                                if (data.status == 510) {
-                                    AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
-                                    $(modalAlertInAjax).modal("show");
+                    $.ajax({
+                        url: '/Stores/mgndata',
+                        data: { _mdata: _mdata },
+                        type: 'post',
+                        beforeSend: function () {
+                            $(LoadingGift).show();
+                        },
+                        error: function (data) {
+                            $(LoadingGift).hide();
+                            State = false;
 
-                                    return;
-                                }
-                            },
-                            success: function (data) {
-
-
-                                $(LoadingGift).hide();
-
-                                AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
-                                _mdata.Id = 0;
-                                Name.value = "";
+                            if (data.status == 510) {
+                                AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
                                 $(modalAlertInAjax).modal("show");
-                                setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
-                                $(modalAlertInAjax).on("hidden.bs.modal", function () {
-                                    GetData();
 
-                                });
+                                return;
                             }
-                        });
-                    }
-                    else {
-                        $.ajax({
-                            url: '/Stores/mgndata',
-                            data: { _mdata: _mdata },
-                            type: 'post',
-                            beforeSend: function () {
-                                $(LoadingGift).show();
-                            },
-                            error: function (data) {
-                                $(LoadingGift).hide();
-                                State = false;
-
-                                if (data.status == 510) {
-                                    AlertInAjax("اطلاعات تکراری است", modalAlertInAjax, "alert-danger");
-                                    $(modalAlertInAjax).modal("show");
-
-                                    return;
-                                }
-                            },
-                            success: function (data) {
+                        },
+                        success: function (data) {
 
 
-                                $(LoadingGift).hide();
+                            $(LoadingGift).hide();
 
-                                AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
-                                _mdata.Id = 0;
-                                Name.value = "";
-                                $(modalAlertInAjax).modal("show");
-                                setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
-                                $(modalAlertInAjax).on("hidden.bs.modal", function () {
-                                    var str = "<tr>";
-                                    str += '<td>' + data.Name + '</td>';
-                                    str += '<td><button onclick="Removedata(' + data.Id + ')" class="btn btn-danger fa fa-trash"></button><button onclick="Editdata(' + data.Id + ')"   class="btn btn-primary fa fa-pencil"></button></td>';
-                                    str += '</tr>';
+                            AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
+                            _mdata.Id = 0;
+                            Name.value = "";
+                            $(modalAlertInAjax).modal("show");
+                            setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
+                            $(modalAlertInAjax).on("hidden.bs.modal", function () {
+                                FillData(data);
+                            });
+                        }
+                    });
 
-                                    $(tbody).append(str);
-
-                                });
-                            }
-                        });
-                    }
                 }
 
             }
