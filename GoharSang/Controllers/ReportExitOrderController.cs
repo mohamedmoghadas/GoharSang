@@ -103,22 +103,26 @@ namespace GoharSang.Controllers
             int PageSkip = (PageNumber - 1) * PageOffSet;
 
 
-            var lists = (from exo in db.Exitorder
-                         join reo in db.RecordEntryExitOrder
-                         on exo.Id equals reo.IdExitOrder
-                         where exo.StateDelete == 0
-                         select new { exo, reo }).ToList()
-                         .Select(p => new listRecordEntryExitOrder
-                         {
-                             CustomerFullName = p.exo.CustomerFullName,
-                             Uploaddate=clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
-                             StoreName = p.exo.Store.Name,
-                             RecordEntryExitOrderCount =  p.exo.RecordEntryExitOrder.Count,
-                             stateName = p.exo.State.Name
-                         }).OrderBy(u => u.Id)
+
+            var lists = db.Exitorder.Where(p => p.StateDelete == 0)
+                .ToList()
+                .Select(p => new listRecordEntryExitOrder
+                {
+                    Id = p.Id,
+                    CustomerFullName = p.CustomerFullName,
+                    Uploaddate = clsPersianDate.MiladiToShamsi(p.Uploaddate),
+
+                    StoreName = p.Store.Name,
+                    stateName = p.State.Name,
+                    RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count(),
+                   
+                }).OrderBy(u => u.Id)
                 .Skip(PageSkip)
                 .Take(PageOffSet)
                 .ToList();
+
+
+
 
 
             vmReportBargirt _vmReportBargirt = new vmReportBargirt();
@@ -187,19 +191,22 @@ namespace GoharSang.Controllers
 
         private object SGetExitOrder(listRecordEntryExitOrder vmr)
         {
-            var lists = (from exo in db.Exitorder
-                         join reo in db.RecordEntryExitOrder
-                         on exo.Id equals reo.IdExitOrder
-                         where exo.StateDelete == 0
-                         select new { exo, reo }).ToList()
-                        .Select(p => new listRecordEntryExitOrder
-                        {
-                            CustomerFullName = p.exo.CustomerFullName,
-                            Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
-                            StoreName = p.exo.Store.Name,
-                            RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
-                            stateName = p.exo.State.Name
-                        }).ToList();
+
+            var lists = db.Exitorder.Where(p => p.StateDelete == 0)
+               .ToList()
+               .Select(p => new listRecordEntryExitOrder
+               {
+                   Id = p.Id,
+                   CustomerFullName = p.CustomerFullName,
+                   Uploaddate = clsPersianDate.MiladiToShamsi(p.Uploaddate),
+
+                   StoreName = p.Store.Name,
+                   stateName = p.State.Name,
+                   RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count(),
+
+               }).ToList();
+
+
 
             if (vmr.stateName!=null)
             {

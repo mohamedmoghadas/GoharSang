@@ -153,7 +153,7 @@ namespace GoharSang.Controllers
                             var result = SGetExitOrder(vmr);
                             return View(result);
                        
-                            return RedirectToAction("AccessDenied", "Error");
+                            
 
                         
 

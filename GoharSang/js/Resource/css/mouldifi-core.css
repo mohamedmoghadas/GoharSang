@@ -1,8 +1,6 @@
 @import url(../../../../https@fonts.googleapis.com/css@family=Source+Sans+Pro_3A400,300,600,700,900);
-/* Globals
-   ========================================================================== */
-html {
-  height: 100%; }
+
+
 
 body {
 
@@ -3930,10 +3928,7 @@ ul.mail-attachment li {
   .media-left img, .media > .pull-left img {
     max-width: none; }
 
-/* Footer
-   ========================================================================== */
+
 .footer-main {
   border-top: solid 1px #ddd;
   padding: 10px 0 2px; }
-
-/*# sourceMappingURL=mouldifi-core.css.map */

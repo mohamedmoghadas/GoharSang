@@ -427,12 +427,18 @@ namespace GoharSang.Controllers
             }
         }
            
+
+        [HttpPost]
+
+        public ActionResult ShowPic(long id)
+        {
+            var listpic = db.Record_the_Entrry_Image.Where(p => p.IdRecordentry == id)
+                .Select(p => p.Image).ToList();
+            return Json(listpic, JsonRequestBehavior.AllowGet);
         }
 
-        //public int Pixel2MTU(int pixels)
-        //{
-        //    int mtus = pixels * 9525;
-        //    return mtus;
-        //}
+    }
+
+       
 
     }

@@ -447,7 +447,13 @@
                             State = false;
 
                             $(LoadingGift).hide();
+                             if (data.status == 513) {
 
+                                AlertInAjax("کدکوپ تکراری است", modalAlertInAjax, "alert-danger");
+                                $(modalAlertInAjax).modal('show');
+
+                                return;
+                            }
                             if (data.status == 532) {
 
                                 AlertInAjax("سایز فایل درست انتخاب نشده", modalAlertInAjax, "alert-danger");

@@ -154,28 +154,43 @@ namespace GoharSang.Controllers
         private object SGetExitOrder(listRecordEntryExitOrder vmr)
         {
 
-            
+            var lists = db.Exitorder.Where(p => p.StateDelete == 0)
+              .ToList()
+              .Select(p => new listRecordEntryExitOrder
+              {
+                  Id = p.Id,
+                  CustomerFullName = p.CustomerFullName,
+                  Uploaddate = clsPersianDate.MiladiToShamsi(p.Uploaddate),
+                  copname = p.RecordEntryExitOrder.First().Record_the_entry.Cops.Name,
+                  minename = p.RecordEntryExitOrder.First().Record_the_entry.mine.Name,
+                  Weight = p.RecordEntryExitOrder.First().Record_the_entry.Weight,
 
-            var lists = (from exo in db.Exitorder
-                         join reo in db.RecordEntryExitOrder
-                         on exo.Id equals reo.IdExitOrder
-                         join re in db.Record_the_entry
-                         on reo.IdRecordEntry equals re.Id
-                         where exo.StateDelete == 0 
+                  StoreName = p.Store.Name,
+                  stateName = p.State.Name,
+                  RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count(),
+
+              }).ToList();
+
+            //var lists = (from exo in db.Exitorder
+            //             join reo in db.RecordEntryExitOrder
+            //             on exo.Id equals reo.IdExitOrder
+            //             join re in db.Record_the_entry
+            //             on reo.IdRecordEntry equals re.Id
+            //             where exo.StateDelete == 0 
                         
-                         select new { exo, reo, re }).ToList()
-                        .Select(p => new listRecordEntryExitOrder
-                        {
-                            Id = p.exo.Id,
-                            CustomerFullName = p.exo.CustomerFullName,
-                            Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
-                            StoreName = p.exo.Store.Name,
-                            copname = p.re.Cops.Name,
-                            minename = p.re.mine.Name,
-                            RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
-                            stateName = p.exo.State.Name,
-                            Weight = p.re.Weight
-                        }).ToList();
+            //             select new { exo, reo, re }).ToList()
+            //            .Select(p => new listRecordEntryExitOrder
+            //            {
+            //                Id = p.exo.Id,
+            //                CustomerFullName = p.exo.CustomerFullName,
+            //                Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
+            //                StoreName = p.exo.Store.Name,
+            //                copname = p.re.Cops.Name,
+            //                minename = p.re.mine.Name,
+            //                RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
+            //                stateName = p.exo.State.Name,
+            //                Weight = p.re.Weight
+            //            }).ToList();
 
 
 

@@ -325,154 +325,172 @@ namespace GoharSang.Controllers
 
             if (_re.Id==0)
             {
-                if (_Date != null && _Date != "")
-                {
-                    DateTime tempdate = clsPersianDate.ShamsiToMiladi(_Date).Value.Date;
+                bool uniq = db.Record_the_entry.Where(p => p.CopsCod == _re.CopsCod).Any();
 
-                    _re.Date = tempdate;
+                if (uniq)
+                {
+                    return new HttpStatusCodeResult(513);
                 }
-
-                _re.ExitState = false;
-                _re.StateCopReserve = false;
-
-                _re.StateDelete = 0;
-                db.Record_the_entry.Add(_re);
-                await db.SaveChangesAsync();
-
-
-
-
-
-
-                Record_the_Entrry_Image reimg = new Record_the_Entrry_Image();
-
-                var filename = "";
-
-
-
-                if (Request.Files.Count != 0 && Request.Files != null)
+                else
                 {
-
-                    for (int i = 0; i < Request.Files.Count; i++)
+                    if (_Date != null && _Date != "")
                     {
-                        HttpPostedFileBase imgre = Request.Files[i];
-                        if (imgre.ContentLength > 0)
-                        {
+                        DateTime tempdate = clsPersianDate.ShamsiToMiladi(_Date).Value.Date;
 
-
-
-                            if (!imgre.ContentType.Contains("image"))
-                            {
-                                return new HttpStatusCodeResult(530);
-                            }
-
-                            var number = new Random();
-                            filename = _re.Id + "" + number.Next() + "" + i + number.Next(1, 999999999).ToString() + ".jpg";
-                            var path = Path.Combine(Server.MapPath("~/images"), filename);
-                            imgre.SaveAs(path);
-                            reimg.Image = filename;
-                            reimg.IdRecordentry = _re.Id;
-                            db.Record_the_Entrry_Image.Add(reimg);
-
-                            await db.SaveChangesAsync();
-
-
-
-
-                        }
+                        _re.Date = tempdate;
                     }
 
+                    _re.ExitState = false;
+                    _re.StateCopReserve = false;
+
+                    _re.StateDelete = 0;
+                    db.Record_the_entry.Add(_re);
+                    await db.SaveChangesAsync();
+
+                    Record_the_Entrry_Image reimg = new Record_the_Entrry_Image();
+
+                    var filename = "";
+
+
+
+                    if (Request.Files.Count != 0 && Request.Files != null)
+                    {
+
+                        for (int i = 0; i < Request.Files.Count; i++)
+                        {
+                            HttpPostedFileBase imgre = Request.Files[i];
+                            if (imgre.ContentLength > 0)
+                            {
+
+
+
+                                if (!imgre.ContentType.Contains("image"))
+                                {
+                                    return new HttpStatusCodeResult(530);
+                                }
+
+                                var number = new Random();
+                                filename = _re.Id + "" + number.Next() + "" + i + number.Next(1, 999999999).ToString() + ".jpg";
+                                var path = Path.Combine(Server.MapPath("~/images"), filename);
+                                imgre.SaveAs(path);
+                                reimg.Image = filename;
+                                reimg.IdRecordentry = _re.Id;
+                                db.Record_the_Entrry_Image.Add(reimg);
+
+                                await db.SaveChangesAsync();
+
+
+
+
+                            }
+                        }
+
+                    }
+
+                    return Json("Ok", JsonRequestBehavior.AllowGet);
                 }
 
-                return Json("Ok", JsonRequestBehavior.AllowGet);
+
+               
             }
             else
             {
                 Record_the_entry _ere = db.Record_the_entry.Find(_re.Id);
 
-                if (_Date != null && _Date != "")
-                {
-                    DateTime tempdate = clsPersianDate.ShamsiToMiladi(_Date).Value.Date;
 
-                    _ere.Date = tempdate;
+                bool uniq = db.Record_the_entry.Where(p => p.CopsCod == _re.CopsCod && p.Id!=_ere.Id).Any();
+
+                if (uniq)
+                {
+                    return new HttpStatusCodeResult(513);
                 }
-
-                _ere.basculenumber = _re.basculenumber;
-                _ere.CopsCod = _re.CopsCod;
-
-                _ere.Height = _re.Height;
-                _ere.IdCops = _re.IdCops;
-                _ere.IdMine = _re.IdMine;
-                _ere.IdStore = _re.IdStore;
-                _ere.length = _re.length;
-                _ere.Time = _re.Time;
-                _ere.Transfernumber = _re.Transfernumber;
-                _ere.Trucknumber = _re.Trucknumber;
-                _ere.Weight = _re.Weight;
-                _ere.width = _re.width;
-
-                await db.SaveChangesAsync();
-
-
-
-
-
-
-                Record_the_Entrry_Image reimg = new Record_the_Entrry_Image();
-
-                var filename = "";
-
-
-
-                if (Request.Files.Count != 0 && Request.Files != null)
+                else
                 {
 
-                    for (int i = 0; i < Request.Files.Count; i++)
+                    if (_Date != null && _Date != "")
                     {
-                        HttpPostedFileBase imgre = Request.Files[i];
-                        if (imgre.ContentLength > 0)
-                        {
+                        DateTime tempdate = clsPersianDate.ShamsiToMiladi(_Date).Value.Date;
 
-
-
-                            if (!imgre.ContentType.Contains("image"))
-                            {
-                                return new HttpStatusCodeResult(530);
-                            }
-                            Record_the_Entrry_Image ereimg = db.Record_the_Entrry_Image.Where(p => p.IdRecordentry == _re.Id).FirstOrDefault();
-
-                            if (ereimg!=null)
-                            {
-                                var oldfile = Path.Combine(Server.MapPath("~/images"), ereimg.Image);
-                                if (System.IO.File.Exists(oldfile))
-                                {
-                                    System.IO.File.Delete(oldfile);
-                                    db.Record_the_Entrry_Image.Remove(ereimg);
-                                    await db.SaveChangesAsync();
-
-                                }
-                            }
-                                
-                            
-                            var number = new Random();
-                            filename = _re.Id + "" + number.Next() + "" + i + number.Next(1, 999999999).ToString() + ".jpg";
-                            var path = Path.Combine(Server.MapPath("~/images"), filename);
-                            imgre.SaveAs(path);
-                            reimg.Image = filename;
-                            reimg.IdRecordentry = _ere.Id;
-                            db.Record_the_Entrry_Image.Add(reimg);
-
-                            await db.SaveChangesAsync();
-
-
-
-
-                        }
+                        _ere.Date = tempdate;
                     }
 
-                }
+                    _ere.basculenumber = _re.basculenumber;
+                    _ere.CopsCod = _re.CopsCod;
 
-                return Json("Ok", JsonRequestBehavior.AllowGet);
+                    _ere.Height = _re.Height;
+                    _ere.IdCops = _re.IdCops;
+                    _ere.IdMine = _re.IdMine;
+                    _ere.IdStore = _re.IdStore;
+                    _ere.length = _re.length;
+                    _ere.Time = _re.Time;
+                    _ere.Transfernumber = _re.Transfernumber;
+                    _ere.Trucknumber = _re.Trucknumber;
+                    _ere.Weight = _re.Weight;
+                    _ere.width = _re.width;
+
+                    await db.SaveChangesAsync();
+
+
+
+
+
+
+                    Record_the_Entrry_Image reimg = new Record_the_Entrry_Image();
+
+                    var filename = "";
+
+
+
+                    if (Request.Files.Count != 0 && Request.Files != null)
+                    {
+
+                        for (int i = 0; i < Request.Files.Count; i++)
+                        {
+                            HttpPostedFileBase imgre = Request.Files[i];
+                            if (imgre.ContentLength > 0)
+                            {
+
+
+
+                                if (!imgre.ContentType.Contains("image"))
+                                {
+                                    return new HttpStatusCodeResult(530);
+                                }
+                                Record_the_Entrry_Image ereimg = db.Record_the_Entrry_Image.Where(p => p.IdRecordentry == _re.Id).FirstOrDefault();
+
+                                if (ereimg != null)
+                                {
+                                    var oldfile = Path.Combine(Server.MapPath("~/images"), ereimg.Image);
+                                    if (System.IO.File.Exists(oldfile))
+                                    {
+                                        System.IO.File.Delete(oldfile);
+                                        db.Record_the_Entrry_Image.Remove(ereimg);
+                                        await db.SaveChangesAsync();
+
+                                    }
+                                }
+
+
+                                var number = new Random();
+                                filename = _re.Id + "" + number.Next() + "" + i + number.Next(1, 999999999).ToString() + ".jpg";
+                                var path = Path.Combine(Server.MapPath("~/images"), filename);
+                                imgre.SaveAs(path);
+                                reimg.Image = filename;
+                                reimg.IdRecordentry = _ere.Id;
+                                db.Record_the_Entrry_Image.Add(reimg);
+
+                                await db.SaveChangesAsync();
+
+
+
+
+                            }
+                        }
+
+                    }
+
+                    return Json("Ok", JsonRequestBehavior.AllowGet);
+                }
             }
 
            

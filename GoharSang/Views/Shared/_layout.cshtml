@@ -41,20 +41,20 @@
 <head>
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="~/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="~/css/styles.css"/>
     <link rel='shortcut icon' type='image/x-icon' href='~/images/headIcon.png' />
 
     <link href="~/js/Resource/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet">
+    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet"/>
 
     <meta charset="UTF-8">
     <title>@ViewBag.Title</title>
 
-    <link href="~/js/Resource/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/js/Resource/css/mouldifi-core.css" rel="stylesheet">
-    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet">
-    <link href="~/js/Resource/css/bootstrap-rtl.min.css" rel="stylesheet">
-    <link href="~/js/Resource/css/mouldifi-rtl-core.css" rel="stylesheet">
+    <link href="~/js/Resource/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="~/js/Resource/css/mouldifi-core.css" rel="stylesheet"/>
+    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet"/>
+    <link href="~/js/Resource/css/bootstrap-rtl.min.css" rel="stylesheet"/>
+    <link href="~/js/Resource/css/mouldifi-rtl-core.css" rel="stylesheet"/>
     <link href="~/Script/Pagination/Pgination.css" rel="stylesheet" />
 
 </head>
@@ -96,15 +96,72 @@
 
         </div>
     </div>
+    <div class="modal fade" id="ModalDetail" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">جزییات</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-info table-striped dailyTable">
+
+                                <thead>
 
 
+                                    <tr>
+                                        <td>ردیف</td>
+                                        <td>نام خریدار</td>
+                                        <td>تاریخ بارگیری</td>
+                                        <td>انبار</td>
+                                        <td>وضعیت</td>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="bodyDetail">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="ModalShowPic" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">جزییات</h4>
+                </div>
+                <div class="modal-body" id="BodyShowPic">
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <script src="~/js/jquery-3.4.1.js"></script>
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Script/modalmessag/jsAlert.js"></script>
-    <script src="~/Script/NewFolder1/jsconfdelete.js"></script>
     <script src="~/Script/jsShowPic/jsShowPic.js"></script>
-    <script src="~/js/Resource/css/animateColors.js"></script>
+    @*<script src="~/js/Resource/css/animateColors.js"></script>*@
 
 
 

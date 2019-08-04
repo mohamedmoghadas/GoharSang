@@ -93,7 +93,7 @@
         <div class="col dailyLDiv">
             <a class="btn btn-primary d-block dailyBtnTop" href="~/Home/Index" role="button">صفحه اصلی</a>
             <br>
-            
+
             <div class="table-responsive-sm">
                 <table class="table table-info table-striped dailyTable">
                     <thead>
@@ -106,7 +106,7 @@
                             <td>وزن</td>
                             <td>ابعاد کوپ</td>
                             <td>کد کوپ</td>
-                            @*<td>تصاویر</td>*@
+                            <td>تصاویر</td>
                             <td>تاریخ ورود</td>
                             <td>شماره حواله</td>
                         </tr>
@@ -128,7 +128,8 @@
                                 <td>@item.Weight</td>
                                 <td>@item.Dimensions</td>
                                 <td>@item.CopCode</td>
-                                @*<td>مشاهده</td>*@
+                                <td><button class="btn btn-outline-primary" onclick="ShowPic(@item.Id)"> مشاهده </button></td>
+
                                 <td>@item.Uploaddate</td>
                                 <td>@item.Transfernumber</td>
                             </tr>
@@ -140,7 +141,7 @@
             <div style="float:right" id="pagination"></div>
 
 
-            <button class="btn btn-primary btn-rounded" onclick="window.print()">چاپ گزارش</button>
+            <button class="btn btn-primary btn-rounded" onclick="Print()">چاپ گزارش</button>
             <button class="btn btn-primary btn-rounded" onclick="location.href='@Url.Action("export", "ReportTotal")'">خروجی اکسل</button>
 
 
@@ -177,6 +178,61 @@
         document.addEventListener('DOMContentLoaded', init, false);
 
 
+
+    </script>
+    <script>
+        function Print() {
+
+            var divToPrint = document.getElementById('tablereport');
+            var htmlToPrint = '' +
+                '<style type="text/css">' +
+                'table th, table td {' +
+                'border:1px solid #000;' +
+                'padding:0.5em;' +
+                '}' +
+                '</style>';
+            htmlToPrint += divToPrint.outerHTML;
+            newWin = window.open("");
+            newWin.document.write(htmlToPrint);
+            newWin.print();
+            newWin.close();
+        };
+    </script>
+
+    <script>
+
+        function ShowPic(id) {
+            $.ajax({
+                url: '/ReportEntry/ShowPic',
+                data: { id: id },
+                type: 'post',
+                beforeSend: function () {
+                    $(LoadingGift).show();
+                },
+
+                success: function (data) {
+
+                    $(LoadingGift).hide();
+
+                    console.log(data);
+
+                    var str = "";
+
+
+
+                    for (var i in data) {
+
+                        str += '<div class="col-sm-6">';
+                        str += '<img class="img-responsive" src="../images/' + data[i] + '"/>';
+                        str += '</div>';
+
+
+                    }
+                    BodyShowPic.innerHTML = str;
+                    $(ModalShowPic).modal('show');
+                }
+            });
+        }
 
     </script>
 }

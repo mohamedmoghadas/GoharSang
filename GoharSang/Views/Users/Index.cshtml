@@ -64,6 +64,9 @@
                     @*<select id="selectStore" class="form-control" style="padding:2px 8px;margin-bottom:10px"></select>*@
 
                 </div>
+                <br />
+                <br />
+                <br />
 
 
                 <div class="form-group userChDiv">
@@ -88,7 +91,7 @@
                         <tr>
                             <td>@item.FullName</td>
                             <td>@item.UserName</td>
-                            @if (item.StateAdmin == false)
+                            @if (item.StateAdmin == true)
                             {
 
                                 <td><button class="btn btn-danger fa fa-trash" onclick="deleteUser(@item.Id)"></button>| <button class="btn btn-primary fa fa-pencil" onclick="EditUser(@item.Id)"></button></td>

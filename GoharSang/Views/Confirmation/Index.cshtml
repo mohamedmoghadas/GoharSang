@@ -126,45 +126,7 @@
 
 
 
-<div class="modal fade" id="ModalDetail" role="dialog">
-    <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">جزییات</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-info table-striped dailyTable">
-
-                            <thead>
-
-
-                                <tr>
-                                    <td>ردیف</td>
-                                    <td>نام خریدار</td>
-                                    <td>تاریخ بارگیری</td>
-                                    <td>انبار</td>
-                                    <td>وضعیت</td>
-                                </tr>
-                            </thead>
-
-                            <tbody id="bodyDetail">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
-            </div>
-        </div>
-
-    </div>
-</div>
 
 
 @section localscript{
@@ -312,6 +274,7 @@
 
                 success: function (data) {
 
+                    $(LoadingGift).hide();
 
 
 
