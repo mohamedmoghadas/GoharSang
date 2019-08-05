@@ -338,7 +338,7 @@ var Pagination = {
             '<span></span>',  // pagination container
             '<a>&#9668;</a>'  // next button
         ];
-
+       
         e.innerHTML = html.join('');
         Pagination.e = e.getElementsByTagName('span')[0];
         Pagination.Buttons(e);
