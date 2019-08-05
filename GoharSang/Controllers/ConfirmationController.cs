@@ -12,8 +12,9 @@ namespace GoharSang.Controllers
     public class ConfirmationController : Controller
     {
         GoharSangEntities db = new GoharSangEntities();
+        int PageOffSet = 10;
 
-        public ActionResult Index()
+        public ActionResult Index(int? PageNumber)
         {
 
             try
@@ -34,9 +35,20 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                       
-                            var result = GetExitOrder();
+                        if (PageNumber == null)
+                        {
+                            var result = GetExitOrder(1);
+                            ViewBag.PageNumber = 1;
+
                             return View(result);
+                        }
+                        else
+                        {
+                            var result = GetExitOrder((int)PageNumber);
+                            ViewBag.PageNumber = (int)PageNumber;
+
+                            return View(result);
+                        }
                        
 
                     }
@@ -55,8 +67,16 @@ namespace GoharSang.Controllers
 
 
         }
-        private object GetExitOrder()
+        private object GetExitOrder(int PageNumber)
         {
+
+
+            if (PageNumber <= 0)
+            {
+                PageNumber = 1;
+            }
+            int PageSkip = (PageNumber - 1) * PageOffSet;
+
             string UserIdcookie = "";
 
             UserIdcookie = Request.Cookies["UserId"].Value;
@@ -79,7 +99,10 @@ namespace GoharSang.Controllers
                  StoreName = p.Store.Name,
                  stateName = p.State.Name,
                  RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count()
-             }).ToList();
+             }).OrderBy(u => u.Id)
+                .Skip(PageSkip)
+                .Take(PageOffSet)
+                .ToList();
 
 
 
@@ -87,7 +110,7 @@ namespace GoharSang.Controllers
 
                 vmReportBargirt _vmReportBargirt = new vmReportBargirt();
                 _vmReportBargirt.list = lists;
-
+                _vmReportBargirt.AllPage= (db.Exitorder.Where(p => p.StateDelete == 0).Count() / 10) + 1;
                 return _vmReportBargirt;
             }
             else
@@ -103,7 +126,10 @@ namespace GoharSang.Controllers
                 StoreName = p.Store.Name,
                 stateName = p.State.Name,
                 RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count()
-            }).ToList();
+            }).OrderBy(u => u.Id)
+                .Skip(PageSkip)
+                .Take(PageOffSet)
+                .ToList();
 
 
 
@@ -111,6 +137,7 @@ namespace GoharSang.Controllers
 
                 vmReportBargirt _vmReportBargirt = new vmReportBargirt();
                 _vmReportBargirt.list = lists;
+                _vmReportBargirt.AllPage = (db.Exitorder.Where(p => p.StateDelete == 0).Count() / 10) + 1;
 
                 return _vmReportBargirt;
             }

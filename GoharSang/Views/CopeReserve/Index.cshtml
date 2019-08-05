@@ -50,7 +50,9 @@
             </div>
             <a class="btn btn-primary btn-rounded" role="button" href="~/RegisterCopeReserve/Index">ثبت رزرو جدید</a>
         </div>
+
     </div>
+        <div id="pagination"></div>
 </div>
 
 
@@ -172,5 +174,34 @@
                 }
             }
         }
+    </script>
+
+
+    <script>
+
+        var dataPaging;
+
+        var currentpage;
+
+        dataPaging=@ViewBag.AllPage;
+
+
+        currentpage =@ViewBag.PageNumber;
+
+        var init = function () {
+            Pagination.Init(document.getElementById('pagination'), {
+                size: dataPaging, // pages size
+                page: currentpage,  // selected page
+                step: 3   // pages before and after current
+            });
+
+        };
+
+
+
+        document.addEventListener('DOMContentLoaded', init, false);
+
+
+
     </script>
 }

@@ -12,7 +12,9 @@ namespace GoharSang.Controllers
     public class CopeReserveController : Controller
     {
         GoharSangEntities db = new GoharSangEntities();
-        public ActionResult Index()
+        int PageOffSet = 10;
+
+        public ActionResult Index(int? PageNumber)
         {
             try
             {
@@ -30,8 +32,22 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        var result = getCopReserve();
-                        return View(result);
+                        if (PageNumber == null)
+                        {
+                            var result = getCopReserve(1);
+                            ViewBag.AllPage = (db.CopsBooking.Where(p => p.StateDelete == 0).Count() / 10) + 1;
+                            ViewBag.PageNumber = 1;
+                            return View(result);
+                        }
+                        else
+                        {
+                            var result = getCopReserve((int)PageNumber);
+                            ViewBag.AllPage = (db.CopsBooking.Where(p => p.StateDelete == 0).Count() / 10) + 1;
+
+                            ViewBag.PageNumber = (int)PageNumber;
+
+                            return View(result);
+                        }
                     }
                 }
                 else
@@ -51,8 +67,15 @@ namespace GoharSang.Controllers
            
         }
          
-        private object getCopReserve()
+        private object getCopReserve(int PageNumber)
         {
+
+            if (PageNumber <= 0)
+            {
+                PageNumber = 1;
+            }
+            int PageSkip = (PageNumber - 1) * PageOffSet;
+
             var list = db.CopsBooking.Where(p => p.StateDelete == 0).ToList()
                 .Select(p => new vmcopreserv
                 {
@@ -61,7 +84,10 @@ namespace GoharSang.Controllers
                     DateExpired = clsPersianDate.MiladiToShamsi(p.DateExpired),
                     StoreMame = p.Store.Name,
                     Reserved = p.RecordEntryCopsBooking.Where(q => q.IdCopsBooking == p.Id).Count()
-                }).ToList();
+                }).OrderBy(u => u.Id)
+                .Skip(PageSkip)
+                .Take(PageOffSet)
+                .ToList();
 
             return list;
         }

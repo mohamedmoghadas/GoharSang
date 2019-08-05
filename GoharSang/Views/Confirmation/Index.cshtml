@@ -120,7 +120,10 @@
                 </table>
             </div>
         </div>
+
     </div>
+    <div id="pagination"></div>
+
 </div>
 
 
@@ -325,6 +328,35 @@
                 }
             });
         }
+
+    </script>
+
+
+    <script>
+
+        var dataPaging;
+
+        var currentpage;
+
+        dataPaging=@Model.AllPage;
+
+
+        currentpage =@ViewBag.PageNumber;
+
+        var init = function () {
+            Pagination.Init(document.getElementById('pagination'), {
+                size: dataPaging, // pages size
+                page: currentpage,  // selected page
+                step: 3   // pages before and after current
+            });
+
+        };
+
+
+
+        document.addEventListener('DOMContentLoaded', init, false);
+
+
 
     </script>
 
