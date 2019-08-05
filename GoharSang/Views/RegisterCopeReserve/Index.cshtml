@@ -107,7 +107,7 @@
                                     <tr style="border:solid;text-align:center">
                                         <td style="border:solid;text-align:center">
                                             <div class="checkbox checkbox-replace checkbox-primary">
-                                                <input type="checkbox" id="@item.Id" value="@item.Id">
+                                                <input type="checkbox" class="CHechBox" id="@item.Id" value="@item.Id">
                                                 <label for="@item.Id"></label>
                                             </div>
                                         </td>
@@ -217,16 +217,26 @@
         $(document).keyup(function (event) {
 
             if (CustomerName.value != "" && SelectStore.value != 0) {
-                var Check;
+
 
                 if (event.keyCode == 13) {
-                    $(':checkbox').each(function () {
-                        Check = this;
-                    });
-                    if (Check.checked) {
+
+
+                    if ($(".CHechBox:checked").length == 0) {
+                      
+
+                        AlertInAjax("موردی را انتخاب نمایید", modalAlertInAjax, "alert-danger");
+                        $(modalAlertInAjax).modal("show");
+
+                        return;
+                    } else {
                         BtnRegisterCopeReserve();
 
                     }
+
+
+
+
 
                 }
             }
@@ -304,12 +314,17 @@
             else {
                 if (State == false) {
                     State = true;
-                    var Check;
-                    $(':checkbox').each(function () {
-                        Check = this;
-                    });
-                    if (Check.checked) {
-                        _RegisterCopeReserve.CustomerFullName = CustomerName.value;
+
+
+                    if ($(".CHechBox:checked").length == 0) {
+                        State = false;
+
+                        AlertInAjax("موردی را انتخاب نمایید", modalAlertInAjax, "alert-danger");
+                        $(modalAlertInAjax).modal("show");
+
+                        return;
+                    } else {
+                       _RegisterCopeReserve.CustomerFullName = CustomerName.value;
                         _RegisterCopeReserve.IdStore = SelectStore.value;
 
                         var DateLoad = dateLoad.value;
@@ -350,14 +365,8 @@
                             }
                         });
                     }
-                    else {
-                        State = false;
 
-                        AlertInAjax("موردی را انتخاب نمایید", modalAlertInAjax, "alert-danger");
-                        $(modalAlertInAjax).modal("show");
-
-                        return;
-                    }
+                    
 
                 }
 

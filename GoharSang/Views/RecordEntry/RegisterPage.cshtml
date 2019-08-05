@@ -366,7 +366,7 @@
 
     <script>
 
-        var StateRegister = false;
+        var State = false;
 
 
 
@@ -394,9 +394,9 @@
             }
             else {
 
-                if (StateRegister == false) {
+                if (State == false) {
 
-                    StateRegister = true;
+                    State = true;
 
 
                     var formdataRecordEntry = new FormData();
@@ -478,7 +478,7 @@
                         contentType: false,
                         success: function (data) {
 
-                            StateRegister = false;
+                            State = false;
 
                             $(LoadingGift).hide();
 

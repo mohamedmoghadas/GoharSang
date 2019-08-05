@@ -110,11 +110,6 @@ namespace GoharSang.Controllers
 
                 foreach (var item in prop.ListProps)
                 {
-
-                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
-                    re.ExitState = true;
-                    await db.SaveChangesAsync();
-
                     RecordEntryCopsBooking recb = db.RecordEntryCopsBooking.Where(p => p.IdRecordEntry == item.Id).FirstOrDefault();
 
                     if (recb!=null)
@@ -126,6 +121,7 @@ namespace GoharSang.Controllers
                             _p.IdRecordEntry = item.Id;
                             _p.StateExit = false;
                             _listprops.Add(_p);
+
                         }
                         else
                         {
@@ -140,11 +136,20 @@ namespace GoharSang.Controllers
                         _p.StateExit = false;
                         _listprops.Add(_p);
                     }
+                   
 
-                  
                 }
                 db.RecordEntryExitOrder.AddRange(_listprops);
                 await db.SaveChangesAsync();
+
+                foreach (var item2 in prop.ListProps)
+                {
+                    Record_the_entry re = db.Record_the_entry.Find(item2.Id);
+                    re.ExitState = true;
+                    await db.SaveChangesAsync();
+                }
+
+
                 return Json("Ok", JsonRequestBehavior.AllowGet);
 
             }
@@ -177,11 +182,6 @@ namespace GoharSang.Controllers
 
                 foreach (var item in prop.ListProps)
                 {
-
-                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
-                    re.ExitState = true;
-                    await db.SaveChangesAsync();
-
                     RecordEntryCopsBooking recb = db.RecordEntryCopsBooking.Where(p => p.IdRecordEntry == item.Id).FirstOrDefault();
 
                     if (recb != null)
@@ -216,6 +216,13 @@ namespace GoharSang.Controllers
                 db.RecordEntryExitOrder.AddRange(_listprops);
                 await db.SaveChangesAsync();
 
+
+                foreach (var item2 in prop.ListProps)
+                {
+                    Record_the_entry re = db.Record_the_entry.Find(item2.Id);
+                    re.ExitState = true;
+                    await db.SaveChangesAsync();
+                }
 
                 return Json("Ok", JsonRequestBehavior.AllowGet);
 
