@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 
-@model IEnumerable<GoharSang.Models.vmModel.vmListRecordEntry>
+
 
 <div class="container dailyCol">
     <div class="row dailyRow">
@@ -96,45 +96,11 @@
                                     <td style="border:solid;text-align:center">وزن</td>
                                     <td style="border:solid;text-align:center">کد کوپ</td>
                                     <td style="border:solid;text-align:center">شماره حواله</td>
+                                    <td style="border:solid;text-align:center">تصاویر</td>
 
                                 </tr>
                             </thead>
                             <tbody id="BodyModel">
-
-                                @foreach (var item in Model)
-                                {
-
-                                    <tr style="border:solid;text-align:center">
-                                        <td style="border:solid;text-align:center">
-                                            <div class="checkbox checkbox-replace checkbox-primary">
-                                                <input type="checkbox" class="CHechBox" id="@item.Id" value="@item.Id">
-                                                <label for="@item.Id"></label>
-                                            </div>
-                                        </td>
-                                        <td style="border:solid;text-align:center">
-                                            @item.minename
-                                        </td>
-                                        <td style="border:solid;text-align:center">
-                                            @item.copname
-                                        </td>
-
-                                        <td style="border:solid;text-align:center">
-                                            @item.Dimensions
-                                        </td>
-
-                                        <td style="border:solid;text-align:center">
-                                            @item.Weight
-                                        </td>
-
-                                        <td style="border:solid;text-align:center">
-                                            @item.CopsCod
-                                        </td>
-                                        <td style="border:solid;text-align:center">
-                                            @item.Transfernumber
-                                        </td>
-
-                                    </tr>
-                                }
                             </tbody>
 
                         </table>
@@ -223,7 +189,7 @@
 
 
                     if ($(".CHechBox:checked").length == 0) {
-                      
+
 
                         AlertInAjax("موردی را انتخاب نمایید", modalAlertInAjax, "alert-danger");
                         $(modalAlertInAjax).modal("show");
@@ -246,9 +212,12 @@
     <script>
         window.onload = load();
 
+        var DataEntry = [];
+
         function load() {
 
             getStore();
+            GetEntry();
 
         }
 
@@ -281,11 +250,135 @@
 
         }
 
+        function GetEntry() {
+            $.ajax({
+                url: '/RegisterCopeReserve/getDataRecordEntry',
+                data: null,
+                type: 'post',
+                beforeSend: function () {
+                    $(LoadingGift).show();
+                },
+                success: function (data) {
+
+                    DataEntry = data;
+
+                    $(LoadingGift).hide();
+
+
+                    var str = "";
+
+
+                    for (var i in data) {
+
+                        str += '<tr style="border:solid;text-align:center">';
+                        str += '<td style="border:solid;text-align:center">';
+                        str += '<div class="checkbox checkbox-replace checkbox-primary">';
+                        str += '<input type="checkbox" class="CHechBox" id="' + data[i].Id + '" value="' + data[i].Id + '">';
+                        str += '<label for="' + data[i].Id + '"></label>';
+                        str += '</div>';
+                        str += '</td>';
+                        str += '<td style="border:solid;text-align:center">' + data[i].minename + '</td>';
+                        str += '<td style="border:solid;text-align:center">' + data[i].copname + '</td>';
+                        str += '<td style="border:solid;text-align:center">' + data[i].Dimensions + '</td>';
+                        str += '<td style="border:solid;text-align:center">' + data[i].Weight + '</td>';
+                        str += '<td style="border:solid;text-align:center">' + data[i].CopsCod + '</td>';
+                        str += '<td style="border:solid;text-align:center">' + data[i].Transfernumber + '</td>';
+                        str += ' <td style="border:solid;text-align:center">';
+                        str += '<button class="btn btn-outline-primary" onclick="ShowPic(' + data[i].Id + ')"> مشاهده </button>';
+                        str += '</td>';
+                        str += '</tr>';
+                    }
+                    BodyModel.innerHTML = str;
+
+
+                }
+            });
+
+        }
 
     </script>
 
 
+    <script>
 
+        $(SelectStore).change(function () {
+            var identry = SelectStore.value;
+            changedEntry(identry);
+        });
+
+        function changedEntry(id) {
+
+            BodyModel.innerHTML = "";
+
+
+            var str = "";
+
+
+            for (var i in DataEntry) {
+
+                if (DataEntry[i].IdStore == id) {
+                    str += '<tr style="border:solid;text-align:center">';
+                    str += '<td style="border:solid;text-align:center">';
+                    str += '<div class="checkbox checkbox-replace checkbox-primary">';
+                    str += '<input type="checkbox" class="CHechBox" id="' + DataEntry[i].Id + '" value="' + DataEntry[i].Id + '">';
+                    str += '<label for="' + DataEntry[i].Id + '"></label>';
+                    str += '</div>';
+                    str += '</td>';
+                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].minename + '</td>';
+                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].copname + '</td>';
+                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].Dimensions + '</td>';
+                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].Weight + '</td>';
+                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].CopsCod + '</td>';
+                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].Transfernumber + '</td>';
+                    str += ' <td style="border:solid;text-align:center">';
+                    str += '<button class="btn btn-outline-primary" onclick="ShowPic(' + DataEntry[i].Id + ')"> مشاهده </button>';
+                    str += '</td>';
+                    str += '</tr>';
+                }
+
+
+            }
+            BodyModel.innerHTML = str;
+        }
+
+    </script>
+
+    <script>
+
+        function ShowPic(id) {
+            $.ajax({
+                url: '/ReportEntry/ShowPic',
+                data: { id: id },
+                type: 'post',
+                beforeSend: function () {
+                    $(LoadingGift).show();
+                },
+
+                success: function (data) {
+
+                    $(LoadingGift).hide();
+
+                    console.log(data);
+
+                    var str = "";
+
+
+
+                    for (var i in data) {
+
+                        str += '<div class="col-sm-6">';
+                        str += '<img class="img-responsive" src="../images/' + data[i] + '"/>';
+                        str += '</div>';
+
+
+                    }
+                    BodyShowPic.innerHTML = str;
+                    $(ModalShowPic).modal('show');
+                }
+            });
+        }
+
+    </script>
 
     <script>
         function RegisterCopeReserve(Id, CustomerFullName, IdStore) {
@@ -324,7 +417,7 @@
 
                         return;
                     } else {
-                       _RegisterCopeReserve.CustomerFullName = CustomerName.value;
+                        _RegisterCopeReserve.CustomerFullName = CustomerName.value;
                         _RegisterCopeReserve.IdStore = SelectStore.value;
 
                         var DateLoad = dateLoad.value;
@@ -366,7 +459,7 @@
                         });
                     }
 
-                    
+
 
                 }
 

@@ -123,7 +123,8 @@ namespace GoharSang.Controllers
                         {
                             var result = SGetExitOrder(vmr);
                             TempData["data"] = result;
-
+                            ViewBag.PageNumber = 1;
+                            ViewBag.AllPage = 1;
                             return View(result);
                         }
                           
@@ -171,33 +172,7 @@ namespace GoharSang.Controllers
 
               }).ToList();
 
-            //var lists = (from exo in db.Exitorder
-            //             join reo in db.RecordEntryExitOrder
-            //             on exo.Id equals reo.IdExitOrder
-            //             join re in db.Record_the_entry
-            //             on reo.IdRecordEntry equals re.Id
-            //             where exo.StateDelete == 0 
-                        
-            //             select new { exo, reo, re }).ToList()
-            //            .Select(p => new listRecordEntryExitOrder
-            //            {
-            //                Id = p.exo.Id,
-            //                CustomerFullName = p.exo.CustomerFullName,
-            //                Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
-            //                StoreName = p.exo.Store.Name,
-            //                copname = p.re.Cops.Name,
-            //                minename = p.re.mine.Name,
-            //                RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
-            //                stateName = p.exo.State.Name,
-            //                Weight = p.re.Weight
-            //            }).ToList();
-
-
-
-
-
-         //   (re.Cops.Name.Contains(vmr.copname)
-          //              && exo.RecordEntryExitOrder.Count == vmr.RecordEntryExitOrderCount)
+           
             if (vmr.copname!=null)
             {
                 lists = lists.Where(p => p.copname.Contains(vmr.copname)).ToList();

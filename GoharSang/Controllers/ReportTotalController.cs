@@ -154,7 +154,8 @@ namespace GoharSang.Controllers
                         {
                             var result = SGetExitOrder(vmr);
                             TempData["data"] = result;
-
+                            ViewBag.PageNumber = 1;
+                            ViewBag.AllPage = 1;
                             return View(result);
                         }
                         else
@@ -205,7 +206,7 @@ namespace GoharSang.Controllers
 
 
 
-            if (vmr.Uploaddate != null && vmr.Uploaddate != "")
+            if (vmr.checkboxDate != null && vmr.Uploaddate != null && vmr.Uploaddate != "")
             {
                 lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
             }
@@ -245,7 +246,11 @@ namespace GoharSang.Controllers
 
             }
 
+            if (vmr.CopCode != null)
+            {
+                lists = lists.Where(p => p.CopCode.Contains(vmr.CopCode)).ToList();
 
+            }
 
 
 

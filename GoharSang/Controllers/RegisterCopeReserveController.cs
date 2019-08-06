@@ -13,7 +13,7 @@ namespace GoharSang.Controllers
     public class RegisterCopeReserveController : Controller
     {
         GoharSangEntities db = new GoharSangEntities();
-       
+
         public ActionResult Index()
         {
             try
@@ -32,13 +32,10 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        
-                            var result = getRecordEntry();
-                           
-                            return View(result);
-                        
-                        
-                       
+                        return View();
+
+
+
                     }
                 }
                 else
@@ -57,37 +54,35 @@ namespace GoharSang.Controllers
 
 
 
-           
+
         }
 
-        private object getRecordEntry()
+        [HttpPost]
+        public JsonResult getDataRecordEntry()
         {
-          
-
-            var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0 && p.ExitState==false && p.StateCopReserve == false).ToList()
-                .Select(p => new vmListRecordEntry
+            var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0 && p.ExitState == false && p.StateCopReserve == false).ToList()
+                .Select(p => new 
                 {
-                    Id=p.Id,
+                    Id = p.Id,
                     minename = p.mine.Name,
                     copname = p.Cops.Name,
                     Dimensions = p.length + "*" + p.width + "*" + p.Height,
-                    Weight= p.Weight,
-                    CopsCod= p.CopsCod,
-                    Transfernumber= p.Transfernumber,
-                    image=db.Record_the_Entrry_Image.Where(q=>q.Id==p.Id).FirstOrDefault()==null?""
-                    : db.Record_the_Entrry_Image.Where(q => q.Id == p.Id).FirstOrDefault().Image,
-                }).OrderBy(u => u.Id)
+                    Weight = p.Weight,
+                    CopsCod = p.CopsCod,
+                    Transfernumber = p.Transfernumber,
+                    p.IdStore
+                })
                .ToList();
 
 
 
-            return listrecordentry;
+            return Json(listrecordentry,JsonRequestBehavior.AllowGet);
         }
 
 
-        public async Task<ActionResult> RegisterCopeReserve(CopsBooking cb,string date,ItemPropSelect prop)
+        public async Task<ActionResult> RegisterCopeReserve(CopsBooking cb, string date, ItemPropSelect prop)
         {
-            if (cb.Id==0)
+            if (cb.Id == 0)
             {
                 cb.StateDelete = 0;
                 if (date != null && date != "")
@@ -142,7 +137,7 @@ namespace GoharSang.Controllers
 
                 ecb.IdStore = cb.IdStore;
                 ecb.CustomerFullName = cb.CustomerFullName;
-                
+
                 await db.SaveChangesAsync();
 
                 List<RecordEntryCopsBooking> _listprops = new List<RecordEntryCopsBooking>();
@@ -169,8 +164,8 @@ namespace GoharSang.Controllers
                 return Json("Ok", JsonRequestBehavior.AllowGet);
 
             }
-        } 
+        }
 
-        
+
     }
 }

@@ -35,5 +35,9 @@ namespace GoharSang.Models.vmModel
         public long IdRecord_the_entry { get; set; }
 
         public List<Record_the_Entrry_Image> image { get;set; }
+
+        public string checkboxDate { get; set; }
+
+
     }
 }

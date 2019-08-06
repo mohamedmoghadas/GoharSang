@@ -103,6 +103,8 @@ namespace GoharSang.Controllers
                         if (usr.Where(p=>p.IdRole ==3).Any())
                         {
                             var result = SGetExitOrder(vmr);
+                            ViewBag.PageNumber = 1;
+                            ViewBag.AllPage = 1;
                             return View(result);
                         }
                         else
@@ -136,16 +138,11 @@ namespace GoharSang.Controllers
                 .ToList().Select(p => new listRecordEntryExitOrder
                 {
                     Id = p.Id,
-
-
-
                     Uploaddate = clsPersianDate.MiladiToShamsi(p.Date),
                     StoreName = p.Store.Name,
                     copname = p.Cops.Name,
                     CopCode = p.CopsCod,
                     minename = p.mine.Name,
-                    // RecordEntryExitOrderCount = p.RecordEntryExitOrder.Count,
-                    //  stateName = p.State.Name,
                     Weight = p.Weight,
                     Dimensions = p.length + "*" + p.width + "*" + p.Height,
                     Transfernumber = p.Transfernumber,
@@ -154,7 +151,7 @@ namespace GoharSang.Controllers
 
 
 
-            if (vmr.Uploaddate != null && vmr.Uploaddate != "")
+            if (vmr.checkboxDate !=null && vmr.Uploaddate != null && vmr.Uploaddate != "")
             {
                 lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
             }
@@ -194,7 +191,11 @@ namespace GoharSang.Controllers
 
             }
 
+            if (vmr.CopCode != null)
+            {
+                lists = lists.Where(p => p.CopCode.Contains(vmr.CopCode)).ToList();
 
+            }
 
 
 
@@ -216,15 +217,11 @@ namespace GoharSang.Controllers
                   .ToList().Select(p => new listRecordEntryExitOrder
                   {
                       Id = p.Id,
-
-
-
                       Uploaddate = clsPersianDate.MiladiToShamsi(p.Date),
                       StoreName = p.Store.Name,
                       copname = p.Cops.Name,
                       CopCode = p.CopsCod,
                       minename = p.mine.Name,
-
                       Weight = p.Weight,
                       Dimensions = p.length + "*" + p.width + "*" + p.Height,
                       Transfernumber = p.Transfernumber,

@@ -117,7 +117,8 @@ namespace GoharSang.Controllers
                         {
                             var result = SGetExitOrder(vmr);
                             TempData["data"] = result;
-
+                            ViewBag.PageNumber = 1;
+                            ViewBag.AllPage = 1;
                             return View(result);
                         }
                         else
@@ -159,8 +160,6 @@ namespace GoharSang.Controllers
                     copname = p.Cops.Name,
                     CopCode = p.CopsCod,
                     minename = p.mine.Name,
-                   // RecordEntryExitOrderCount = p.RecordEntryExitOrder.Count,
-                   //  stateName = p.State.Name,
                    Weight = p.Weight,
                     Dimensions = p.length + "*" + p.width + "*" + p.Height,
                     Transfernumber = p.Transfernumber,
@@ -169,7 +168,7 @@ namespace GoharSang.Controllers
 
 
 
-            if (vmr.Uploaddate!=null && vmr.Uploaddate!="")
+            if (vmr.checkboxDate != null && vmr.Uploaddate!=null && vmr.Uploaddate!="")
             {
                 lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList() ;
             }

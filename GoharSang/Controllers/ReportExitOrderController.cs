@@ -159,7 +159,8 @@ namespace GoharSang.Controllers
                         {
                             var result = SGetExitOrder(vmr);
                             TempData["data"] = result;
-
+                            ViewBag.PageNumber = 1;
+                            ViewBag.AllPage = 1;
                             return View(result);
                         }
                         else
@@ -212,7 +213,7 @@ namespace GoharSang.Controllers
             {
                 lists = lists.Where(p => p.stateName.Contains(vmr.stateName)).ToList();
             }
-            if (vmr.Uploaddate != null && vmr.Uploaddate != "")
+            if (vmr.checkboxDate != null && vmr.Uploaddate != null && vmr.Uploaddate != "")
             {
                 lists = lists.Where(p => p.Uploaddate.Contains(vmr.Uploaddate)).ToList();
             }

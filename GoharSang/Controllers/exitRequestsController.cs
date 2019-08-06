@@ -121,6 +121,8 @@ namespace GoharSang.Controllers
                         if (usr.Where(p=>p.IdRole ==7).Any())
                         {
                             var result = SGetExitOrder(vmr);
+                            ViewBag.PageNumber = 1;
+                            ViewBag.AllPage = 1;
                             return View(result);
                         }
                         else
@@ -174,7 +176,7 @@ namespace GoharSang.Controllers
 
 
 
-            if (vmr.Uploaddate != "" || vmr.Uploaddate != null)
+            if (vmr.checkboxDate != null && vmr.Uploaddate != "" || vmr.Uploaddate != null)
             {
                 lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
             }

@@ -28,7 +28,7 @@
         </div>
         <!-- /filter header -->
         <!-- Filter form -->
-        <form class="form-inline">
+        <form class="form-inline" method="post">
 
             <div class="form-group">
                 <label class="form-label" style="text-align:right">معدن</label>
@@ -70,10 +70,17 @@
 
             <div class="form-group">
 
+                <div class="checkbox-group">
+                    <div class="checkbox checkbox-replace checkbox-warning">
+                        <input type="checkbox" id="_CheckBoxDateInsert" name="checkboxDate">
+                        <label for="_CheckBoxDateInsert" style="text-align:right">تاریخ ورود</label>
+                        <input type="text" placeholder="تاریخ ورود" class="form-control jalali-datepicker" name="Uploaddate">
 
+                    </div>
+                   
+                </div>
 
-                <label for="_CheckBoxDateInsert"style="text-align:right">تاریخ ورود</label>
-                <input type="text" placeholder="تاریخ ورود" class="form-control jalali-datepicker" name="Uploaddate">
+               
 
 
             </div>

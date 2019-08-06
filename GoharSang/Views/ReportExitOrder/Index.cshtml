@@ -29,7 +29,7 @@
             <button aria-label="Close" class="close toggle-filter" type="button" data-block-id="filter-box"><i class="icon-cancel"></i></button>
             <h3 class="title" style="text-align:right">جستجو</h3>
         </div>
-        <form class="form-inline">
+        <form class="form-inline" method="post">
 
 
 
@@ -40,10 +40,14 @@
 
             <div class="form-group">
 
+                <div class="checkbox-group">
+                    <div class="checkbox checkbox-replace checkbox-warning">
+                        <input type="checkbox" id="_CheckBoxDateInsert" name="checkboxDate">
 
-
-                <label for="_CheckBoxDateInsert" style="text-align:right;">تاریخ بارگیری</label>
-                <input type="text" placeholder="تاریخ بارگیری" class="form-control jalali-datepicker" name="Uploaddate">
+                        <label for="_CheckBoxDateInsert" style="text-align:right;">تاریخ بارگیری</label>
+                        <input type="text" placeholder="تاریخ بارگیری" class="form-control jalali-datepicker" name="Uploaddate">
+                    </div>
+                </div>
 
 
             </div>
