@@ -20,5 +20,6 @@ namespace GoharSang.Models
         public Nullable<bool> StateExit { get; set; }
     
         public virtual CopsBooking CopsBooking { get; set; }
+        public virtual Record_the_entry Record_the_entry { get; set; }
     }
 }

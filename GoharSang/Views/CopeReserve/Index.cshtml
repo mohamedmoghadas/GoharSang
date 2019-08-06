@@ -23,7 +23,7 @@
                             <td>انبار</td>
                             <td>رزرو شده </td>
                             <td>عملیات</td>
-                            @*<td>مشاهده کامل</td>*@
+                            <td>مشاهده کامل</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,15 +33,16 @@
                         @foreach (var item in Model)
                         {
                             i++;
-                            <tr>
-                                <td>@i</td>
-                                <td>@item.CustomerFullName</td>
-                                <td>@item.DateExpired</td>
-                                <td>@item.StoreMame</td>
-                                <td>@item.Reserved</td>
-                                <td><button class="btn btn-danger fa fa-trash" onclick="DeleteCopeReserve(@item.Id)"></button>|<button class="btn btn-primary fa fa-pencil" onclick="LoadEdit(@item.Id)"></button> </td>
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.CustomerFullName</td>
+                            <td>@item.DateExpired</td>
+                            <td>@item.StoreMame</td>
+                            <td>@item.Reserved</td>
+                            <td><button class="btn btn-danger fa fa-trash" onclick="DeleteCopeReserve(@item.Id)"></button>|<button class="btn btn-primary fa fa-pencil" onclick="LoadEdit(@item.Id)"></button> </td>
+                            <td><button class="btn btn-outline-primary" onclick="ShowDetail(@item.Id)"> مشاهده</button></td>
 
-                            </tr>
+                        </tr>
                         }
 
 
@@ -52,7 +53,7 @@
         </div>
 
     </div>
-        <div id="pagination"></div>
+    <div id="pagination"></div>
 </div>
 
 
@@ -202,6 +203,77 @@
         document.addEventListener('DOMContentLoaded', init, false);
 
 
+
+    </script>
+
+    <script>
+
+        function ShowDetail(id) {
+            $.ajax({
+                url: '/CopeReserve/ShowDetail',
+                data: { id: id },
+                type: 'post',
+                beforeSend: function () {
+                    $(LoadingGift).show();
+                },
+
+                success: function (data) {
+
+                    $(LoadingGift).hide();
+
+
+
+                    var str = "";
+
+
+
+                    for (var i in data) {
+
+                        var r = parseInt(i) + 1;
+
+
+
+                        if (i <= 0) {
+
+                            str += '<tr>';
+                            str += '<td>' + r + '</td>';
+                            str += '<td>' + data[i].CustomerFullName + '</td>';
+                            str += '<td>' + data[i].DateExpired + '</td>';
+                            str += '<td>' + data[i].StoreName + '</td>';
+                            str += '<td>' + data[i].stateName + '</td>';
+                            str += '</tr>';
+
+                            str += '<tr>';
+                            str += '<td>ردیف</td>';
+                            str += '<td>وزن</td>';
+                            str += '<td>ابعاد</td>';
+                            str += '<td>شماره حواله</td>';
+                            str += '<td>نام کوپ</td>';
+                            str += '<td>کد کوپ</td>';
+
+                            str += '</tr>'
+                        }
+
+
+                        str += '<tr>';
+                        str += '<td>' + r + '</td>';
+
+                        str += '<td>' + data[i].Weight + '</td>';
+                        str += '<td>' + data[i].Dimensions + '</td>';
+                        str += '<td>' + data[i].Transfernumber + '</td>';
+                        
+                            str += '<td>' + data[i].copname + '</td>';
+                            str += '<td>' + data[i].copcod + '</td>';
+                        str += '</tr>';
+
+
+                    }
+
+                    bodyDetail.innerHTML = str;
+                    $(ModalDetail).modal('show');
+                }
+            });
+        }
 
     </script>
 }

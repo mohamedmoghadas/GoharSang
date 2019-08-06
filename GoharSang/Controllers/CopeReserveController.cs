@@ -76,9 +76,11 @@ namespace GoharSang.Controllers
             }
             int PageSkip = (PageNumber - 1) * PageOffSet;
 
+
             var list = db.CopsBooking.Where(p => p.StateDelete == 0).ToList()
                 .Select(p => new vmcopreserv
                 {
+                   
                     Id = p.Id,
                     CustomerFullName = p.CustomerFullName,
                     DateExpired = clsPersianDate.MiladiToShamsi(p.DateExpired),
@@ -111,7 +113,7 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        RecordEntryCopsBooking RecordEntryCopsBooking = db.RecordEntryCopsBooking.Where(p => p.IdCopsBooking == id).FirstOrDefault();
+                       List<RecordEntryCopsBooking> RecordEntryCopsBooking = db.RecordEntryCopsBooking.Where(p => p.IdCopsBooking == id).ToList();
 
                         var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0).ToList()
                            .Select(p => new vmListRecordEntry
@@ -123,8 +125,6 @@ namespace GoharSang.Controllers
                                Weight = p.Weight,
                                CopsCod = p.CopsCod,
                                Transfernumber = p.Transfernumber,
-                               image = db.Record_the_Entrry_Image.Where(q => q.Id == p.Id).FirstOrDefault() == null ? ""
-                               : db.Record_the_Entrry_Image.Where(q => q.Id == p.Id).FirstOrDefault().Image,
                            }).ToList();
 
 
@@ -166,6 +166,31 @@ namespace GoharSang.Controllers
             await db.SaveChangesAsync();
 
             return Json("Ok",JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ShowDetail(long id)
+        {
+
+
+            var list = db.RecordEntryCopsBooking.Where(p => p.IdCopsBooking == id).ToList().Select(p => new
+            {
+                p.IdCopsBooking,
+                CustomerFullName = p.CopsBooking.CustomerFullName,
+                StoreName = p.CopsBooking.Store.Name,
+                stateName = p.CopsBooking.State.Name,
+                copname=p.Record_the_entry.Cops.Name,
+                copcod=p.Record_the_entry.CopsCod,
+                DateExpired = clsPersianDate.MiladiToShamsi(p.CopsBooking.DateExpired),
+                p.Record_the_entry.Weight,
+                p.Record_the_entry.Transfernumber,
+                Dimensions = p.Record_the_entry.length + "*" + p.Record_the_entry.width + "*" + p.Record_the_entry.Height,
+
+            }).ToList();
+
+
+
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
 

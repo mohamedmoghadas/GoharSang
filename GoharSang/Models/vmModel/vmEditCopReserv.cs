@@ -7,7 +7,7 @@ namespace GoharSang.Models.vmModel
 {
     public class vmEditCopReserv
     {
-        public RecordEntryCopsBooking RecordEntryCopsBooking { get; set; }
+        public List<RecordEntryCopsBooking> RecordEntryCopsBooking { get; set; }
         public List<vmListRecordEntry> ListRecordEntry { get; set; }
     }
 }
