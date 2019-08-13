@@ -186,6 +186,8 @@
     <Content Include="js\Resource\css\plugins\pdatepicker\js\moment.min.js" />
     <Content Include="js\Resource\css\plugins\scrollbar\perfect-scrollbar.css" />
     <Content Include="js\Resource\css\plugins\select2\select2.css" />
+    <Content Include="js\Resource\css\plugins\select3\select3.css" />
+    <Content Include="js\Resource\js\plugins\select3\select3.full.min.js" />
     <Content Include="js\Resource\css\plugins\summernote\summernote.css" />
     <Content Include="js\Resource\css\refreshColors.js" />
     <Content Include="js\Resource\css\setColors.js" />
@@ -457,6 +459,14 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\RecordEntry\RegisterPage.cshtml" />
     <Content Include="Views\RecordEntry\ediddata.cshtml" />
+    <Content Include="Views\RecordEntry\SIndex.cshtml" />
+    <Content Include="Views\Confirmation\SIndex.cshtml" />
+    <Content Include="Views\exitRequests\SIndex.cshtml" />
+    <Content Include="Views\ReportdenotativeStore\SIndex.cshtml" />
+    <Content Include="Views\ReportEntry\SIndex.cshtml" />
+    <Content Include="Views\ReportExit\SIndex.cshtml" />
+    <Content Include="Views\ReportExitOrder\SIndex.cshtml" />
+    <Content Include="Views\ReportTotal\SIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

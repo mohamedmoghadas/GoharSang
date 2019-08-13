@@ -67,6 +67,7 @@ namespace GoharSang.Controllers
            
         }
          
+
         private object getCopReserve(int PageNumber)
         {
 
@@ -94,7 +95,92 @@ namespace GoharSang.Controllers
             return list;
         }
 
-       [HttpPost]
+        [HttpGet]
+        public ActionResult SIndex(vmcopreserv vmr) {
+
+
+
+
+
+            try
+            {
+                string UserIdcookie = "";
+                if (Request.Cookies.AllKeys.Contains("UserId"))
+                {
+                    UserIdcookie = Request.Cookies["UserId"].Value;
+                    string _Id = UserIdcookie;
+                    long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+                    Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+                    if (admin == null)
+                    {
+
+                        return RedirectToAction("Index", "LogIn");
+                    }
+                    else
+                    {
+                        
+                            var result = SgetCopReserve(vmr);
+                            ViewBag.AllPage = 1;
+
+                            ViewBag.PageNumber = 1;
+
+                            return View(result);
+                        
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "LogIn");
+
+                }
+            }
+            catch (Exception ee)
+            {
+                return RedirectToAction("Index", "LogIn");
+
+            }
+
+
+
+
+
+           
+        }
+
+        private object SgetCopReserve(vmcopreserv vmr)
+        {
+            var list = db.CopsBooking.Where(p => p.StateDelete == 0).ToList()
+              .Select(p => new
+              {
+
+                  Id = p.Id,
+                  CustomerFullName = p.CustomerFullName,
+                  DateExpired = clsPersianDate.MiladiToShamsi(p.DateExpired),
+                  StoreMame = p.Store.Name,
+                  Reserved = p.RecordEntryCopsBooking.Where(q => q.IdCopsBooking == p.Id).Count()
+              }).ToList();
+
+            if (vmr.DateExpired != null && vmr.checkboxDate != null)
+            {
+                list = list.Where(p => p.DateExpired == vmr.DateExpired).ToList();
+            }
+            if (vmr.CustomerFullName != null)
+            {
+                list = list.Where(p => p.CustomerFullName.Contains(vmr.CustomerFullName)).ToList();
+            }
+            if (vmr.StoreMame != null)
+            {
+                list = list.Where(p => p.StoreMame.Contains(vmr.StoreMame)).ToList();
+            }
+            if (vmr.Reserved != 0)
+            {
+                list = list.Where(p => p.Reserved == vmr.Reserved).ToList();
+            }
+
+            return list;
+        }
+
+        [HttpPost]
        public ActionResult LoadEditCopsBooking(long id)
         {
             try
@@ -127,10 +213,14 @@ namespace GoharSang.Controllers
                                Transfernumber = p.Transfernumber,
                            }).ToList();
 
+                        List<Store> ListStore = db.Store.Where(p => p.StateDelete == 0).ToList();
+
 
                         vmEditCopReserv _vmEditCopReserv = new vmEditCopReserv();
                         _vmEditCopReserv.RecordEntryCopsBooking = RecordEntryCopsBooking;
                         _vmEditCopReserv.ListRecordEntry = listrecordentry;
+                        _vmEditCopReserv.ListStore = ListStore;
+
 
                         return View(_vmEditCopReserv);
                     }

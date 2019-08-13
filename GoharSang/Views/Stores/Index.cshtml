@@ -41,9 +41,14 @@
 @section localscript{
 
     <script>
+        var count = 0;
+
         $(document).keyup(function (event) {
             if (event.keyCode == 13) {
-                mgndata();
+                if (count == 0) {
+                    count = 1;
+                    mgndata();
+                }
 
             }
         });

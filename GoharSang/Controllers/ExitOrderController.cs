@@ -93,7 +93,22 @@ namespace GoharSang.Controllers
         {
             if (exo.Id == 0)
             {
-                exo.StateDelete = 0;
+
+
+
+                foreach (var item in prop.ListProps)
+                {
+                    RecordEntryCopsBooking recb = db.RecordEntryCopsBooking.Where(p => p.IdRecordEntry == item.Id).FirstOrDefault();
+
+                    if (recb != null && exo.CustomerFullName != recb.CopsBooking.CustomerFullName)
+                    {
+                        return new HttpStatusCodeResult(514);
+
+                    }
+                }
+
+
+                        exo.StateDelete = 0;
                 if (date != null && date != "")
                 {
                     DateTime tempdate = clsPersianDate.ShamsiToMiladi(date).Value;
@@ -110,44 +125,23 @@ namespace GoharSang.Controllers
 
                 foreach (var item in prop.ListProps)
                 {
-                    RecordEntryCopsBooking recb = db.RecordEntryCopsBooking.Where(p => p.IdRecordEntry == item.Id).FirstOrDefault();
 
-                    if (recb!=null)
-                    {
-                        if (exo.CustomerFullName== recb.CopsBooking.CustomerFullName)
-                        {
-                            _p = new RecordEntryExitOrder();
+                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
+                    re.ExitState = true;
+                    await db.SaveChangesAsync();
+
+                    _p = new RecordEntryExitOrder();
                             _p.IdExitOrder = exo.Id;
                             _p.IdRecordEntry = item.Id;
                             _p.StateExit = false;
                             _listprops.Add(_p);
 
-                        }
-                        else
-                        {
-                            return new HttpStatusCodeResult(514);
-                        }
-                    }
-                    else
-                    {
-                        _p = new RecordEntryExitOrder();
-                        _p.IdExitOrder = exo.Id;
-                        _p.IdRecordEntry = item.Id;
-                        _p.StateExit = false;
-                        _listprops.Add(_p);
-                    }
-                   
 
                 }
                 db.RecordEntryExitOrder.AddRange(_listprops);
                 await db.SaveChangesAsync();
 
-                foreach (var item2 in prop.ListProps)
-                {
-                    Record_the_entry re = db.Record_the_entry.Find(item2.Id);
-                    re.ExitState = true;
-                    await db.SaveChangesAsync();
-                }
+              
 
 
                 return Json("Ok", JsonRequestBehavior.AllowGet);
@@ -155,6 +149,18 @@ namespace GoharSang.Controllers
             }
             else
             {
+
+                foreach (var item in prop.ListProps)
+                {
+                    RecordEntryCopsBooking recb = db.RecordEntryCopsBooking.Where(p => p.IdRecordEntry == item.Id).FirstOrDefault();
+
+                    if (recb != null && exo.CustomerFullName != recb.CopsBooking.CustomerFullName)
+                    {
+                        return new HttpStatusCodeResult(514);
+
+                    }
+                }
+
                 var deleteprops = db.RecordEntryExitOrder.Where(p => p.IdExitOrder == exo.Id);
                 db.RecordEntryExitOrder.RemoveRange(deleteprops);
                 await db.SaveChangesAsync();
@@ -182,47 +188,25 @@ namespace GoharSang.Controllers
 
                 foreach (var item in prop.ListProps)
                 {
-                    RecordEntryCopsBooking recb = db.RecordEntryCopsBooking.Where(p => p.IdRecordEntry == item.Id).FirstOrDefault();
 
-                    if (recb != null)
-                    {
-                        if (exo.CustomerFullName == recb.CopsBooking.CustomerFullName)
-                        {
-                            _p = new RecordEntryExitOrder();
+
+                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
+                    re.ExitState = true;
+                    await db.SaveChangesAsync();
+
+                    _p = new RecordEntryExitOrder();
                             _p.IdExitOrder = exo.Id;
                             _p.IdRecordEntry = item.Id;
                             _p.StateExit = false;
 
 
                             _listprops.Add(_p);
-                        }
-                        else
-                        {
-                            return new HttpStatusCodeResult(514);
-
-                        }
-                    }
-                    else
-                    {
-                        _p = new RecordEntryExitOrder();
-                        _p.IdExitOrder = exo.Id;
-                        _p.IdRecordEntry = item.Id;
-                        _p.StateExit = false;
-
-
-                        _listprops.Add(_p);
-                    }
+                       
                 }
                 db.RecordEntryExitOrder.AddRange(_listprops);
                 await db.SaveChangesAsync();
 
 
-                foreach (var item2 in prop.ListProps)
-                {
-                    Record_the_entry re = db.Record_the_entry.Find(item2.Id);
-                    re.ExitState = true;
-                    await db.SaveChangesAsync();
-                }
 
                 return Json("Ok", JsonRequestBehavior.AllowGet);
 

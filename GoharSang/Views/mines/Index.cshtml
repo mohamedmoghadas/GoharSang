@@ -29,20 +29,27 @@
 
         <div class="col-sm-6 divCo12">
             <label class="listLable">لیست معادن</label>
-            <table class="table table-info table-striped userTable width100">
-                <tbody id="tbody">
-                </tbody>
-            </table>
+            <div class="table-responsive-sm">
+
+                <table class="table table-info table-striped userTable width100">
+                    <tbody id="tbody">
+                    </tbody>
+                </table>
+            </div>
 
         </div>
-    </div>
+        </div>
 </div>
 
 @section localscript{
     <script>
+        var count = 0;
         $(document).keyup(function (event) {
             if (event.keyCode == 13) {
-                mgndata();
+                if (count == 0) {
+                    count = 1;
+                    mgndata();
+                }
 
             }
         });

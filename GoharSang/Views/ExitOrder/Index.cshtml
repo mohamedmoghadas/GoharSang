@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-sm-4">
                             <label>انبار</label>
-                            <select id="SelectStore" class="select2-placeholer form-control" style="padding:2px 8px"></select>
+                            <select id="SelectStore" class="select2-placeholer form-control" data-placeholder="انتخاب" style="padding:2px 8px"></select>
 
                         </div>
                         <div class="col-sm-2">
@@ -83,58 +83,61 @@
                         </div>
 
                         <div class="col-sm-8">
-                            <table class="table-active" style="border:solid">
-                                <thead>
-                                    <tr>
-                                        <td style="border:solid;text-align:center">انتخاب</td>
-                                        <td style="border:solid;text-align:center">معدن</td>
-                                        <td style="border:solid;text-align:center">نوع کوپ</td>
-                                        <td style="border:solid;text-align:center">ابعاد</td>
-                                        <td style="border:solid;text-align:center">وزن</td>
-                                        <td style="border:solid;text-align:center">کد کوپ</td>
-                                        <td style="border:solid;text-align:center">شماره حواله</td>
+                            <div class="table-responsive-sm">
 
-                                    </tr>
-                                </thead>
-                                <tbody id="BodyModel">
-
-                                    @foreach (var item in Model)
-                                    {
-
-                                        <tr style="border:solid;text-align:center">
-                                            <td style="border:solid;text-align:center">
-                                                <div class="checkbox checkbox-replace checkbox-primary">
-                                                    <input type="checkbox" class="CHechBox" id="@item.Id" value="@item.Id">
-                                                    <label for="@item.Id" id="lblproduct"></label>
-                                                </div>
-                                            </td>
-                                            <td style="border:solid;text-align:center">
-                                                @item.minename
-                                            </td>
-                                            <td style="border:solid;text-align:center">
-                                                @item.copname
-                                            </td>
-
-                                            <td style="border:solid;text-align:center">
-                                                @item.Dimensions
-                                            </td>
-
-                                            <td style="border:solid;text-align:center">
-                                                @item.Weight
-                                            </td>
-
-                                            <td style="border:solid;text-align:center">
-                                                @item.CopsCod
-                                            </td>
-                                            <td style="border:solid;text-align:center">
-                                                @item.Transfernumber
-                                            </td>
+                                <table class="table-active" style="border:solid">
+                                    <thead>
+                                        <tr>
+                                            <td style="border:solid;text-align:center">انتخاب</td>
+                                            <td style="border:solid;text-align:center">معدن</td>
+                                            <td style="border:solid;text-align:center">نوع کوپ</td>
+                                            <td style="border:solid;text-align:center">ابعاد</td>
+                                            <td style="border:solid;text-align:center">وزن</td>
+                                            <td style="border:solid;text-align:center">کد کوپ</td>
+                                            <td style="border:solid;text-align:center">شماره حواله</td>
 
                                         </tr>
-                                    }
-                                </tbody>
+                                    </thead>
+                                    <tbody id="BodyModel">
 
-                            </table>
+                                        @foreach (var item in Model)
+                                        {
+
+                                            <tr style="border:solid;text-align:center">
+                                                <td style="border:solid;text-align:center">
+                                                    <div class="checkbox checkbox-replace checkbox-primary">
+                                                        <input type="checkbox" class="CHechBox" id="@item.Id" value="@item.Id">
+                                                        <label for="@item.Id" id="lblproduct"></label>
+                                                    </div>
+                                                </td>
+                                                <td style="border:solid;text-align:center">
+                                                    @item.minename
+                                                </td>
+                                                <td style="border:solid;text-align:center">
+                                                    @item.copname
+                                                </td>
+
+                                                <td style="border:solid;text-align:center">
+                                                    @item.Dimensions
+                                                </td>
+
+                                                <td style="border:solid;text-align:center">
+                                                    @item.Weight
+                                                </td>
+
+                                                <td style="border:solid;text-align:center">
+                                                    @item.CopsCod
+                                                </td>
+                                                <td style="border:solid;text-align:center">
+                                                    @item.Transfernumber
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+                            </div>
                         </div>
 
                     </div>
@@ -182,8 +185,8 @@
     <script src="~/js/Resource/js/plugins/jasny/jasny-bootstrap.min.js"></script>
     <script src="~/js/Resource/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
     <script src="~/js/Resource/js/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <link href="c~/js/Resource/ss/plugins/pdatepicker/css/daterangepicker.css" rel="stylesheet" />
-    <link href="c~/js/Resource/ss/plugins/pdatepicker/css/datepicker-theme.css" rel="stylesheet" />
+    <link href="~/js/Resource/ss/plugins/pdatepicker/css/daterangepicker.css" rel="stylesheet" />
+    <link href="~/js/Resource/ss/plugins/pdatepicker/css/datepicker-theme.css" rel="stylesheet" />
     <script src="~/js/Resource/css/plugins/pdatepicker/js/moment.min.js"></script>
     <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
     <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
@@ -203,6 +206,7 @@
 
     </script>
     <script>
+        var count = 0;
         $(document).keyup(function (event) {
 
             if (CustomerName.value != "" && SelectStore.value != 0) {
@@ -216,8 +220,11 @@
                         $(modalAlertInAjax).modal("show");
 
                         return;
-                    } else {
+                      } else {
+                          if (count == 0) {
+                              count = 1;
                        BtnExitOrder();
+                          }
 
                     }
 
@@ -285,10 +292,10 @@
 
 
     <script>
-        var State = false;
         
-
+        var State= false;
         function BtnExitOrder() {
+         State = false;
 
 
             if (CustomerName.value == "" || SelectStore.value == 0) {
@@ -306,7 +313,6 @@
                        State = false;
                         AlertInAjax("موردی را انتخاب نمایید", modalAlertInAjax, "alert-danger");
                         $(modalAlertInAjax).modal("show");
-
                         return;
                     } else {
                        _ExitOrder.CustomerFullName = CustomerName.value;

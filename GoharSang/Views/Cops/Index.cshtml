@@ -28,12 +28,14 @@
         </div>
         <div class="col-sm-6 divCol">
             <label class="listLable">انواع کوپ</label>
-            <table class="table table-info table-striped userTable width100">
-                <tbody id="tbody"></tbody>
-            </table>
+            <div class="table table-responsive">
+                <table class="table table-info table-striped userTable width100">
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
 
         </div>
-    </div>
+        </div>
 </div>
 
 
@@ -43,9 +45,15 @@
 
 
     <script>
+        var count = 0;
         $(document).keyup(function (event) {
         if (event.keyCode == 13) {
-            mgndata();
+
+            if (count == 0) {
+                count = 1;
+                mgndata();
+            }
+
             
          }
     });

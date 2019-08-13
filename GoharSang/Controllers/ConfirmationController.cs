@@ -49,7 +49,7 @@ namespace GoharSang.Controllers
 
                             return View(result);
                         }
-                       
+
 
                     }
                 }
@@ -86,9 +86,9 @@ namespace GoharSang.Controllers
             List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
             UserStoreRole UserStoreRole = db.UserStoreRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
 
-            if (usr.Where(p=>p.IdRole == 8).Any())
+            if (usr.Where(p => p.IdRole == 8).Any())
             {
-                var lists = db.Exitorder.Where(p => p.StateDelete == 0)
+                var lists = db.Exitorder.Where(p => p.StateDelete == 0 && p.IdState!=4 && p.IdState != 2)
              .ToList()
              .Select(p => new listRecordEntryExitOrder
              {
@@ -110,7 +110,7 @@ namespace GoharSang.Controllers
 
                 vmReportBargirt _vmReportBargirt = new vmReportBargirt();
                 _vmReportBargirt.list = lists;
-                _vmReportBargirt.AllPage= (db.Exitorder.Where(p => p.StateDelete == 0).Count() / 10) + 1;
+                _vmReportBargirt.AllPage = (db.Exitorder.Where(p => p.StateDelete == 0).Count() / 10) + 1;
                 return _vmReportBargirt;
             }
             else
@@ -152,9 +152,9 @@ namespace GoharSang.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
 
-        public ActionResult Index(listRecordEntryExitOrder vmr)
+        public ActionResult SIndex(listRecordEntryExitOrder vmr)
         {
 
             try
@@ -166,7 +166,7 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-                 //   List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
+                    //   List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
 
 
                     if (admin == null)
@@ -176,13 +176,15 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                       
-                            var result = SGetExitOrder(vmr);
-                            return View(result);
-                       
-                            
 
-                        
+                        var result = SGetExitOrder(vmr);
+                        ViewBag.PageNumber = 1;
+                        ViewBag.AllPage = 1;
+                        return View(result);
+
+
+
+
 
                     }
                 }
@@ -211,10 +213,10 @@ namespace GoharSang.Controllers
             List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
             UserStoreRole UserStoreRole = db.UserStoreRole.Where(p => p.IdUser == admin.Id).FirstOrDefault();
 
-            if (usr.Where(p=>p.IdRole== 8).Any())
+            if (usr.Where(p => p.IdRole == 8).Any())
             {
 
-                var lists = db.Exitorder.Where(p => p.StateDelete == 0)
+                var lists = db.Exitorder.Where(p => p.StateDelete == 0 && p.IdState != 4 && p.IdState != 2)
                  .ToList()
                  .Select(p => new listRecordEntryExitOrder
                  {
@@ -227,7 +229,7 @@ namespace GoharSang.Controllers
                      RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count()
                  }).ToList();
 
-                if (vmr.Uploaddate != "" || vmr.Uploaddate != null)
+                if (vmr.checkboxDate != null && vmr.Uploaddate != null)
                 {
                     lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
                 }
@@ -299,7 +301,7 @@ namespace GoharSang.Controllers
                 return _vmReportBargirt;
             }
 
-            }
+        }
 
 
 
@@ -314,7 +316,7 @@ namespace GoharSang.Controllers
             Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
             List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
 
-            if (usr.Where(p=>p.IdRole==6).Any())
+            if (usr.Where(p => p.IdRole == 6).Any())
             {
                 Exitorder exo = db.Exitorder.Find(id);
                 exo.IdState = 4;
@@ -373,7 +375,7 @@ namespace GoharSang.Controllers
                 exo.IdState = 3;
 
                 await db.SaveChangesAsync();
-            return Json("Ok", JsonRequestBehavior.AllowGet);
+                return Json("Ok", JsonRequestBehavior.AllowGet);
             }
             else
             {

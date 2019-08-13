@@ -1,13 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "گزارش کل";
+    ViewBag.Title = "گزارش ورورد";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
-
 @model GoharSang.Models.vmModel.vmReportBargirt
-
-
-
 
 
 
@@ -30,7 +26,7 @@
         </div>
         <!-- /filter header -->
         <!-- Filter form -->
-        <form class="form-inline" method="get" action="/ReportTotal/SIndex">
+        <form class="form-inline" method="get" action="/ReportEntry/SIndex">
 
             <div class="form-group">
                 <label class="form-label" style="text-align:right">معدن</label>
@@ -71,13 +67,18 @@
 
 
             <div class="form-group">
+
+
                 <div class="checkbox-group">
                     <div class="checkbox checkbox-replace checkbox-warning">
                         <input type="checkbox" id="_CheckBoxDateInsert" name="checkboxDate">
+
                         <label for="_CheckBoxDateInsert" style="text-align:right;">تاریخ ورود</label>
                         <input type="text" placeholder="تاریخ ورود" class="form-control jalali-datepicker" name="Uploaddate">
+
                     </div>
                 </div>
+
 
             </div>
 
@@ -133,7 +134,6 @@
                                 <td>@item.Dimensions</td>
                                 <td>@item.CopCode</td>
                                 <td><button class="btn btn-outline-primary" onclick="ShowPic(@item.Id)"> مشاهده </button></td>
-
                                 <td>@item.Uploaddate</td>
                                 <td>@item.Transfernumber</td>
                             </tr>
@@ -144,16 +144,14 @@
             </div>
             <div style="float:right" id="pagination"></div>
 
-
             <button class="btn btn-primary btn-rounded" onclick="Print()">چاپ گزارش</button>
-            <button class="btn btn-primary btn-rounded" onclick="location.href='@Url.Action("export", "ReportTotal")'">خروجی اکسل</button>
-
-
+            <button class="btn btn-primary btn-rounded" onclick="location.href='@Url.Action("export", "ReportEntry")'">خروجی اکسل</button>
         </div>
-
     </div>
 </div>
 
+
+<div id="pagination"></div>
 
 
 @section localscript{
@@ -184,6 +182,7 @@
 
 
     </script>
+
     <script>
         function Print() {
 
@@ -232,11 +231,12 @@
 
 
                     }
-                    BodyShowPic.innerHTML = str;
-                    $(ModalShowPic).modal('show');
+                        BodyShowPic.innerHTML = str;
+                        $(ModalShowPic).modal('show');
                 }
             });
         }
 
     </script>
+
 }

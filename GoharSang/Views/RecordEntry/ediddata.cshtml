@@ -13,200 +13,190 @@
         <div class="col dailyLDiv">
             <a class="btn btn-primary dailyBtnTop" href="~/Home/Index" role="button">صفحه اصلی</a>
             <br>
-            <div class="entryForm">
-                <div class="row margTop1">
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>اسم معدن</label>
-                    </div>
-                    <div class="col-sm-4 col-8">
-                        <select id="SelectMine" class="select2-placeholer form-control"></select>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>اسم معدن</label>
+                            <select id="SelectMine" class="select2-placeholer form-control" data-placeholder="انتخاب"></select>
 
-                        @*<select id="SelectMine" class="form-control float-right width100" style="padding:2px 8px"></select>*@
+                        </div>
                     </div>
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>نوع کوپ</label>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>نوع کوپ</label>
+                            <select id="SelectCope" class="select2-placeholer form-control" data-placeholder="انتخاب"></select>
 
+                        </div>
                     </div>
-                    <div class="col-sm-4 col-8">
-                        <select id="SelectCope" class="select2-placeholer form-control"></select>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>وزن</label>
+                            <input type="text" class="form-control txtLeft" id="weight"  value="@Model.Weight">
 
-                        @*<select id="SelectCope" class="form-control float-right width100" style="padding:2px 8px"></select>*@
+                        </div>
                     </div>
-                </div>
-                <div class="row margTop1">
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>وزن</label>
-                    </div>
-                    <div class="col-sm-4 col-8">
-                        <input type="text" class="form-control txtLeft" id="weight" value="@Model.Weight">
-                    </div>
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>طول</label>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>طول</label>
+                            <input type="text" class="form-control txtLeft" id="lenght"  value="@Model.length">
 
+                        </div>
                     </div>
-                    <div class="col-sm-4 col-8">
-                        <input type="text" class="form-control txtLeft" id="lenght" value="@Model.length">
-                    </div>
-                </div>
-                <div class="row margTop1">
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>عرض</label>
-                    </div>
-                    <div class="col-sm-4 col-8">
-                        <input type="text" class="form-control txtLeft" id="width" value="@Model.width">
-                    </div>
-                    <div class="col-sm-2 col-4 rgEnLable txtLeft">
-                        <label>ارتفاع</label>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>عرض</label>
+                            <input type="text" class="form-control txtLeft" id="width"  value="@Model.width">
 
+                        </div>
                     </div>
-                    <div class="col-sm-4 col-8">
-                        <input type="text" class="form-control txtLeft" id="height" value="@Model.Height">
-                    </div>
-                </div>
-                <div class="row margTop1">
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>کد کوپ</label>
-                    </div>
-                    <div class="col-sm-4 col-8">
-                        <input type="text" class="form-control txtLeft" id="Copcode" value="@Model.CopsCod">
-                    </div>
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>انبار</label>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>ارتفاع</label>
+                            <input type="text" class="form-control txtLeft" id="height"  value="@Model.Height">
 
+                        </div>
                     </div>
-                    <div class="col-sm-4 col-8">
-                        <select id="selectStore" class="select2-placeholer form-control"></select>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>کد کوپ</label>
+                            <input type="text" class="form-control txtLeft" id="Copcode"  value="@Model.CopsCod">
 
-                        @*<select id="selectStore" class="form-control float-right width100" style="padding:2px 8px"></select>*@
+                        </div>
                     </div>
-                </div>
-                <div class="row margTop1">
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>شماره ماشین</label>
-                    </div>
-                    <div class="col-sm-4 col-8">
-                        <input type="text" id="Trucknumber" class="form-control txtLeft" value="@Model.Trucknumber">
-                    </div>
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>شماره حواله</label>
-                    </div>
-                    <div class="col-sm-4 col-8">
-                        <input type="text" id="Transfernumber" class="form-control txtLeft" value="@Model.Transfernumber">
-                    </div>
-                </div>
-                <div class="row margTop1">
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>شماره باسکول</label>
-                    </div>
-                    <div class="col-sm-4 col-8">
-                        <input type="text" class="form-control txtLeft" id="basculenumber" value="@Model.basculenumber">
-                    </div>
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>تصاویر</label>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>انبار</label>
+                            <select id="selectStore" class="select2-placeholer form-control" data-placeholder="انتخاب"></select>
 
+                        </div>
                     </div>
-                    <div class="col-sm-4 col-8" style="display:none">
-                        <input type="file" id="file1" class="float-right" accept="image/*">
-                        <input type="file" id="file2" class="float-right">
-                        <input type="file" id="file3" class="float-right">
-                        <input type="file" id="file4" class="float-right">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>شماره ماشین</label>
+                            <input type="text" id="Trucknumber" class="form-control txtLeft"  value="@Model.Trucknumber">
 
+                        </div>
                     </div>
-                    <div class="col-sm-4 col-8">
-                        <div class="row">
-                            <div class="col-3">
-                                <button class="btn btn-primary fa fa-upload" onclick="file1.click()"></button>
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-primary fa fa-upload" onclick="file2.click()"></button>
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-primary fa fa-upload" onclick="file3.click()"></button>
-                            </div>
-                            <div class="col-3">
-                                <button class="btn btn-primary fa fa-upload" onclick="file4.click()"></button>
-                            </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>شماره حواله</label>
+                            <input type="text" id="Transfernumber" class="form-control txtLeft"  value="@Model.Transfernumber">
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>شماره باسکول</label>
+                            <input type="text" class="form-control txtLeft" id="basculenumber"  value="@Model.basculenumber">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>تاریخ</label>
+                            <input type="text" id="date"
+                                   class="form-control jalali-datepicker">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>ساعت</label>
+                            <input id="time" class="form-control" value=" @DateTime.Now.TimeOfDay.Minutes : @DateTime.Now.TimeOfDay.Hours @DateTime.Now.AddHours(24).ToString("tt", System.Globalization.CultureInfo.CreateSpecificCulture("fa-IR"))">
+
                         </div>
                     </div>
 
 
-                </div>
-                <div class="row margTop1">
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>تاریخ</label>
-                    </div>
-                    <div class="col-sm-4 col-8">
-                        <input type="text" id="date"
-                               class="form-control jalali-datepicker">
-                    </div>
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>نمایش</label>
-                    </div>
-                    <div class="col-sm-4 col-8">
-                        <div class="row">
-                            <div class="col-3">
-                                @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).FirstOrDefault() != null)
-                                {
 
-                                    <img id="img1" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p=>p.IdRecordentry==Model.Id).FirstOrDefault().Image">
-                                }
-                                else
-                                {
 
-                                    <img id="img1" class="rounded entryImg" />
-                                }
-                            </div>
-                            <div class="col-3">
-                                @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(1).FirstOrDefault() != null)
-                                {
-                                    <img id="img2" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p=>p.IdRecordentry==Model.Id).Skip(1).FirstOrDefault().Image">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>تصاویر</label>
+                            <div class="col-sm-4 col-8" style="display:none">
+                                <input type="file" id="file1" class="float-right" accept="image/*">
+                                <input type="file" id="file2" class="float-right" accept="image/*">
+                                <input type="file" id="file3" class="float-right" accept="image/*">
+                                <input type="file" id="file4" class="float-right" accept="image/*">
 
-                                }
-                                else
-                                {
-                                    <img id="img2" class="rounded entryImg" />
-                                }
-                            </div>
-                            <div class="col-3">
-
-                                @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(2).FirstOrDefault() != null)
-                                {
-                                    <img id="img3" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(2).FirstOrDefault().Image">
-                                }
-                                else
-                                {
-                                    <img id="img3" class="rounded entryImg" />
-                                }
-                            </div>
-                            <div class="col-3">
-                                @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(3).FirstOrDefault() != null)
-                                {
-                                    <img id="img4" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(3).FirstOrDefault().Image">
-                                }
-                                else
-                                {
-                                    <img id="img4" class="rounded entryImg" />
-                                }
                             </div>
 
+                            <div class="row">
+                                <div class="col-3">
+                                    <button class="btn btn-primary fa fa-upload" onclick="file1.click()"></button>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-primary fa fa-upload" onclick="file2.click()"></button>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-primary fa fa-upload" onclick="file3.click()"></button>
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-primary fa fa-upload" onclick="file4.click()"></button>
+                                </div>
+                            </div>
+                            <label>نمایش</label>
+                            <div class="row">
+                                <div class="col-3">
+                                    @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).FirstOrDefault() != null)
+                                    {
 
+                                        <img id="img1" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p=>p.IdRecordentry==Model.Id).FirstOrDefault().Image">
+                                    }
+                                    else
+                                    {
+
+                                        <img id="img1" class="rounded entryImg" />
+                                    }
+                                </div>
+                                <div class="col-3">
+                                    @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(1).FirstOrDefault() != null)
+                                    {
+                                        <img id="img2" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p=>p.IdRecordentry==Model.Id).Skip(1).FirstOrDefault().Image">
+
+                                    }
+                                    else
+                                    {
+                                        <img id="img2" class="rounded entryImg" />
+                                    }
+                                </div>
+                                <div class="col-3">
+
+                                    @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(2).FirstOrDefault() != null)
+                                    {
+                                        <img id="img3" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(2).FirstOrDefault().Image">
+                                    }
+                                    else
+                                    {
+                                        <img id="img3" class="rounded entryImg" />
+                                    }
+                                </div>
+                                <div class="col-3">
+                                    @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(3).FirstOrDefault() != null)
+                                    {
+                                        <img id="img4" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(3).FirstOrDefault().Image">
+                                    }
+                                    else
+                                    {
+                                        <img id="img4" class="rounded entryImg" />
+                                    }
+                                </div>
+
+
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row margTop1">
-                    <div class="col-sm-2 col-4 rgEnLable">
-                        <label>ساعت</label>
-                    </div>
-                    <div class="col-sm-4 col-8">
-                        <input id="time" class="form-control" value=" @DateTime.Now.TimeOfDay.Minutes : @DateTime.Now.TimeOfDay.Hours @DateTime.Now.AddHours(24).ToString("tt", System.Globalization.CultureInfo.CreateSpecificCulture("fa-IR"))">
-                    </div>
-                </div>
-                <div class="row margTop1">
-                    <div class="col">
+
+                    <div class="form-group">
                         <button class="btn btn-primary float-left SaveBtn" onclick="BtnRecordEntry()" name="lenght">ذخیره</button>
+
                     </div>
+
                 </div>
             </div>
+
+            
         </div>
     </div>
 </div>
@@ -251,6 +241,8 @@
     <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
 
     <script>
+        var count = 0;
+
         $(document).keyup(function (event) {
 
             
@@ -268,7 +260,10 @@
                 time.value != "" &&
                 basculenumber.value != "") {
                 if (event.keyCode == 13) {
-                    BtnRecordEntry();
+                    if(count == 0) {
+                        count = 1;
+                        BtnRecordEntry();
+                    }
 
                 }
             }

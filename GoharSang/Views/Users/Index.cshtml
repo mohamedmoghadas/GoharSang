@@ -59,7 +59,7 @@
 
                 <div class="row">
                     <label class="control-label">انبار</label>
-                    <select id="selectStore" class="select2-placeholer form-control"></select>
+                    <select id="selectStore" class="select2-placeholer form-control" data-placeholder="انتخاب"></select>
 
                     @*<select id="selectStore" class="form-control" style="padding:2px 8px;margin-bottom:10px"></select>*@
 
@@ -159,10 +159,15 @@
     </script>
 
     <script>
+        var count = 0;
+
         $(document).keyup(function (event) {
             if (FullName.value != "" && UserName.value != "" && Email.value != "" && Password.value != "") {
                 if (event.keyCode == 13) {
-                    mgnUser();
+                    if (count == 0) {
+                        count = 1;
+                        mgnUser();
+                    }
 
                 }
             }

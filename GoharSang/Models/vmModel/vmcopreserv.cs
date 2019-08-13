@@ -13,6 +13,7 @@ namespace GoharSang.Models.vmModel
             public string DateExpired { get; set; }
             public string StoreMame { get; set; }
             public long Reserved { get; set; }
-        
+            public string checkboxDate { get; set; }
+
     }
 }

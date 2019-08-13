@@ -3,6 +3,7 @@
     ViewBag.Title = "منتظر تایید";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
+
 @model GoharSang.Models.vmModel.vmReportBargirt
 
 
@@ -52,16 +53,8 @@
 
 
             <div class="form-group">
-
-                <div class="checkbox-group">
-                    <div class="checkbox checkbox-replace checkbox-warning">
-                        <input type="checkbox" id="_CheckBoxDateInsert" name="checkboxDate">
-                        <label for="_CheckBoxDateInsert" style="text-align:right">تاریخ ورود</label>
-                        <input type="text" placeholder="تاریخ ورود" class="form-control jalali-datepicker" name="Uploaddate">
-
-                    </div>
-
-                </div>
+                <label for="_CheckBoxDateInsert" style="text-align:right;">تاریخ بارگیری</label>
+                <input type="text" placeholder="تاریخ بارگیری" class="form-control jalali-datepicker" name="Uploaddate">
 
             </div>
 
@@ -346,7 +339,7 @@
 
         var currentpage;
 
-        dataPaging=@Model.AllPage;
+        dataPaging=@ViewBag.AllPage;
 
 
         currentpage =@ViewBag.PageNumber;
@@ -369,3 +362,4 @@
     </script>
 
 }
+

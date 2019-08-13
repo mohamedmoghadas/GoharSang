@@ -9,5 +9,7 @@ namespace GoharSang.Models.vmModel
     {
         public List<RecordEntryCopsBooking> RecordEntryCopsBooking { get; set; }
         public List<vmListRecordEntry> ListRecordEntry { get; set; }
+        public List<Store> ListStore { get; set; }
+
     }
 }

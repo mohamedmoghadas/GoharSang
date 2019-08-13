@@ -133,9 +133,9 @@ namespace GoharSang.Controllers
 
 
 
-        [HttpPost]
+        [HttpGet]
 
-        public ActionResult Index(listRecordEntryExitOrder vmr)
+        public ActionResult SIndex(listRecordEntryExitOrder vmr)
         {
             try
             {

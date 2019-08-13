@@ -79,8 +79,8 @@ namespace GoharSang.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult Index(listRecordEntryExitOrder vmr)
+        [HttpGet]
+        public ActionResult SIndex(listRecordEntryExitOrder vmr)
         {
             try
             {
@@ -322,7 +322,7 @@ namespace GoharSang.Controllers
 
             if (_re.Id==0)
             {
-                bool uniq = db.Record_the_entry.Where(p => p.CopsCod == _re.CopsCod).Any();
+                bool uniq = db.Record_the_entry.Where(p => p.CopsCod == _re.CopsCod && p.StateDelete!=0).Any();
 
                 if (uniq)
                 {
@@ -395,7 +395,7 @@ namespace GoharSang.Controllers
                 Record_the_entry _ere = db.Record_the_entry.Find(_re.Id);
 
 
-                bool uniq = db.Record_the_entry.Where(p => p.CopsCod == _re.CopsCod && p.Id!=_ere.Id).Any();
+                bool uniq = db.Record_the_entry.Where(p => p.CopsCod == _re.CopsCod && p.Id!=_ere.Id && p.StateDelete!=0).Any();
 
                 if (uniq)
                 {

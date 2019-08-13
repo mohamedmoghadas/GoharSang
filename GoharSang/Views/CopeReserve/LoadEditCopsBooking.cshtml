@@ -35,7 +35,20 @@
                         </div>
                         <div class="col-sm-4">
                             <label style="text-align:right;float:right">انبار</label>
-                            <select id="SelectStore" class="select2-placeholer form-control" style="padding:2px 8px"></select>
+                            <select id="SelectStore" class="select2-placeholer form-control" data-placeholder="انتخاب" style="padding:2px 8px">
+
+                                @foreach (var item in Model.ListStore)
+                                {
+                                    if (item.Id == Model.RecordEntryCopsBooking.FirstOrDefault().Record_the_entry.IdStore)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+
+                                        break;
+                                    }
+                                    <option value="@item.Id">@item.Name</option>
+
+                                }
+                            </select>
 
                         </div>
                         <div class="col-sm-2">
@@ -71,67 +84,70 @@
                         </div>
 
                         <div class="col-sm-8">
-                            <table class="table-active" style="border:solid">
-                                <thead>
-                                    <tr>
-                                        <td style="border:solid;text-align:center;">انتخاب</td>
-                                        <td style="border:solid;text-align:center">معدن</td>
-                                        <td style="border:solid;text-align:center">نوع کوپ</td>
-                                        <td style="border:solid;text-align:center">ابعاد</td>
-                                        <td style="border:solid;text-align:center">وزن</td>
-                                        <td style="border:solid;text-align:center">کد کوپ</td>
-                                        <td style="border:solid;text-align:center">شماره حواله</td>
-                                        <td style="border:solid;text-align:center">تصاویر</td>
+                            <div class="table-responsive">
+                                <table class="table table-info table-striped dailyTable" style="border:solid">
+                                    <thead>
+                                        <tr>
+                                            <td style="border:solid;text-align:center;">انتخاب</td>
+                                            <td style="border:solid;text-align:center">معدن</td>
+                                            <td style="border:solid;text-align:center">نوع کوپ</td>
+                                            <td style="border:solid;text-align:center">ابعاد</td>
+                                            <td style="border:solid;text-align:center">وزن</td>
+                                            <td style="border:solid;text-align:center">کد کوپ</td>
+                                            <td style="border:solid;text-align:center">شماره حواله</td>
+                                            <td style="border:solid;text-align:center">تصاویر</td>
 
-                                    </tr>
-                                </thead>
-                                <tbody id="BodyModel">
-                                    @foreach (var item in Model.ListRecordEntry)
-                                    {
-                                        if (Model.RecordEntryCopsBooking.Where(p => p.IdRecordEntry == item.Id).FirstOrDefault() != null)
+                                        </tr>
+                                    </thead>
+                                    <tbody id="BodyModel">
+                                        @foreach (var item in Model.ListRecordEntry)
                                         {
-                                            <tr style="border:solid;text-align:center">
-                                                <td style="border:solid;text-align:center">
-                                                    <div class="checkbox checkbox-replace checkbox-primary">
-                                                        <input type="checkbox" class="CHechBox" id="@item.Id" value="@item.Id" checked>
-                                                        <label for="@item.Id"></label>
-                                                    </div>
-                                                </td>
-                                                <td style="border:solid;text-align:center">@item.minename</td>
-                                                <td style="border:solid;text-align:center">@item.copname</td>
-                                                <td style="border:solid;text-align:center">@item.Dimensions</td>
-                                                <td style="border:solid;text-align:center">@item.Weight</td>
-                                                <td style="border:solid;text-align:center">@item.CopsCod</td>
-                                                <td style="border:solid;text-align:center">@item.Transfernumber</td>
-                                                <td style="border:solid;text-align:center">
-                                                    <button class="btn btn-outline-primary" onclick="ShowPic(@item.Id)"> مشاهده </button>
-                                                </td>
-                                            </tr>
-                                        }
-                                        else
-                                        {
-                                            <tr style="border:solid;text-align:center">
-                                                <td style="border:solid;text-align:center">
-                                                    <div class="checkbox checkbox-replace checkbox-primary">
-                                                        <input type="checkbox" class="CHechBox" id="@item.Id" value="@item.Id">
-                                                        <label for="@item.Id"></label>
-                                                    </div>
-                                                </td>
-                                                <td style="border:solid;text-align:center">@item.minename</td>
-                                                <td style="border:solid;text-align:center">@item.copname</td>
-                                                <td style="border:solid;text-align:center">@item.Dimensions</td>
-                                                <td style="border:solid;text-align:center">@item.Weight</td>
-                                                <td style="border:solid;text-align:center">@item.CopsCod</td>
-                                                <td style="border:solid;text-align:center">@item.Transfernumber</td>
-                                                <td style="border:solid;text-align:center">
-                                                    <button class="btn btn-outline-primary" onclick="ShowPic(@item.Id)"> مشاهده </button>
-                                                </td>
-                                            </tr>
-                                        }
+                                            if (Model.RecordEntryCopsBooking.Where(p => p.IdRecordEntry == item.Id).FirstOrDefault() != null)
+                                            {
+                                                <tr style="border:solid;text-align:center">
+                                                    <td style="border:solid;text-align:center">
+                                                        <div class="checkbox checkbox-replace checkbox-primary">
+                                                            <input type="checkbox" class="CHechBox" id="@item.Id" value="@item.Id" checked>
+                                                            <label for="@item.Id"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td style="border:solid;text-align:center">@item.minename</td>
+                                                    <td style="border:solid;text-align:center">@item.copname</td>
+                                                    <td style="border:solid;text-align:center">@item.Dimensions</td>
+                                                    <td style="border:solid;text-align:center">@item.Weight</td>
+                                                    <td style="border:solid;text-align:center">@item.CopsCod</td>
+                                                    <td style="border:solid;text-align:center">@item.Transfernumber</td>
+                                                    <td style="border:solid;text-align:center">
+                                                        <button class="btn btn-outline-primary" onclick="ShowPic(@item.Id)"> مشاهده </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr style="border:solid;text-align:center">
+                                                    <td style="border:solid;text-align:center">
+                                                        <div class="checkbox checkbox-replace checkbox-primary">
+                                                            <input type="checkbox" class="CHechBox" id="@item.Id" value="@item.Id">
+                                                            <label for="@item.Id"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td style="border:solid;text-align:center">@item.minename</td>
+                                                    <td style="border:solid;text-align:center">@item.copname</td>
+                                                    <td style="border:solid;text-align:center">@item.Dimensions</td>
+                                                    <td style="border:solid;text-align:center">@item.Weight</td>
+                                                    <td style="border:solid;text-align:center">@item.CopsCod</td>
+                                                    <td style="border:solid;text-align:center">@item.Transfernumber</td>
+                                                    <td style="border:solid;text-align:center">
+                                                        <button class="btn btn-outline-primary" onclick="ShowPic(@item.Id)"> مشاهده </button>
+                                                    </td>
+                                                </tr>
+                                            }
 
-                                    }
-                                </tbody>
-                            </table>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
                     </div>
 
@@ -203,7 +219,7 @@
 
         function load() {
 
-            getStore();
+           // getStore();
 
         }
 
@@ -323,6 +339,43 @@
 
             });
         });
+    </script>
+
+    <script>
+
+        function ShowPic(id) {
+            $.ajax({
+                url: '/ReportEntry/ShowPic',
+                data: { id: id },
+                type: 'post',
+                beforeSend: function () {
+                    $(LoadingGift).show();
+                },
+
+                success: function (data) {
+
+                    $(LoadingGift).hide();
+
+                    console.log(data);
+
+                    var str = "";
+
+
+
+                    for (var i in data) {
+
+                        str += '<div class="col-sm-6">';
+                        str += '<img class="img-responsive" src="../images/' + data[i] + '"/>';
+                        str += '</div>';
+
+
+                    }
+                    BodyShowPic.innerHTML = str;
+                    $(ModalShowPic).modal('show');
+                }
+            });
+        }
+
     </script>
 }
 

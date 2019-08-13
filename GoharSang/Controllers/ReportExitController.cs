@@ -94,8 +94,8 @@ namespace GoharSang.Controllers
             return lists;
         }
 
-        [HttpPost]
-        public ActionResult Index(listRecordEntryExitOrder vmr)
+        [HttpGet]
+        public ActionResult SIndex(listRecordEntryExitOrder vmr)
         {
             try
             {

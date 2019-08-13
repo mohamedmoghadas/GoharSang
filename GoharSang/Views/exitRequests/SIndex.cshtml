@@ -77,45 +77,49 @@
         <div class="col dailyLDiv">
             <a class="btn btn-primary d-block dailyBtnTop" href="~/Home/Index" role="button">صفحه اصلی</a>
             <br>
-          
-            <div class="table-responsive-sm">
-                <table class="table table-info table-striped dailyTable">
 
-                    <thead>
-                        <tr>
-                            <td>ردیف</td>
-                            <td>نام خریدار</td>
-                            <td>تاریخ بارگیری</td>
-                            <td>انبار</td>
-                            <td>کل کوپ</td>
-                            <td>مانده</td>
-                            @*<td>مشاهده کامل</td>*@
-                            <td>وضعیت</td>
-                            <td>عملیات</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            long i = 0;
-                        }
-                        @foreach (var item in Model.list)
-                        {
-                            i++;
+            <div class="table-responsive-sm">
+                <div class="table-responsive-sm">
+
+                    <table class="table table-info table-striped dailyTable">
+
+                        <thead>
                             <tr>
-                                <td>@i</td>
-                                <td>@item.CustomerFullName</td>
-                                <td>@item.Uploaddate</td>
-                                <td>@item.StoreName</td>
-                                <td>@item.RecordEntryExitOrderCount</td>
-                                <td>@item.Countmandeh</td>
-                                @*<td>مشاهده</td>*@
-                                <td>@item.stateName</td>
-                                <td><button class="btn btn-primary" onclick="RegisterExitPaper(@item.Id)">ثبت برگ خروج</button></td>
+                                <td>ردیف</td>
+                                <td>نام خریدار</td>
+                                <td>تاریخ بارگیری</td>
+                                <td>انبار</td>
+                                <td>کل کوپ</td>
+                                <td>مانده</td>
+                                @*<td>مشاهده کامل</td>*@
+                                <td>وضعیت</td>
+                                <td>عملیات</td>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @{
+                                long i = 0;
+                            }
+                            @foreach (var item in Model.list)
+                            {
+                                i++;
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@item.CustomerFullName</td>
+                                    <td>@item.Uploaddate</td>
+                                    <td>@item.StoreName</td>
+                                    <td>@item.RecordEntryExitOrderCount</td>
+                                    <td>@item.Countmandeh</td>
+                                    @*<td>مشاهده</td>*@
+                                    <td>@item.stateName</td>
+                                    <td><button class="btn btn-primary" onclick="RegisterExitPaper(@item.Id)">ثبت برگ خروج</button></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
