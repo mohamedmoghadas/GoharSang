@@ -175,7 +175,7 @@ namespace GoharSang.Controllers
 
 
 
-            if (vmr.checkboxDate != null && vmr.Uploaddate!=null && vmr.Uploaddate != "")
+            if ( vmr.Uploaddate!=null && vmr.Uploaddate != "")
             {
                 lists = lists.Where(p => p.Uploaddate.Contains(vmr.Uploaddate)).ToList();
             }

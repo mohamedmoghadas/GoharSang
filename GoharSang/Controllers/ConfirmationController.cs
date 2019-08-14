@@ -229,7 +229,7 @@ namespace GoharSang.Controllers
                      RecordEntryExitOrderCount = p.RecordEntryExitOrder.Where(q => q.IdExitOrder == p.Id).Count()
                  }).ToList();
 
-                if (vmr.checkboxDate != null && vmr.Uploaddate != null)
+                if ( vmr.Uploaddate != null)
                 {
                     lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
                 }
@@ -345,7 +345,14 @@ namespace GoharSang.Controllers
             {
 
                 Exitorder exo = db.Exitorder.Find(id);
-                exo.IdState = 2;
+               
+                RecordEntryExitOrder ree= db.RecordEntryExitOrder.Where(p=>p.IdExitOrder==exo.Id).FirstOrDefault();
+
+                Record_the_entry re = db.Record_the_entry.Where(p => p.Id == ree.IdRecordEntry).FirstOrDefault();
+                re.ExitState = false;
+
+                db.RecordEntryExitOrder.Remove(ree);
+                db.Exitorder.Remove(exo);
 
                 await db.SaveChangesAsync();
                 return Json("Ok", JsonRequestBehavior.AllowGet);

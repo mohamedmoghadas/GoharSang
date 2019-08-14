@@ -213,7 +213,7 @@ namespace GoharSang.Controllers
             {
                 lists = lists.Where(p => p.stateName.Contains(vmr.stateName)).ToList();
             }
-            if (vmr.checkboxDate != null && vmr.Uploaddate != null && vmr.Uploaddate != "")
+            if ( vmr.Uploaddate != null && vmr.Uploaddate != "")
             {
                 lists = lists.Where(p => p.Uploaddate.Contains(vmr.Uploaddate)).ToList();
             }

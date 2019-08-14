@@ -81,7 +81,7 @@ var kamaDatepicker = function (elementID, opt) {
     options.futureYearsCount = !isNaN(options.futureYearsCount) ? options.futureYearsCount : 6;
 
     // create DOM
-    var inputElement = $("#" + elementID);
+    var inputElement = $("." + elementID);
 
     if (inputElement.attr("placeholder") === undefined) {
         inputElement.attr("placeholder", options.placeholder);

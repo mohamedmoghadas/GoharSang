@@ -126,9 +126,14 @@
     <Content Include="bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="bootstrap\js\bootstrap.js" />
     <Content Include="bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap-rtl.css" />
+    <Content Include="Content\bootstrap-rtl.min.css" />
+    <Content Include="Content\bootstrap-theme-rtl.css" />
+    <Content Include="Content\bootstrap-theme-rtl.min.css" />
     <Content Include="css\kamadatepicker.css" />
     <Content Include="css\kamadatepicker.min.css" />
     <Content Include="css\styles.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\headIcon.png" />
     <Content Include="images\mine.jpg" />
@@ -262,6 +267,15 @@
       <DependentUpon>GoharSang.edmx</DependentUpon>
       <LastGenOutput>GoharSang.cs</LastGenOutput>
     </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\bootstrap-rtl.js" />
+    <Content Include="Scripts\bootstrap-rtl.min.js" />
+    <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.4.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Script\jsShowPic\jsShowPic.js" />
     <Content Include="Script\modalmessag\jsAlert.js" />
     <Content Include="Script\Pagination\pagination.js" />
@@ -364,6 +378,7 @@
     </Compile>
     <Compile Include="Models\vmModel\vmcopreserv.cs" />
     <Compile Include="Models\vmModel\vmEditCopReserv.cs" />
+    <Compile Include="Models\vmModel\vmEditRecordEntry.cs" />
     <Compile Include="Models\vmModel\vmListRecordEntry.cs" />
     <Compile Include="Models\vmModel\vmlistuser.cs" />
     <Compile Include="Models\vmModel\vmReportBargirt.cs" />
@@ -467,6 +482,7 @@
     <Content Include="Views\ReportExit\SIndex.cshtml" />
     <Content Include="Views\ReportExitOrder\SIndex.cshtml" />
     <Content Include="Views\ReportTotal\SIndex.cshtml" />
+    <Content Include="Scripts\jquery-2.2.4.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

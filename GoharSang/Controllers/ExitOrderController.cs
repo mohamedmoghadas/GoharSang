@@ -36,8 +36,8 @@ namespace GoharSang.Controllers
                     {
                         if (usr.Where(p=>p.IdRole ==5).Any())
                         {
-                            var result = getRecordEntry();
-                            return View(result);
+                          //  var result = getRecordEntry();
+                            return View();
                         }
                        
                         else
@@ -65,10 +65,18 @@ namespace GoharSang.Controllers
 
            
         }
-
-        private object getRecordEntry()
+        [HttpPost]
+        public ActionResult GetRecordEntry(long? StoreId,string productCode)
         {
-            var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0 && p.ExitState==false).ToList()
+            if (StoreId==null || StoreId==0)
+            {
+                return new HttpStatusCodeResult(520);
+            }
+            if (productCode == null || productCode == "0")
+            {
+                return new HttpStatusCodeResult(521);
+            }
+            var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0 && p.ExitState==false && p.CopsCod== productCode && p.IdStore== StoreId).ToList()
 
                 .Select(p => new vmListRecordEntry
                 {
@@ -79,18 +87,44 @@ namespace GoharSang.Controllers
                     Weight = p.Weight,
                     CopsCod = p.CopsCod,
                     Transfernumber = p.Transfernumber,
-                    image = db.Record_the_Entrry_Image.Where(q => q.Id == p.Id).FirstOrDefault() == null ? ""
-                    : db.Record_the_Entrry_Image.Where(q => q.Id == p.Id).FirstOrDefault().Image,
+                   
                 }).ToList();
 
 
 
-            return listrecordentry;
+            return Json(listrecordentry,JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult GetModalRecordEntry(long? StoreId)
+        {
+            if (StoreId == null || StoreId == 0)
+            {
+                return new HttpStatusCodeResult(520);
+            }
+         
+            var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0 && p.ExitState == false  && p.IdStore == StoreId).ToList()
 
+                .Select(p => new vmListRecordEntry
+                {
+                    Id = p.Id,
+                    minename = p.mine.Name,
+                    copname = p.Cops.Name,
+                    Dimensions = p.length + "*" + p.width + "*" + p.Height,
+                    Weight = p.Weight,
+                    CopsCod = p.CopsCod,
+                    Transfernumber = p.Transfernumber,
+                   
+                }).ToList();
+
+
+
+            return Json(listrecordentry, JsonRequestBehavior.AllowGet);
+        }
         public async Task<ActionResult> ExitOrder(Exitorder exo, string date, ItemPropSelect prop)
         {
+
+          
             if (exo.Id == 0)
             {
 
@@ -121,23 +155,34 @@ namespace GoharSang.Controllers
                 await db.SaveChangesAsync();
 
                 List<RecordEntryExitOrder> _listprops = new List<RecordEntryExitOrder>();
+               
+
                 RecordEntryExitOrder _p = null;
 
                 foreach (var item in prop.ListProps)
                 {
 
-                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
-                    re.ExitState = true;
-                    await db.SaveChangesAsync();
+                  
 
                     _p = new RecordEntryExitOrder();
                             _p.IdExitOrder = exo.Id;
                             _p.IdRecordEntry = item.Id;
                             _p.StateExit = false;
+                    if (_listprops.Where(p=>p.IdRecordEntry== item.Id).Any())
+                    {
+                        continue;
+                    }
                             _listprops.Add(_p);
 
 
+                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
+                    re.ExitState = true;
+                    await db.SaveChangesAsync();
+
+
                 }
+               
+
                 db.RecordEntryExitOrder.AddRange(_listprops);
                 await db.SaveChangesAsync();
 

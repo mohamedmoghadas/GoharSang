@@ -102,16 +102,22 @@ namespace GoharSang.Controllers
 
                 foreach (var item in prop.ListProps)
                 {
-                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
-                    re.StateCopReserve = true;
-                    await db.SaveChangesAsync();
 
                     _p = new RecordEntryCopsBooking();
                     _p.IdCopsBooking = cb.Id;
                     _p.IdRecordEntry = item.Id;
                     _p.StateExit = false;
 
+
+                    if (_listprops.Where(p => p.IdRecordEntry == item.Id).Any())
+                    {
+                        continue;
+                    }
+
                     _listprops.Add(_p);
+                    Record_the_entry re = db.Record_the_entry.Find(item.Id);
+                    re.StateCopReserve = true;
+                    await db.SaveChangesAsync();
                 }
                 db.RecordEntryCopsBooking.AddRange(_listprops);
                 await db.SaveChangesAsync();

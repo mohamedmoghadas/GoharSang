@@ -40,26 +40,30 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css">
+
+    <link href="~/Content/bootstrap-rtl.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="~/css/styles.css"/>
-    <link rel='shortcut icon' type='image/x-icon' href='~/images/headIcon.png' />
-
-    <link href="~/js/Resource/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet"/>
-
-    <meta charset="UTF-8">
-    <title>@ViewBag.Title</title>
-
-    <link href="~/js/Resource/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="~/js/Resource/css/mouldifi-core.css" rel="stylesheet"/>
-    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet"/>
-    <link href="~/js/Resource/css/bootstrap-rtl.min.css" rel="stylesheet"/>
-    <link href="~/js/Resource/css/mouldifi-rtl-core.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="~/css/styles.css">
     <link href="~/Script/Pagination/Pgination.css" rel="stylesheet" />
+    <link href="~/js/Resource/css/font-awesome.min.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+
+
+
+
+
+    <link rel="stylesheet" href="~/css/kamadatepicker.css">
+
+
+
+
+
+    <title>@ViewBag.Title</title>
+   
 
 </head>
 <body>
-    @*<img src="~/Script/loading/ajax-loader.gif" id="LoadingGift" style="display:none;position:fixed;top:50%;left:50%" />*@
+
     <i class="fa fa-spinner fa-spin" id="LoadingGift" style="font-size:48px;color:blue;position:fixed;top:50%;left:50%;z-index:999999999999999;display:none"></i>
 
 
@@ -157,69 +161,71 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modalSelectCop" role="dialog">
+        <div class="modal-dialog modal-lg">
 
-    
 
-    <script src="~/js/jquery-3.4.1.js"></script>
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        
+                        <div class="table-responsive-sm">
+                        <i class="fa fa-search" style="margin-left:5px;"> <input class="form-control" id="InputeSearch" placeholder="جستجو"/></i>
+                            <table class="table table-info table-striped portableTable">
+                                <thead>
+                                    <tr>
+                                        <td>ردیف</td>
+                                        <td>معدن</td>
+                                        <td>نوع کوپ</td>
+                                        <td>ابعاد</td>
+                                        <td>وزن</td>
+                                        <td>کد کوپ</td>
+                                        <td>تصاویر</td>
+                                        <td>شماره حواله</td>
+                                        <td>انتخاب</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="listdataModalCop">
+                                </tbody>
+                            </table>
+                            <button class="btn btn-primary SaveBtn" onclick="AddtoUlData()">افزودن</button>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="~/Scripts/jquery-2.2.4.min.js"></script>
     <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-rtl.min.js"></script>
     <script src="~/Script/modalmessag/jsAlert.js"></script>
     <script src="~/Script/jsShowPic/jsShowPic.js"></script>
-    @*<script src="~/js/Resource/css/animateColors.js"></script>*@
 
 
 
 
 
-    <script src="~/js/Resource/js/jquery.min.js"></script>
-    <script src="~/js/Resource/js/plugins/css3-animate-it-plugin/css3-animate-it.js"></script>
-    <script src="~/js/Resource/js/bootstrap.min.js"></script>
-    <script src="~/js/Resource/js/plugins/metismenu/jquery.metisMenu.js"></script>
-    <script src="~/js/Resource/js/plugins/blockui-master/jquery-ui.js"></script>
-    <script src="~/js/Resource/js/plugins/blockui-master/jquery.blockUI.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.min.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.resize.min.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.selection.min.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.pie.min.js"></script>
-    <script src="~/js/Resource/js/plugins/flot/jquery.flot.time.min.js"></script>
-    <script src="~/js/Resource/js/functions.js"></script>
+    <script src="~/js/kamadatepicker.js"></script>
 
-
-
-
-    <script src="~/js/Resource/js/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <link href="~~/js/Resource/css/plugins/pdatepicker/css/daterangepicker.css" rel="stylesheet" />
-
-    <link href="~/js/Resource/css/plugins/pdatepicker/css/datepicker-theme.css" rel="stylesheet" />
-
-    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment.min.js"></script>
-    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
-    <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
-
-
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
-
-
-            $('.jalali-datepicker').daterangepicker({
-                clearLabel: 'Clear',
-                autoApply: true,
-                opens: 'left',
-                singleDatePicker: true,
-                showDropdowns: true,
-                jalaali: true,
-                language: 'fa'
-            }).on('apply.daterangepicker', function () {
-                $('.tooltip').hide();
-                $('.date-select').text($(this).val());
-            });
-
-            $(document).on('mouseover', '.daterangepicker .calendar td', function () {
-                var gagDate = $(this).attr('data-original-title');
-                $('.date-hover').text('');
-                $('.date-hover').text(gagDate);
-
-                $('[data-toggle="tooltip"]').tooltip()
+            kamaDatepicker('jalali-datepicker', {
+                buttonsColor: 'red',
+                forceFarsiDigits: true,
+                markToday: true,
+                gotoToday: true,
+                markToday: true,
+                highlightSelectedDay: true
             });
         });
     </script>
@@ -228,6 +234,17 @@
 
     <script src="~/Script/Pagination/pagination.js"></script>
 
+
+    <script>
+        $(InputeSearch).keyup(function () {
+            var value = $(this).val().toLowerCase();
+            $("#listdataModalCop tr").filter(function () {
+
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+
+            });
+        });
+    </script>
 
     @RenderSection("localscript", false)
 </body>

@@ -5,23 +5,23 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="caabcc62a9da41109b3684c47ebc1406" Name="Diagram1" ZoomLevel="55">
-        <EntityTypeShape EntityType="GoharSangModel.Cops" Width="1.5" PointX="0.75" PointY="11.5" />
-        <EntityTypeShape EntityType="GoharSangModel.CopsBooking" Width="1.5" PointX="6" PointY="7.75" />
-        <EntityTypeShape EntityType="GoharSangModel.Driver" Width="1.5" PointX="8.25" PointY="2.125" />
-        <EntityTypeShape EntityType="GoharSangModel.DriverREO" Width="1.5" PointX="10.5" PointY="6.875" />
-        <EntityTypeShape EntityType="GoharSangModel.Exitorder" Width="1.5" PointX="6" PointY="3.75" />
-        <EntityTypeShape EntityType="GoharSangModel.mine" Width="1.5" PointX="0.75" PointY="5" />
-        <EntityTypeShape EntityType="GoharSangModel.Record_the_Entrry_Image" Width="1.5" PointX="5.25" PointY="15.25" />
-        <EntityTypeShape EntityType="GoharSangModel.Record_the_entry" Width="1.5" PointX="3" PointY="6.5" />
-        <EntityTypeShape EntityType="GoharSangModel.RecordEntryCopsBooking" Width="1.5" PointX="8.25" PointY="10.125" />
-        <EntityTypeShape EntityType="GoharSangModel.RecordEntryExitOrder" Width="1.5" PointX="8.25" PointY="6.625" />
-        <EntityTypeShape EntityType="GoharSangModel.Role" Width="1.5" PointX="3.75" PointY="22.375" />
-        <EntityTypeShape EntityType="GoharSangModel.State" Width="1.5" PointX="3.75" PointY="3.25" />
-        <EntityTypeShape EntityType="GoharSangModel.Store" Width="1.5" PointX="0.75" PointY="8" />
-        <EntityTypeShape EntityType="GoharSangModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="GoharSangModel.UserRole" Width="1.5" PointX="6" PointY="19.125" />
-        <EntityTypeShape EntityType="GoharSangModel.Users" Width="1.5" PointX="3.75" PointY="18.75" />
-        <EntityTypeShape EntityType="GoharSangModel.UserStoreRole" Width="1.5" PointX="6" PointY="12.125" />
+        <EntityTypeShape EntityType="GoharSangModel.Cops" Width="1.5" PointX="0.75" PointY="13" />
+        <EntityTypeShape EntityType="GoharSangModel.CopsBooking" Width="1.5" PointX="6" PointY="8.75" />
+        <EntityTypeShape EntityType="GoharSangModel.Driver" Width="1.5" PointX="8.25" PointY="5.625" />
+        <EntityTypeShape EntityType="GoharSangModel.DriverREO" Width="1.5" PointX="10.5" PointY="10.25" />
+        <EntityTypeShape EntityType="GoharSangModel.Exitorder" Width="1.5" PointX="3" PointY="4.75" />
+        <EntityTypeShape EntityType="GoharSangModel.mine" Width="1.5" PointX="0.75" PointY="15.5" />
+        <EntityTypeShape EntityType="GoharSangModel.Record_the_Entrry_Image" Width="1.5" PointX="5.25" PointY="14.25" />
+        <EntityTypeShape EntityType="GoharSangModel.Record_the_entry" Width="1.5" PointX="3" PointY="12.375" />
+        <EntityTypeShape EntityType="GoharSangModel.RecordEntryCopsBooking" Width="1.5" PointX="8.25" PointY="13.25" />
+        <EntityTypeShape EntityType="GoharSangModel.RecordEntryExitOrder" Width="1.5" PointX="8.25" PointY="10.125" />
+        <EntityTypeShape EntityType="GoharSangModel.Role" Width="1.5" PointX="0.75" PointY="18.5" />
+        <EntityTypeShape EntityType="GoharSangModel.State" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="GoharSangModel.Store" Width="1.5" PointX="0.75" PointY="9" />
+        <EntityTypeShape EntityType="GoharSangModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="1.75" />
+        <EntityTypeShape EntityType="GoharSangModel.UserRole" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="GoharSangModel.Users" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GoharSangModel.UserStoreRole" Width="1.5" PointX="3" PointY="9.125" />
         <AssociationConnector Association="GoharSangModel.FK_Record_the_entry_Cops" />
         <AssociationConnector Association="GoharSangModel.FK_CopsBooking_State" />
         <AssociationConnector Association="GoharSangModel.FK_CopsBooking_Store" />

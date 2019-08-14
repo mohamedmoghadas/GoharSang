@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 
-@model GoharSang.Models.Record_the_entry
+@model GoharSang.Models.vmModel.vmEditRecordEntry
 
 
 
@@ -18,70 +18,109 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>اسم معدن</label>
-                            <select id="SelectMine" class="select2-placeholer form-control" data-placeholder="انتخاب"></select>
+                            <select id="SelectMine" class="select2-placeholer form-control" data-placeholder="انتخاب">
+                                @foreach (var item in Model.listmine)
+                                {
+                                    if (Model.re.IdMine == item.Id)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                    else if (Model.re.IdMine != item.Id)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+
+                                    }
+                                }
+                            </select>
 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>نوع کوپ</label>
-                            <select id="SelectCope" class="select2-placeholer form-control" data-placeholder="انتخاب"></select>
+                            <select id="SelectCope" class="select2-placeholer form-control" data-placeholder="انتخاب">
+                                @foreach (var item in Model.listCops)
+                                {
+                                    if (Model.re.IdCops == item.Id)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                    else if (Model.re.IdCops != item.Id)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+
+                                    }
+                                }
+                            </select>
 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>وزن</label>
-                            <input type="text" class="form-control txtLeft" id="weight"  value="@Model.Weight">
+                            <input type="text" class="form-control txtLeft" id="weight" value="@Model.re.Weight">
 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>طول</label>
-                            <input type="text" class="form-control txtLeft" id="lenght"  value="@Model.length">
+                            <input type="text" class="form-control txtLeft" id="lenght" value="@Model.re.length">
 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>عرض</label>
-                            <input type="text" class="form-control txtLeft" id="width"  value="@Model.width">
+                            <input type="text" class="form-control txtLeft" id="width" value="@Model.re.width">
 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>ارتفاع</label>
-                            <input type="text" class="form-control txtLeft" id="height"  value="@Model.Height">
+                            <input type="text" class="form-control txtLeft" id="height" value="@Model.re.Height">
 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>کد کوپ</label>
-                            <input type="text" class="form-control txtLeft" id="Copcode"  value="@Model.CopsCod">
+                            <input type="text" class="form-control txtLeft" id="Copcode" value="@Model.re.CopsCod">
 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>انبار</label>
-                            <select id="selectStore" class="select2-placeholer form-control" data-placeholder="انتخاب"></select>
+                            <select id="selectStore" class="select2-placeholer form-control" data-placeholder="انتخاب">
+                                @foreach (var item in Model.listStore)
+                                {
+                                    if (Model.re.IdStore == item.Id)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+                                    }
+                                    else if (Model.re.IdStore != item.Id)
+                                    {
+                                        <option value="@item.Id">@item.Name</option>
+
+                                    }
+                                }
+                            </select>
 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>شماره ماشین</label>
-                            <input type="text" id="Trucknumber" class="form-control txtLeft"  value="@Model.Trucknumber">
+                            <input type="text" id="Trucknumber" class="form-control txtLeft" value="@Model.re.Trucknumber">
 
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>شماره حواله</label>
-                            <input type="text" id="Transfernumber" class="form-control txtLeft"  value="@Model.Transfernumber">
+                            <input type="text" id="Transfernumber" class="form-control txtLeft" value="@Model.re.Transfernumber">
 
                         </div>
                     </div>
@@ -89,7 +128,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>شماره باسکول</label>
-                            <input type="text" class="form-control txtLeft" id="basculenumber"  value="@Model.basculenumber">
+                            <input type="text" class="form-control txtLeft" id="basculenumber" value="@Model.re.basculenumber">
 
                         </div>
                     </div>
@@ -139,10 +178,10 @@
                             <label>نمایش</label>
                             <div class="row">
                                 <div class="col-3">
-                                    @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).FirstOrDefault() != null)
+                                    @if (Model.re.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.re.Id).FirstOrDefault() != null)
                                     {
 
-                                        <img id="img1" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p=>p.IdRecordentry==Model.Id).FirstOrDefault().Image">
+                                        <img id="img1" class="rounded entryImg" src="~/images/@Model.re.Record_the_Entrry_Image.Where(p=>p.IdRecordentry==Model.re.Id).FirstOrDefault().Image">
                                     }
                                     else
                                     {
@@ -151,9 +190,9 @@
                                     }
                                 </div>
                                 <div class="col-3">
-                                    @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(1).FirstOrDefault() != null)
+                                    @if (Model.re.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.re.Id).Skip(1).FirstOrDefault() != null)
                                     {
-                                        <img id="img2" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p=>p.IdRecordentry==Model.Id).Skip(1).FirstOrDefault().Image">
+                                        <img id="img2" class="rounded entryImg" src="~/images/@Model.re.Record_the_Entrry_Image.Where(p=>p.IdRecordentry==Model.re.Id).Skip(1).FirstOrDefault().Image">
 
                                     }
                                     else
@@ -163,9 +202,9 @@
                                 </div>
                                 <div class="col-3">
 
-                                    @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(2).FirstOrDefault() != null)
+                                    @if (Model.re.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.re.Id).Skip(2).FirstOrDefault() != null)
                                     {
-                                        <img id="img3" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(2).FirstOrDefault().Image">
+                                        <img id="img3" class="rounded entryImg" src="~/images/@Model.re.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.re.Id).Skip(2).FirstOrDefault().Image">
                                     }
                                     else
                                     {
@@ -173,9 +212,9 @@
                                     }
                                 </div>
                                 <div class="col-3">
-                                    @if (@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(3).FirstOrDefault() != null)
+                                    @if (Model.re.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.re.Id).Skip(3).FirstOrDefault() != null)
                                     {
-                                        <img id="img4" class="rounded entryImg" src="~/images/@Model.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.Id).Skip(3).FirstOrDefault().Image">
+                                        <img id="img4" class="rounded entryImg" src="~/images/@Model.re.Record_the_Entrry_Image.Where(p => p.IdRecordentry == Model.re.Id).Skip(3).FirstOrDefault().Image">
                                     }
                                     else
                                     {
@@ -196,7 +235,7 @@
                 </div>
             </div>
 
-            
+
         </div>
     </div>
 </div>
@@ -204,48 +243,18 @@
 
 @section localscript{
 
-    <link href="~/js/Resource/css/entypo.css" rel="stylesheet">
-    <link href="~/js/Resource/css/font-awesome.min.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/css3-animate-it-plugin/animations.css" rel="stylesheet">
-    <link href="~/js/Resource/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/js/Resource/css/mouldifi-core.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/datepicker/bootstrap-datepicker.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/colorpicker/bootstrap-colorpicker.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/nouislider/nouislider.css" rel="stylesheet">
     <link href="~/js/Resource/css/plugins/select2/select2.css" rel="stylesheet">
-    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet">
-    <link href="~/js/Resource/css/bootstrap-rtl.min.css" rel="stylesheet">
-    <link href="~/js/Resource/css/mouldifi-rtl-core.css" rel="stylesheet">
+    <link href="~/js/Resource/css/plugins/select3/select3.css" rel="stylesheet" />
 
-
-
-    <link href="~/js/Resource/css/plugins/colorpicker/bootstrap-colorpicker.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/nouislider/nouislider.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/select2/select2.css" rel="stylesheet">
-    <script src="~/js/Resource/js/jquery.min.js"></script>
-    <script src="~/js/Resource/js/bootstrap.min.js"></script>
     <script src="~/js/Resource/js/plugins/select2/select2.full.min.js"></script>
-    <script src="~/js/Resource/js/plugins/css3-animate-it-plugin/css3-animate-it.js"></script>
-    <script src="~/js/Resource/js/bootstrap.min.js"></script>
-    <script src="~/js/Resource/js/plugins/metismenu/jquery.metisMenu.js"></script>
-    <script src="~/js/Resource/js/plugins/blockui-master/jquery-ui.js"></script>
-    <script src="~/js/Resource/js/plugins/blockui-master/jquery.blockUI.js"></script>
-    <script src="~/js/Resource/js/plugins/nouislider/nouislider.min.js"></script>
-    <script src="~/js/Resource/js/plugins/jasny/jasny-bootstrap.min.js"></script>
-    <script src="~/js/Resource/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <script src="~/js/Resource/js/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <link href="c~/js/Resource/ss/plugins/pdatepicker/css/daterangepicker.css" rel="stylesheet" />
-    <link href="c~/js/Resource/ss/plugins/pdatepicker/css/datepicker-theme.css" rel="stylesheet" />
-    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment.min.js"></script>
-    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
-    <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
+    <script src="~/js/Resource/js/plugins/select3/select3.full.min.js"></script>
 
     <script>
         var count = 0;
 
         $(document).keyup(function (event) {
 
-            
+
             if (SelectMine.value != 0 &&
                 SelectCope.value != 0 &&
                 weight.value != "" &&
@@ -260,7 +269,7 @@
                 time.value != "" &&
                 basculenumber.value != "") {
                 if (event.keyCode == 13) {
-                    if(count == 0) {
+                    if (count == 0) {
                         count = 1;
                         BtnRecordEntry();
                     }
@@ -285,101 +294,7 @@
 
     </script>
 
-    <script>
-        window.onload = load();
 
-        function load() {
-            getMine();
-            getCops();
-            getStore();
-        }
-
-        function getMine() {
-            $.ajax({
-                url: '/RecordEntry/getMine',
-                data: null,
-                type: 'post',
-                beforeSend: function () {
-                    $(LoadingGift).show();
-                },
-                success: function (data) {
-
-                    $(LoadingGift).hide();
-
-
-                    var str = "<option value='0'>لطفا موردی را انتخاب نمایید</option>";
-
-
-                    for (var i in data) {
-
-                        str += "<option value=" + data[i].Id + ">" + data[i].Display + "</option>";
-                    }
-                    SelectMine.innerHTML = str;
-
-
-                }
-            });
-
-        }
-
-        function getCops() {
-            $.ajax({
-                url: '/RecordEntry/getCops',
-                data: null,
-                type: 'post',
-                beforeSend: function () {
-                    $(LoadingGift).show();
-                },
-                success: function (data) {
-
-                    $(LoadingGift).hide();
-
-
-                    var str = "<option value='0'>لطفا موردی را انتخاب نمایید</option>";
-
-
-                    for (var i in data) {
-
-                        str += "<option value=" + data[i].Id + ">" + data[i].Display + "</option>";
-                    }
-                    SelectCope.innerHTML = str;
-
-
-                }
-            });
-
-        }
-
-        function getStore() {
-            $.ajax({
-                url: '/RecordEntry/getStore',
-                data: null,
-                type: 'post',
-                beforeSend: function () {
-                    $(LoadingGift).show();
-                },
-                success: function (data) {
-
-                    $(LoadingGift).hide();
-
-
-                    var str = "<option value='0'>لطفا موردی را انتخاب نمایید</option>";
-
-
-                    for (var i in data) {
-
-                        str += "<option value=" + data[i].Id + ">" + data[i].Display + "</option>";
-                    }
-                    selectStore.innerHTML = str;
-
-
-                }
-            });
-
-        }
-
-
-    </script>
 
 
     <script>
@@ -425,7 +340,7 @@
 
                     var formdataRecordEntry = new FormData();
 
-                    formdataRecordEntry.append('_re.Id', @Model.Id);
+                    formdataRecordEntry.append('_re.Id', @Model.re.Id);
 
                     formdataRecordEntry.append('_re.IdMine', SelectMine.value);
 
@@ -504,7 +419,7 @@
                         processData: false,
                         contentType: false,
                         success: function (data) {
-
+                           count = 0;
                             StateRegister = false;
 
                             $(LoadingGift).hide();

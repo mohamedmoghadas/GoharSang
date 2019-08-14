@@ -160,7 +160,7 @@ namespace GoharSang.Controllers
                   Reserved = p.RecordEntryCopsBooking.Where(q => q.IdCopsBooking == p.Id).Count()
               }).ToList();
 
-            if (vmr.DateExpired != null && vmr.checkboxDate != null)
+            if (vmr.DateExpired != null )
             {
                 list = list.Where(p => p.DateExpired == vmr.DateExpired).ToList();
             }

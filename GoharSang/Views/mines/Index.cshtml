@@ -38,7 +38,7 @@
             </div>
 
         </div>
-        </div>
+    </div>
 </div>
 
 @section localscript{
@@ -128,7 +128,7 @@
                         $(modalAlertInAjax).modal("show");
                         setInterval(function () { $(modalAlertInAjax).modal("hide"); }, 2000);
                         $(modalAlertInAjax).on("hidden.bs.modal", function () {
-                             FillData(data);
+                            FillData(data);
 
                         });
                     }
@@ -152,13 +152,13 @@
     <script>
 
         function FillData(data) {
-             ListData = [];
-             ListData = data;
+            ListData = [];
+            ListData = data;
 
             tbody.innerHTML = "";
             var str = "<tr><td>نام معدن</td><td>عملیات</td></tr>";
             for (var i in data) {
-               
+
 
                 str += '<tr>';
                 str += '<td>' + data[i].Name + '</td>';
@@ -188,7 +188,7 @@
                     State = true;
                     _mdata.Name = Name.value;
 
-                    
+
                     $.ajax({
                         url: '/mines/mgndata',
                         data: { _mdata: _mdata },
@@ -212,7 +212,7 @@
                             State = false;
 
                             $(LoadingGift).hide();
-
+                            count = 0;
                             AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
                             _mdata.Id = 0;
                             Name.value = "";
@@ -224,7 +224,7 @@
                             });
                         }
                     });
-                    
+
 
 
                 }

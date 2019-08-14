@@ -36,7 +36,7 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.Where(p=>p.IdRole ==3).Any())
+                        if (usr.Where(p => p.IdRole == 3).Any())
                         {
                             if (PageNumber == null)
                             {
@@ -100,7 +100,7 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.Where(p=>p.IdRole ==3).Any())
+                        if (usr.Where(p => p.IdRole == 3).Any())
                         {
                             var result = SGetExitOrder(vmr);
                             ViewBag.PageNumber = 1;
@@ -151,7 +151,7 @@ namespace GoharSang.Controllers
 
 
 
-            if (vmr.checkboxDate !=null && vmr.Uploaddate != null && vmr.Uploaddate != "")
+            if ( vmr.Uploaddate != null && vmr.Uploaddate != "")
             {
                 lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
             }
@@ -283,7 +283,7 @@ namespace GoharSang.Controllers
                 .Select(p => new
                 {
                     p.Id,
-                    Display=  p.Name
+                    Display = p.Name
                 }).ToList();
             return Json(ListMine, JsonRequestBehavior.AllowGet);
         }
@@ -317,12 +317,12 @@ namespace GoharSang.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> RecordEntry(Record_the_entry _re,string _Date, HttpPostedFileBase _file)
+        public async Task<ActionResult> RecordEntry(Record_the_entry _re, string _Date, HttpPostedFileBase _file)
         {
 
-            if (_re.Id==0)
+            if (_re.Id == 0)
             {
-                bool uniq = db.Record_the_entry.Where(p => p.CopsCod == _re.CopsCod && p.StateDelete!=0).Any();
+                bool uniq = db.Record_the_entry.Where(p => p.CopsCod == _re.CopsCod && p.StateDelete == 0).Any();
 
                 if (uniq)
                 {
@@ -388,14 +388,14 @@ namespace GoharSang.Controllers
                 }
 
 
-               
+
             }
             else
             {
                 Record_the_entry _ere = db.Record_the_entry.Find(_re.Id);
 
 
-                bool uniq = db.Record_the_entry.Where(p => p.CopsCod == _re.CopsCod && p.Id!=_ere.Id && p.StateDelete!=0).Any();
+                bool uniq = db.Record_the_entry.Where(p => p.CopsCod == _re.CopsCod && p.Id != _ere.Id && p.StateDelete == 0).Any();
 
                 if (uniq)
                 {
@@ -490,7 +490,7 @@ namespace GoharSang.Controllers
                 }
             }
 
-           
+
         }
 
         [HttpPost]
@@ -539,7 +539,17 @@ namespace GoharSang.Controllers
                     else
                     {
                         Record_the_entry re = db.Record_the_entry.Find(id);
-                        return View(re);
+                        List<mine> listmine = db.mine.Where(p => p.StateDelete == 0).ToList();
+                        List<Cops> listCops = db.Cops.Where(p => p.StateDelete == 0).ToList();
+                        List<Store> listStore = db.Store.Where(p => p.StateDelete == 0).ToList();
+
+                        vmEditRecordEntry _vmEditRecordEntry = new vmEditRecordEntry();
+                        _vmEditRecordEntry.re = re;
+                        _vmEditRecordEntry.listmine = listmine;
+                        _vmEditRecordEntry.listCops = listCops;
+                        _vmEditRecordEntry.listStore = listStore;
+
+                        return View(_vmEditRecordEntry);
                     }
                 }
                 else

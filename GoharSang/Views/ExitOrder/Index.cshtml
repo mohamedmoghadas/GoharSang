@@ -4,8 +4,6 @@
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 
-@model IEnumerable<GoharSang.Models.vmModel.vmListRecordEntry>
-
 
 <div class="container dailyCol">
     <div class="row dailyRow">
@@ -26,170 +24,52 @@
 
                     </div>
                     <div class="col-sm-4 col-8">
-                        <input type="text" class="form-control jalali-datepicker" id="dateLoad">
-                    </div>
-
-
-
-
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="col-sm-2">
-                        </div>
-                        <div class="col-sm-4">
-                            <label>انبار</label>
-                            <select id="SelectStore" class="select2-placeholer form-control" data-placeholder="انتخاب" style="padding:2px 8px"></select>
-
-                        </div>
-                        <div class="col-sm-2">
-                        </div>
-                        <div class="col-sm-4">
-                            <label>کدکوپ</label>
-
-                            <input class="form-control" id="InputeSearch" />
-
-                        </div>
-
+                        <input type="text" class="form-control txtLeft jalali-datepicker" id="dateLoad">
                     </div>
                 </div>
-
                 <div class="row margTop1">
-                    <div class="col">
-                        <button class="btn btn-primary btn-rounded" onclick="BtnExitOrder()">ذخیره</button>
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>انبار</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <select id="SelectStore" class="select2-placeholer form-control" data-placeholder="انتخاب" style="padding:2px 8px"></select>
                     </div>
                 </div>
-
-
-
-
-
-
-
                 <div class="row margTop1">
                     <div class="col-sm-2 col-4 rgEnLable">
                         <label>کد محصول</label>
                     </div>
-
-                </div>
-                <div class="row">
-
-
-                    <div class="col-sm-12">
-
-                        <div class="col-sm-4">
-
-                        </div>
-
-                        <div class="col-sm-8">
-                            <div class="table-responsive-sm">
-
-                                <table class="table-active" style="border:solid">
-                                    <thead>
-                                        <tr>
-                                            <td style="border:solid;text-align:center">انتخاب</td>
-                                            <td style="border:solid;text-align:center">معدن</td>
-                                            <td style="border:solid;text-align:center">نوع کوپ</td>
-                                            <td style="border:solid;text-align:center">ابعاد</td>
-                                            <td style="border:solid;text-align:center">وزن</td>
-                                            <td style="border:solid;text-align:center">کد کوپ</td>
-                                            <td style="border:solid;text-align:center">شماره حواله</td>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody id="BodyModel">
-
-                                        @foreach (var item in Model)
-                                        {
-
-                                            <tr style="border:solid;text-align:center">
-                                                <td style="border:solid;text-align:center">
-                                                    <div class="checkbox checkbox-replace checkbox-primary">
-                                                        <input type="checkbox" class="CHechBox" id="@item.Id" value="@item.Id">
-                                                        <label for="@item.Id" id="lblproduct"></label>
-                                                    </div>
-                                                </td>
-                                                <td style="border:solid;text-align:center">
-                                                    @item.minename
-                                                </td>
-                                                <td style="border:solid;text-align:center">
-                                                    @item.copname
-                                                </td>
-
-                                                <td style="border:solid;text-align:center">
-                                                    @item.Dimensions
-                                                </td>
-
-                                                <td style="border:solid;text-align:center">
-                                                    @item.Weight
-                                                </td>
-
-                                                <td style="border:solid;text-align:center">
-                                                    @item.CopsCod
-                                                </td>
-                                                <td style="border:solid;text-align:center">
-                                                    @item.Transfernumber
-                                                </td>
-
-                                            </tr>
-                                        }
-                                    </tbody>
-
-                                </table>
-                            </div>
-                        </div>
-
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control float-right txtLeft width50" id="CopCods">
+                        <button class="btn btn-primary  float-right" onclick="AddWithModal()">=</button>
+                        <button class="btn btn-info float-right" onclick="Add()">افزودن</button>
                     </div>
-
-
-
-
-
                 </div>
-
-
-
+                <div class="row margTop2">
+                    <div class="col">
+                        <ul class="list-group rgExUl" id="listdata">
+                        </ul>
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col">
+                        <button class="btn btn-primary float-left SaveBtn" onclick="BtnExitOrder()">ذخیره</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 
-@section localscript{
-    <link href="~/js/Resource/css/entypo.css" rel="stylesheet">
-    <link href="~/js/Resource/css/font-awesome.min.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/css3-animate-it-plugin/animations.css" rel="stylesheet">
-    <link href="~/js/Resource/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/js/Resource/css/mouldifi-core.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/datepicker/bootstrap-datepicker.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/colorpicker/bootstrap-colorpicker.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/nouislider/nouislider.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/select2/select2.css" rel="stylesheet">
-    <link href="~/js/Resource/css/mouldifi-forms.css" rel="stylesheet">
-    <link href="~/js/Resource/css/bootstrap-rtl.min.css" rel="stylesheet">
-    <link href="~/js/Resource/css/mouldifi-rtl-core.css" rel="stylesheet">
 
-    <link href="~/js/Resource/css/plugins/colorpicker/bootstrap-colorpicker.css" rel="stylesheet">
-    <link href="~/js/Resource/css/plugins/nouislider/nouislider.css" rel="stylesheet">
+
+@section localscript{
     <link href="~/js/Resource/css/plugins/select2/select2.css" rel="stylesheet">
-    <script src="~/js/Resource/js/jquery.min.js"></script>
-    <script src="~/js/Resource/js/bootstrap.min.js"></script>
+    <link href="~/js/Resource/css/plugins/select3/select3.css" rel="stylesheet" />
+
     <script src="~/js/Resource/js/plugins/select2/select2.full.min.js"></script>
-    <script src="~/js/Resource/js/plugins/css3-animate-it-plugin/css3-animate-it.js"></script>
-    <script src="~/js/Resource/js/bootstrap.min.js"></script>
-    <script src="~/js/Resource/js/plugins/metismenu/jquery.metisMenu.js"></script>
-    <script src="~/js/Resource/js/plugins/blockui-master/jquery-ui.js"></script>
-    <script src="~/js/Resource/js/plugins/blockui-master/jquery.blockUI.js"></script>
-    <script src="~/js/Resource/js/plugins/nouislider/nouislider.min.js"></script>
-    <script src="~/js/Resource/js/plugins/jasny/jasny-bootstrap.min.js"></script>
-    <script src="~/js/Resource/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-    <script src="~/js/Resource/js/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <link href="~/js/Resource/ss/plugins/pdatepicker/css/daterangepicker.css" rel="stylesheet" />
-    <link href="~/js/Resource/ss/plugins/pdatepicker/css/datepicker-theme.css" rel="stylesheet" />
-    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment.min.js"></script>
-    <script src="~/js/Resource/css/plugins/pdatepicker/js/moment-jalaali.js"></script>
-    <script src="~/js/Resource/css/plugins/pdatepicker/js/daterangepicker-fa-ex.js"></script>
+    <script src="~/js/Resource/js/plugins/select3/select3.full.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -210,21 +90,21 @@
         $(document).keyup(function (event) {
 
             if (CustomerName.value != "" && SelectStore.value != 0) {
-               
+
                 if (event.keyCode == 13) {
-                   
-                      if ($(".CHechBox:checked").length == 0) {
-                      
+
+                    if ($(".CHechBox:checked").length == 0) {
+
 
                         AlertInAjax("موردی را انتخاب نمایید", modalAlertInAjax, "alert-danger");
                         $(modalAlertInAjax).modal("show");
 
                         return;
-                      } else {
-                          if (count == 0) {
-                              count = 1;
-                       BtnExitOrder();
-                          }
+                    } else {
+                        if (count == 0) {
+                            count = 1;
+                            BtnExitOrder();
+                        }
 
                     }
 
@@ -277,8 +157,189 @@
 
     </script>
 
+    <script>
 
 
+
+        function Add() {
+            if (SelectStore.value == 0) {
+                AlertInAjax("انباری را انتخاب نمایید", modalAlertInAjax, "alert-danger");
+                $(modalAlertInAjax).modal("show");
+                return;
+            }
+            else {
+
+                if (CopCods.value == "") {
+                    AlertInAjax("کدراوارد نمایید", modalAlertInAjax, "alert-danger");
+                    $(modalAlertInAjax).modal("show");
+                    return;
+                }
+                else {
+                    var StoreId = SelectStore.value;
+                    var productCode = CopCods.value;
+                    $.ajax({
+                        url: '/ExitOrder/getRecordEntry',
+                        data: { StoreId: StoreId, productCode: productCode },
+                        type: 'post',
+                        beforeSend: function () {
+                            $(LoadingGift).show();
+                        },
+                        error: function (data) {
+
+                            $(LoadingGift).hide();
+                            if (data.status == 520) {
+                                AlertInAjax("انباری را انتخاب نمایید", modalAlertInAjax, "alert-danger");
+                                $(modalAlertInAjax).modal("show");
+                            }
+                            if (data.status == 521) {
+                                AlertInAjax("کدراوارد نمایید", modalAlertInAjax, "alert-danger");
+
+                                $(modalAlertInAjax).modal("show");
+                            }
+                        },
+                        success: function (data) {
+                            $(LoadingGift).hide();
+
+                            Filldata(data);
+                        }
+                    });
+                }
+
+            }
+        }
+    </script>
+
+
+    <script>
+        function AddWithModal() {
+            if (SelectStore.value == 0) {
+                AlertInAjax("انباری را انتخاب نمایید", modalAlertInAjax, "alert-danger");
+                $(modalAlertInAjax).modal("show");
+                return;
+            }
+            else {
+
+
+
+                var StoreId = SelectStore.value;
+
+                $.ajax({
+                    url: '/ExitOrder/GetModalRecordEntry',
+                    data: { StoreId: StoreId },
+                    type: 'post',
+                    beforeSend: function () {
+                        $(LoadingGift).show();
+                    },
+                    error: function (data) {
+
+                        $(LoadingGift).hide();
+                        if (data.status == 520) {
+                            AlertInAjax("انباری را انتخاب نمایید", modalAlertInAjax, "alert-danger");
+                            $(modalAlertInAjax).modal("show");
+                        }
+                        if (data.status == 521) {
+                            AlertInAjax("کدراوارد نمایید", modalAlertInAjax, "alert-danger");
+
+                            $(modalAlertInAjax).modal("show");
+                        }
+                    },
+                    success: function (data) {
+                        $(LoadingGift).hide();
+
+                        Filldata2(data);
+                    }
+                });
+
+
+            }
+        }
+    </script>
+
+
+    <script>
+        function Filldata2(data) {
+
+            var str = "";
+            for (var i in data) {
+                var r = parseInt(i)+1;
+                str += ' <tr id="trlistdataModalCop'+ data[i].Id +'">';
+                str += '<td >' + r + '</td>';
+                str += '<td id="txtminename_' + data[i].Id + '">' + data[i].minename + '</td>';
+                str += '<td id="txtcopname_' + data[i].Id + '">' + data[i].copname + '</td>';
+                str += '<td id="txtDimensions_' + data[i].Id + '">' + data[i].Dimensions + '</td>';
+                str += '<td>' + data[i].Weight + '</td>';
+                str += '<td>' + data[i].CopsCod + '</td>';
+                str += '<td></td>';
+                str += '<td>' + data[i].Transfernumber + '</td>';
+                str += '<td><input class="ChechBoxDataUl" id="' + data[i].Id + '" value="' + data[i].Id + '" type="checkbox"></td>';
+                str += '</tr>';
+
+                //str += ' <li class="list-group-item rgExitLi" id="lidatamodal' + data[i].Id + '">';
+                //str += ' <input type="checkbox" class="CHechBox" id="' + data[i].Id + '" value="' + data[i].Id + '" checked style="display:none">';
+                //str += ' <lable>' + data[i].copname + " " + data[i].Dimensions + " " + data[i].minename + '</lable>';
+                //str += ' <button class="btn btn-success fa fa-check float-left" onclick="deletevalues(' + data[i].Id + ')"></button>';
+                //str += '</li>';
+            }
+            listdataModalCop.innerHTML = str;
+
+           
+            $(modalSelectCop).modal('show');
+
+        }
+    </script>
+
+
+    <script>
+        function AddtoUlData() {
+            var str = "";
+            $('.ChechBoxDataUl:checked').each(function (i) {
+
+
+
+                var Id = $(this).val();
+
+
+                //var asdasddas = $("#txtcopname_" + Id).text();
+
+                //alert(asdasddas);
+
+                 str += ' <li class="list-group-item rgExitLi" id="lidatamodal' + Id + '">';
+                str += ' <input type="checkbox" class="CHechBox" id="' +Id + '" value="' + Id + '" checked style="display:none">';
+                str += ' <lable>' + $("#txtcopname_" + Id).text() + " " + $("#txtDimensions_" + Id).text() + " " + $("#txtminename_" + Id).text() + '</lable>';
+                str += ' <button class="btn btn-danger fa fa-trash float-left" onclick="deletevalues(' + Id + ')"></button>';
+                str += '</li>';
+
+                 $("#trlistdataModalCop" + Id).remove();
+               
+            });
+            $("#listdata").append(str);
+           // $(modalSelectCop).modal('hide');
+
+        }
+    </script>
+
+    <script>
+        function Filldata(data) {
+
+            var str = "";
+            for (var i in data) {
+                str += ' <li class="list-group-item rgExitLi" id="lidata' + data[i].Id + '">';
+                str += ' <input type="checkbox" class="CHechBox" id="' + data[i].Id + '" value="' + data[i].Id + '" checked style="display:none">';
+                str += ' <lable>' + data[i].copname + " " + data[i].Dimensions + " " + data[i].minename + '</lable>';
+                str += ' <button class="btn btn-danger fa fa-trash float-left" onclick="deletevalues(' + data[i].Id + ')"></button>';
+                str += '</li>';
+            }
+            $("#listdata").append(str);
+
+
+        }
+    </script>
+
+    <script>
+        function deletevalues(id) {
+            $("#lidata" + id).remove();
+        }
+    </script>
 
     <script>
         function ExitOrder(Id, CustomerFullName, IdStore) {
@@ -292,10 +353,10 @@
 
 
     <script>
-        
-        var State= false;
+
+        var State = false;
         function BtnExitOrder() {
-         State = false;
+            State = false;
 
 
             if (CustomerName.value == "" || SelectStore.value == 0) {
@@ -309,13 +370,13 @@
 
                 if (State == false) {
                     State = true;
-                       if ($(".CHechBox:checked").length == 0) {
-                       State = false;
+                    if ($(".CHechBox:checked").length == 0) {
+                        State = false;
                         AlertInAjax("موردی را انتخاب نمایید", modalAlertInAjax, "alert-danger");
                         $(modalAlertInAjax).modal("show");
                         return;
                     } else {
-                       _ExitOrder.CustomerFullName = CustomerName.value;
+                        _ExitOrder.CustomerFullName = CustomerName.value;
                         _ExitOrder.IdStore = SelectStore.value;
 
                         var DateLoad = dateLoad.value;
@@ -351,7 +412,7 @@
                             success: function (data) {
                                 State = false;
                                 $(LoadingGift).hide();
-
+                                count = 0;
 
                                 AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");
                                 $(modalAlertInAjax).modal("show");
@@ -364,8 +425,8 @@
                         });
 
                     }
-                   
-                   
+
+
 
                 }
 
@@ -377,14 +438,5 @@
     </script>
 
 
-    <script>
-        $(InputeSearch).keyup(function () {
-            var value = $(this).val().toLowerCase();
-            $("#BodyModel tr").filter(function () {
 
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-
-            });
-        });
-    </script>
 }
