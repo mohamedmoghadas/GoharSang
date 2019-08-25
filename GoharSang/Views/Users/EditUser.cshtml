@@ -87,12 +87,9 @@
 
                                 foreach (var item in Model.listStore)
                                 {
-                                    if (item.Id == Exist.IdStore)
+                                    if (item.Id != Exist.IdStore)
                                     {
-                                        continue;
-                                    }
-                                    else
-                                    {
+                                    
 
                                         <option value="@item.Id">@item.Name</option>
                                     }

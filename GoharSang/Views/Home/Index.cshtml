@@ -3,49 +3,82 @@
     ViewBag.Title = "خانه";
     Layout = "~/Views/Shared/_layout.cshtml";
 }
+@using GoharSang.Models;
 
+@{
+    GoharSangEntities db = new GoharSangEntities();
+    string UserIdcookie = "";
+    UserIdcookie = Request.Cookies["UserId"].Value;
+    string _Id = UserIdcookie;
+    long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+    Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+    List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
+
+}
 
 <div class="container dailyContainer indexDiv">
 
     <div class="row margTop5">
         <div class="col-sm-12">
-            <div class="col-sm-6">
-                <a class="btn btn-info btn-block" href="~/Definitions/Index" role="button">تعاریف</a>
+            @if (usr.Where(p => p.IdRole == 1).Any())
+            {
+                <div class="col-sm-6">
+                    <a class="btn btn-info btn-block" href="~/Definitions/Index" role="button">تعاریف</a>
 
-            </div>
+                </div>
+            }
+            @if (usr.Where(p => p.IdRole == 3).Any())
+            {
             <div class="col-sm-6">
                 <a class="btn btn-info btn-block" href="~/RecordEntry/Index" role="button">ثبت ورودی</a>
 
             </div>
+            }
+             @if (usr.Where(p => p.IdRole == 10).Any())
+             {
             <div class="col-sm-6 margTop2">
                 <a class="btn btn-info btn-block" href="~/CopeReserve/Index" role="button">رزرو کوپ</a>
 
             </div>
+             }
+            @if (usr.Where(p => p.IdRole == 5).Any())
+            {
             <div class="col-sm-6 margTop2">
                 <a class="btn btn-info btn-block" href="~/ExitOrder/Index" role="button">دستور خروج</a>
 
             </div>
+            }
+             @if (usr.Where(p => p.IdRole == 11).Any())
+             {
             <div class="col-sm-6 margTop2">
                 <a class="btn btn-info btn-block" href="~/Confirmation/Index" role="button">منتظر تایید</a>
 
             </div>
+             }
+             @if (usr.Where(p => p.IdRole == 2).Any())
+             {
             <div class="col-sm-6 margTop2">
                 <a class="btn btn-info btn-block" href="~/Report/Index" role="button">گزارشات</a>
 
             </div>
+             }
+              @if (usr.Where(p => p.IdRole == 4).Any())
+              {
             <div class="col-sm-6 margTop2">
                 <a class="btn btn-info btn-block" href="~/Users/Index" role="button">کاربران</a>
 
             </div>
+              }
+               @if (usr.Where(p => p.IdRole == 7).Any())
+               {
             <div class="col-sm-6 margTop2">
                 <a class="btn btn-info btn-block" href="~/exitRequests/Index" role="button">مشاهده درخواست های خروج</a>
 
             </div>
-            <div class="col-sm-6">
-
-            </div>
+               }
+           
         </div>
     </div>
 
-   
+
 </div>

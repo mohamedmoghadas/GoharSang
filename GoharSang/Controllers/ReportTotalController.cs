@@ -156,6 +156,17 @@ namespace GoharSang.Controllers
                             TempData["data"] = result;
                             ViewBag.PageNumber = 1;
                             ViewBag.AllPage = 1;
+
+                            ViewBag.minename = vmr.minename;
+                            ViewBag.copname = vmr.copname;
+                            ViewBag.Weight = vmr.Weight;
+                            ViewBag.StoreName = vmr.StoreName;
+                            ViewBag.Dimensions = vmr.Dimensions;
+                            ViewBag.CopCode = vmr.CopCode;
+                            ViewBag.Transfernumber = vmr.Transfernumber;
+                            ViewBag.Uploaddate = vmr.Uploaddate;
+
+
                             return View(result);
                         }
                         else
@@ -223,7 +234,7 @@ namespace GoharSang.Controllers
 
             if (vmr.Weight != null)
             {
-                lists = lists.Where(p => p.Weight.Contains(vmr.Weight)).ToList();
+                lists = lists.Where(p => p.Weight==vmr.Weight).ToList();
 
             }
             if (vmr.StoreName != null)

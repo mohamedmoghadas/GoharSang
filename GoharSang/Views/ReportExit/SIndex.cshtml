@@ -34,23 +34,32 @@
                 <div class="col-sm-12">
                     <div class="col-sm-3">
                         <label class="form-label" >نام خریدار</label>
-                        <input type="text" placeholder="جستجو" name="CustomerFullName" class="form-control">
+                        <input type="text" placeholder="جستجو"
+                               value="@ViewBag.CustomerFullName"
+                               name="CustomerFullName" class="form-control">
                     </div>
 
                     <div class="col-sm-3">
                         <label class="form-label" >انبار</label>
-                        <input type="text" placeholder="جستجو" name="StoreName" class="form-control">
+                        <input type="text" placeholder="جستجو"
+                               value="@ViewBag.StoreName"
+                               
+                               name="StoreName" class="form-control">
                     </div>
 
                     <div class="col-sm-3">
                         <label class="form-label" >تعداد کوپ</label>
-                        <input type="text" placeholder="جستجو" name="RecordEntryExitOrderCount" class="form-control">
+                        <input type="text" placeholder="جستجو" 
+                               value="@ViewBag.RecordEntryExitOrderCount"
+                               name="RecordEntryExitOrderCount" class="form-control">
                     </div>
 
 
                     <div class="col-sm-3">
                         <label class="form-label" >وضعیت</label>
-                        <input type="text" placeholder="جستجو" name="stateName" class="form-control">
+                        <input type="text" placeholder="جستجو"
+                               value="@ViewBag.stateName"
+                               name="stateName" class="form-control">
                     </div>
 
 
@@ -60,7 +69,9 @@
                     <div class="col-sm-3">
 
                         <label for="_CheckBoxDateInsert" style="text-align:right;">تاریخ بارگیری</label>
-                        <input type="text" placeholder="تاریخ بارگیری" class="form-control jalali-datepicker" name="Uploaddate">
+                        <input type="text" placeholder="تاریخ بارگیری" 
+                               value="@ViewBag.Uploaddate"
+                               class="form-control jalali-datepicker" name="Uploaddate">
 
                         <button class="btn btn-default">جستجو</button>
 

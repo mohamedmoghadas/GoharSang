@@ -106,7 +106,7 @@ namespace GoharSang.Controllers
                 list.Add(_p);
             }
 
-           
+            list = list.Where(p => p.Countmandeh != 0).ToList();
 
 
             vmReportBargirt _vmReportBargirt = new vmReportBargirt();
@@ -222,6 +222,7 @@ namespace GoharSang.Controllers
 
                 lists.Add(_p);
             }
+            lists = lists.Where(p => p.Countmandeh != 0).ToList();
 
 
             if (vmr.Uploaddate != "" || vmr.Uploaddate != null)

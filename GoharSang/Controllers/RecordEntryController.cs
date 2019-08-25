@@ -181,7 +181,7 @@ namespace GoharSang.Controllers
 
             if (vmr.Weight != null)
             {
-                lists = lists.Where(p => p.Weight.Contains(vmr.Weight)).ToList();
+                lists = lists.Where(p => p.Weight==vmr.Weight).ToList();
 
             }
             if (vmr.StoreName != null)

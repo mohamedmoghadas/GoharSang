@@ -79,7 +79,62 @@ namespace GoharSang.Controllers
             return Json(listrecordentry,JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult GetRecordEntry(long? StoreId, string productCode)
+        {
+            if (StoreId == null || StoreId == 0)
+            {
+                return new HttpStatusCodeResult(520);
+            }
+            if (productCode == null || productCode == "0")
+            {
+                return new HttpStatusCodeResult(521);
+            }
+            var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0 && p.ExitState == false && p.StateCopReserve == false && p.CopsCod == productCode && p.IdStore == StoreId).ToList()
 
+                .Select(p => new vmListRecordEntry
+                {
+                    Id = p.Id,
+                    minename = p.mine.Name,
+                    copname = p.Cops.Name,
+                    Dimensions = p.length + "*" + p.width + "*" + p.Height,
+                    Weight = p.Weight,
+                    CopsCod = p.CopsCod,
+                    Transfernumber = p.Transfernumber,
+
+                }).ToList();
+
+
+
+            return Json(listrecordentry, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult GetModalRecordEntry(long? StoreId)
+        {
+            if (StoreId == null || StoreId == 0)
+            {
+                return new HttpStatusCodeResult(520);
+            }
+
+            var listrecordentry = db.Record_the_entry.Where(p => p.StateDelete == 0 && p.ExitState == false && p.StateCopReserve == false && p.IdStore == StoreId).ToList()
+
+                .Select(p => new vmListRecordEntry
+                {
+                    Id = p.Id,
+                    minename = p.mine.Name,
+                    copname = p.Cops.Name,
+                    Dimensions = p.length + "*" + p.width + "*" + p.Height,
+                    Weight = p.Weight,
+                    CopsCod = p.CopsCod,
+                    Transfernumber = p.Transfernumber,
+
+                }).ToList();
+
+
+
+            return Json(listrecordentry, JsonRequestBehavior.AllowGet);
+        }
         public async Task<ActionResult> RegisterCopeReserve(CopsBooking cb, string date, ItemPropSelect prop)
         {
             if (cb.Id == 0)

@@ -161,6 +161,11 @@ namespace GoharSang.Controllers
                             TempData["data"] = result;
                             ViewBag.PageNumber = 1;
                             ViewBag.AllPage = 1;
+
+                           
+                            ViewBag.stateName = vmr.stateName;
+                            ViewBag.Uploaddate = vmr.Uploaddate;
+
                             return View(result);
                         }
                         else

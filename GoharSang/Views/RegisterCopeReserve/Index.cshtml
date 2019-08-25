@@ -299,7 +299,7 @@
                     var StoreId = SelectStore.value;
                     var productCode = CopCods.value;
                     $.ajax({
-                        url: '/ExitOrder/getRecordEntry',
+                        url: '/RegisterCopeReserve/getRecordEntry',
                         data: { StoreId: StoreId, productCode: productCode },
                         type: 'post',
                         beforeSend: function () {
@@ -345,7 +345,7 @@
                 var StoreId = SelectStore.value;
 
                 $.ajax({
-                    url: '/ExitOrder/GetModalRecordEntry',
+                    url: '/RegisterCopeReserve/GetModalRecordEntry',
                     data: { StoreId: StoreId },
                     type: 'post',
                     beforeSend: function () {

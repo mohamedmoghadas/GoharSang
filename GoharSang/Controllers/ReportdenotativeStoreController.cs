@@ -125,6 +125,11 @@ namespace GoharSang.Controllers
                             TempData["data"] = result;
                             ViewBag.PageNumber = 1;
                             ViewBag.AllPage = 1;
+
+                            ViewBag.CustomerFullName = vmr.copname;
+                            ViewBag.StoreName = vmr.RecordEntryExitOrderCount;
+                            
+
                             return View(result);
                         }
                           

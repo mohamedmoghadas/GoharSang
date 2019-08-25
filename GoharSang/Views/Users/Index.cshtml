@@ -6,8 +6,16 @@
 
 @model GoharSang.Models.vmModel.vmlistuser
 
+@using GoharSang.Models;
 
-
+@{
+    GoharSangEntities db = new GoharSangEntities();
+    string UserIdcookie = "";
+    UserIdcookie = Request.Cookies["UserId"].Value;
+    string _Id = UserIdcookie;
+    long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
+    Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
+}
 
 <div class="container depotsContainer">
     <div class="row">
@@ -91,7 +99,7 @@
                         <tr>
                             <td>@item.FullName</td>
                             <td>@item.UserName</td>
-                            @if (item.StateAdmin == true)
+                            @if (admin.StateAdmin == true)
                             {
 
                                 <td><button class="btn btn-danger fa fa-trash" onclick="deleteUser(@item.Id)"></button>| <button class="btn btn-primary fa fa-pencil" onclick="EditUser(@item.Id)"></button></td>
@@ -267,7 +275,7 @@
                     success: function (data) {
 
                         $(LoadingGift).hide();
-                                count = 0;
+                        count = 0;
 
 
                         AlertInAjax("عملیات با موفقیت انجام شد", modalAlertInAjax, "alert-success");

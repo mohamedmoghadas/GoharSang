@@ -33,12 +33,16 @@
                 <div class="col-sm-12">
                     <div class="col-sm-3">
                         <label class="form-label" >نوع کوپ</label>
-                        <input type="text" placeholder="جستجو" name="copname" class="form-control">
+                        <input type="text" placeholder="جستجو"
+                               value="@ViewBag.copname"
+                               name="copname" class="form-control">
                     </div>
 
                     <div class="col-sm-3">
                         <label class="form-label" style="text-align:right;">تعداد</label>
-                        <input type="text" placeholder="جستجو" name="RecordEntryExitOrderCount" class="form-control">
+                        <input type="text" placeholder="جستجو" 
+                               value="@ViewBag.RecordEntryExitOrderCount"
+                               name="RecordEntryExitOrderCount" class="form-control">
                         <button class="btn btn-default">جستجو</button>
 
                     </div>
