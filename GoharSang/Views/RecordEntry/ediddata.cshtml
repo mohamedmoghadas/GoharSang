@@ -19,17 +19,17 @@
                         <div class="form-group">
                             <label>اسم معدن</label>
                             <select id="SelectMine" class="select2-placeholer form-control" data-placeholder="انتخاب">
+                                <option value="@Model.re.IdMine">
+                                    @Model.re.mine.Name
+                                </option>
                                 @foreach (var item in Model.listmine)
                                 {
-                                    if (Model.re.IdMine == item.Id)
+                                    if (Model.re.IdMine != item.Id)
                                     {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
-                                    else if (Model.re.IdMine != item.Id)
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
 
+                                        <option value="@item.Id">@item.Name</option>
                                     }
+
                                 }
                             </select>
 
@@ -39,17 +39,18 @@
                         <div class="form-group">
                             <label>نوع کوپ</label>
                             <select id="SelectCope" class="select2-placeholer form-control" data-placeholder="انتخاب">
+                                <option value="@Model.re.IdCops">
+                                    @Model.re.Cops.Name
+                                </option>
                                 @foreach (var item in Model.listCops)
                                 {
-                                    if (Model.re.IdCops == item.Id)
+                                    if (Model.re.IdCops!=item.Id)
                                     {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
-                                    else if (Model.re.IdCops != item.Id)
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
 
+                                        <option value="@item.Id">@item.Name</option>
                                     }
+
+                                    
                                 }
                             </select>
 
@@ -94,17 +95,19 @@
                         <div class="form-group">
                             <label>انبار</label>
                             <select id="selectStore" class="select2-placeholer form-control" data-placeholder="انتخاب">
+                                <option value="@Model.re.IdStore">
+                                    @Model.re.Store.Name
+                                </option>
                                 @foreach (var item in Model.listStore)
                                 {
-                                    if (Model.re.IdStore == item.Id)
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
-                                    }
-                                    else if (Model.re.IdStore != item.Id)
-                                    {
-                                        <option value="@item.Id">@item.Name</option>
 
+                                    if (Model.re.IdStore != item.Id)
+                                    {
+
+                                        <option value="@item.Id">@item.Name</option>
                                     }
+
+
                                 }
                             </select>
 
@@ -136,13 +139,13 @@
                         <div class="form-group">
                             <label>تاریخ</label>
                             <input type="text" id="date"
-                                   class="form-control jalali-datepicker">
+                                   class="form-control jalali-datepicker" value="@clsPersianDate.MiladiToShamsi(Model.re.Date)">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>ساعت</label>
-                            <input id="time" class="form-control" value=" @DateTime.Now.TimeOfDay.Minutes : @DateTime.Now.TimeOfDay.Hours @DateTime.Now.AddHours(24).ToString("tt", System.Globalization.CultureInfo.CreateSpecificCulture("fa-IR"))">
+                            <input id="time" class="form-control" value="@Model.re.Time">
 
                         </div>
                     </div>

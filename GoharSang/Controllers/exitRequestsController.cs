@@ -33,7 +33,7 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.Where(p=>p.IdRole == 7).Any())
+                        if (usr.Where(p => p.IdRole == 7).Any())
                         {
                             var result = GetExitOrder();
                             return View(result);
@@ -60,41 +60,63 @@ namespace GoharSang.Controllers
 
 
 
-           
+
         }
 
         private object GetExitOrder()
         {
 
             long i = 0;
-            var lists = (from exo in db.Exitorder
-                         join reo in db.RecordEntryExitOrder
-                         on exo.Id equals reo.IdExitOrder
-                         join re in db.Record_the_entry
-                         on reo.IdRecordEntry equals re.Id
-                         where exo.StateDelete == 0  && reo.StateExit == false && exo.IdState == 4
-                         select new { exo, reo, re }).ToList()
-                         .Select(p => new listRecordEntryExitOrder
-                         {
-                             Id = p.exo.Id,
-                             CustomerFullName = p.exo.CustomerFullName,
-                             Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
-                             StoreName = p.exo.Store.Name,
-                             RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
-                             stateName = p.exo.State.Name,
-                             Weight = p.re.Weight,
-                             Countmandeh=p.reo.StateExit==false?i++:0
-                         }).ToList();
+            long j = 0;
+
+          
+
+            var lists2 = db.RecordEntryExitOrder.Where(p => p.Exitorder.StateDelete == 0 && p.Exitorder.IdState == 4).ToList();
+            List<listRecordEntryExitOrder> list = new List<listRecordEntryExitOrder>();
+
+            listRecordEntryExitOrder _p = null;
+
+            foreach (var item in lists2)
+            {
+                i++;
+                _p = new listRecordEntryExitOrder();
+                _p.Id = item.Exitorder.Id;
+                _p.CustomerFullName = item.Exitorder.CustomerFullName;
+                _p.Uploaddate = clsPersianDate.MiladiToShamsi(item.Exitorder.Uploaddate);
+                _p.StoreName = item.Exitorder.Store.Name;
+
+
+
+                _p.RecordEntryExitOrderCount = i;
+
+
+                _p.stateName = item.Exitorder.State.Name;
+                _p.Weight = item.Record_the_entry.Weight;
+
+                if (item.StateExit == false)
+                {
+                    j++;
+                }
+                _p.Countmandeh = j;
+
+            }
+            if (_p!=null)
+            {
+
+                list.Add(_p);
+            }
+
+           
 
 
             vmReportBargirt _vmReportBargirt = new vmReportBargirt();
-            _vmReportBargirt.list = lists;
+            _vmReportBargirt.list = list;
 
             return _vmReportBargirt;
         }
 
 
-       
+
 
         public ActionResult SIndex(listRecordEntryExitOrder vmr)
         {
@@ -118,11 +140,18 @@ namespace GoharSang.Controllers
                     }
                     else
                     {
-                        if (usr.Where(p=>p.IdRole ==7).Any())
+                        if (usr.Where(p => p.IdRole == 7).Any())
                         {
                             var result = SGetExitOrder(vmr);
                             ViewBag.PageNumber = 1;
                             ViewBag.AllPage = 1;
+
+                            ViewBag.CustomerFullName = vmr.CustomerFullName;
+                            ViewBag.StoreName = vmr.StoreName;
+                            ViewBag.RecordEntryExitOrderCount = vmr.RecordEntryExitOrderCount;
+                            ViewBag.stateName = vmr.stateName;
+                            ViewBag.Uploaddate = vmr.Uploaddate;
+
                             return View(result);
                         }
                         else
@@ -155,28 +184,47 @@ namespace GoharSang.Controllers
         {
 
             long i = 0;
-            var lists = (from exo in db.Exitorder
-                         join reo in db.RecordEntryExitOrder
-                         on exo.Id equals reo.IdExitOrder
-                         join re in db.Record_the_entry
-                         on reo.IdRecordEntry equals re.Id
-                         where exo.StateDelete == 0  && reo.StateExit == false && exo.IdState == 4
-                         select new { exo, reo, re }).ToList()
-                         .Select(p => new listRecordEntryExitOrder
-                         {
-                             Id = p.exo.Id,
-                             CustomerFullName = p.exo.CustomerFullName,
-                             Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
-                             StoreName = p.exo.Store.Name,
-                             RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
-                             stateName = p.exo.State.Name,
-                             Weight = p.re.Weight,
-                             Countmandeh = p.reo.StateExit == false ? i++ : 0
-                         }).ToList();
+            long j = 0;
 
 
 
-            if ( vmr.Uploaddate != "" || vmr.Uploaddate != null)
+            var lists2 = db.RecordEntryExitOrder.Where(p => p.Exitorder.StateDelete == 0 && p.Exitorder.IdState == 4).ToList();
+            List<listRecordEntryExitOrder> lists = new List<listRecordEntryExitOrder>();
+
+            listRecordEntryExitOrder _p = null;
+
+            foreach (var item in lists2)
+            {
+                i++;
+                _p = new listRecordEntryExitOrder();
+                _p.Id = item.Exitorder.Id;
+                _p.CustomerFullName = item.Exitorder.CustomerFullName;
+                _p.Uploaddate = clsPersianDate.MiladiToShamsi(item.Exitorder.Uploaddate);
+                _p.StoreName = item.Exitorder.Store.Name;
+
+
+
+                _p.RecordEntryExitOrderCount = i;
+
+
+                _p.stateName = item.Exitorder.State.Name;
+                _p.Weight = item.Record_the_entry.Weight;
+
+                if (item.StateExit == false)
+                {
+                    j++;
+                }
+                _p.Countmandeh = j;
+
+            }
+            if (_p != null)
+            {
+
+                lists.Add(_p);
+            }
+
+
+            if (vmr.Uploaddate != "" || vmr.Uploaddate != null)
             {
                 lists = lists.Where(p => p.Uploaddate == vmr.Uploaddate).ToList();
             }

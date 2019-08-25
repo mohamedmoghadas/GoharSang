@@ -25,49 +25,52 @@
         <!-- Filter header -->
         <div class="filter-header">
             <button aria-label="Close" class="close toggle-filter" type="button" data-block-id="filter-box"><i class="icon-cancel"></i></button>
-            <h3 class="title" style="text-align:right">جستجو</h3>
+            <h3 class="title" >جستجو</h3>
         </div>
         <!-- /filter header -->
         <!-- Filter form -->
-        <form class="form-inline" method="get" action="/ReportExit/SIndex">
+        <form method="get" action="/ReportExit/SIndex">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <label class="form-label" >نام خریدار</label>
+                        <input type="text" placeholder="جستجو" name="CustomerFullName" class="form-control">
+                    </div>
 
-            <div class="form-group">
-                <label class="form-label" style="text-align:right">نام خریدار</label>
-                <input type="text" placeholder="جستجو" name="CustomerFullName" class="form-control">
-            </div>
+                    <div class="col-sm-3">
+                        <label class="form-label" >انبار</label>
+                        <input type="text" placeholder="جستجو" name="StoreName" class="form-control">
+                    </div>
 
-            <div class="form-group">
-                <label class="form-label" style="text-align:right">انبار</label>
-                <input type="text" placeholder="جستجو" name="StoreName" class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" style="text-align:right">تعداد کوپ</label>
-                <input type="text" placeholder="جستجو" name="RecordEntryExitOrderCount" class="form-control">
-            </div>
-
-
-            <div class="form-group">
-                <label class="form-label" style="text-align:right">وضعیت</label>
-                <input type="text" placeholder="جستجو" name="stateName" class="form-control">
-            </div>
+                    <div class="col-sm-3">
+                        <label class="form-label" >تعداد کوپ</label>
+                        <input type="text" placeholder="جستجو" name="RecordEntryExitOrderCount" class="form-control">
+                    </div>
 
 
+                    <div class="col-sm-3">
+                        <label class="form-label" >وضعیت</label>
+                        <input type="text" placeholder="جستجو" name="stateName" class="form-control">
+                    </div>
 
 
 
-            <div class="form-group">
-                
+
+
+                    <div class="col-sm-3">
+
                         <label for="_CheckBoxDateInsert" style="text-align:right;">تاریخ بارگیری</label>
                         <input type="text" placeholder="تاریخ بارگیری" class="form-control jalali-datepicker" name="Uploaddate">
-                    
+                        <button class="btn btn-default">جستجو</button>
 
+
+                    </div>
+                </div>
             </div>
+           
 
 
-            <div class="form-group filter-btn">
-                <button class="btn btn-default">جستجو</button>
-            </div>
+
         </form>
 
     </div>
@@ -111,7 +114,7 @@
                                 <td>@item.Uploaddate</td>
                                 <td>@item.StoreName</td>
                                 <td>@item.RecordEntryExitOrderCount</td>
-                                <td>@item.copname</td>
+                                <td>@item.Countmandeh</td>
                                 @*<td>مشاهده</td>*@
                                 <td>@item.stateName</td>
                                 <td>@item.DriverName</td>

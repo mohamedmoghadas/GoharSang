@@ -8,7 +8,11 @@ namespace GoharSang.Models.vmModel
     public class vmReportBargirt
     {
         public List<listRecordEntryExitOrder> list { get; set; }
+       
+
         public long AllPage { get; set; }
+       
+
 
 
     }
@@ -25,6 +29,8 @@ namespace GoharSang.Models.vmModel
         public string Weight { get; set; }
         public long Countmandeh { get; set; }
         public string Dimensions { get; set; }
+        public string SDimensions { get; set; }
+
         public string minename { get; set; }
         public string copname { get; set; }
         public string Transfernumber { get; set; }
@@ -38,6 +44,6 @@ namespace GoharSang.Models.vmModel
 
         public string checkboxDate { get; set; }
 
-
+      
     }
 }

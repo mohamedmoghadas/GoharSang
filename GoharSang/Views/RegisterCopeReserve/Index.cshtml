@@ -4,122 +4,63 @@
     Layout = "~/Views/Shared/_layout.cshtml";
 }
 
-
-
 <div class="container dailyCol">
     <div class="row dailyRow">
         <div class="col dailyLDiv">
-            <a class="btn btn-primary d-block dailyBtnTop" href="~/Home/Index" role="button">صفحه اصلی</a>
+            <a class="btn btn-primary d-block dailyBtnTop" href="~/Home/Index" role="button">بازگشت</a>
             <br>
             <label class="buyerLable">مشخصات خریدار</label>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-2">
+            <div class="entryForm">
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>خریدار</label>
                     </div>
-                    <div class="col-sm-4">
-                        <label style="text-align:right;float:right">خریدار</label>
+                    <div class="col-sm-4 col-8">
                         <input type="text" class="form-control float-right" id="CustomerName">
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>انقضا رزرو</label>
                     </div>
-                    <div class="col-sm-4">
-                        <label style="text-align:right;float:right">انقضا رزرو</label>
-                        <input type="text" class="form-control jalali-datepicker" id="dateLoad">
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control txtLeft jalali-datepicker" name="expritaion" id="dateLoad">
                     </div>
-
                 </div>
-
-
-
-
-
-            </div>
-
-
-
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="col-sm-2">
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>انبار</label>
                     </div>
-                    <div class="col-sm-4">
-                        <label style="text-align:right;float:right">انبار</label>
+                    <div class="col-sm-4 col-8">
                         <select id="SelectStore" class="select2-placeholer form-control" data-placeholder="انتخاب" style="padding:2px 8px"></select>
 
-                    </div>
-                    <div class="col-sm-2">
-                    </div>
-                    <div class="col-sm-4">
-                        <label style="text-align:right;float:right">کدکوپ</label>
-
-                        <input class="form-control" id="InputeSearch" />
 
                     </div>
-
+                </div>
+                <div class="row margTop1">
+                    <div class="col-sm-2 col-4 rgEnLable">
+                        <label>کد محصول</label>
+                    </div>
+                    <div class="col-sm-4 col-8">
+                        <input type="text" class="form-control float-right width50 txtLeft" id="CopCods">
+                        <button class="btn btn-primary  float-right" onclick="AddWithModal()">=</button>
+                        <button class="btn btn-info float-right" onclick="Add()">افزودن</button>
+                    </div>
+                </div>
+                <div class="row margTop2">
+                    <div class="col">
+                        <ul class="list-group rgExUl" id="listCopdata">
+                        </ul>
+                    </div>
+                </div>
+                <div class="row margTop1">
+                    <div class="col">
+                        <button class="btn btn-primary float-left SaveBtn" onclick="BtnRegisterCopeReserve()">ذخیره</button>
+                    </div>
                 </div>
             </div>
-
-            <div class="row margTop1">
-                <div class="col">
-                    <button class="btn btn-primary btn-rounded" onclick="BtnRegisterCopeReserve()">ذخیره</button>
-                </div>
-            </div>
-
-
-
-
-            <div class="row margTop1">
-                <div class="col-sm-2 col-4 rgEnLable">
-                    <label>کد محصول</label>
-                </div>
-
-            </div>
-
-
-            <div class="row">
-
-
-                <div class="col-sm-12">
-
-                    <div class="col-sm-4">
-
-                    </div>
-
-                    <div class="col-sm-8">
-                        <table class="table-active" style="border:solid">
-                            <thead>
-                                <tr>
-                                    <td style="border:solid;text-align:center;">انتخاب</td>
-                                    <td style="border:solid;text-align:center">معدن</td>
-                                    <td style="border:solid;text-align:center">نوع کوپ</td>
-                                    <td style="border:solid;text-align:center">ابعاد</td>
-                                    <td style="border:solid;text-align:center">وزن</td>
-                                    <td style="border:solid;text-align:center">کد کوپ</td>
-                                    <td style="border:solid;text-align:center">شماره حواله</td>
-                                    <td style="border:solid;text-align:center">تصاویر</td>
-
-                                </tr>
-                            </thead>
-                            <tbody id="BodyModel">
-                            </tbody>
-
-                        </table>
-                    </div>
-
-                </div>
-
-
-
-
-
-            </div>
-
-
-
-
         </div>
     </div>
 </div>
+
 
 
 
@@ -131,20 +72,7 @@
     <script src="~/js/Resource/js/plugins/select2/select2.full.min.js"></script>
     <script src="~/js/Resource/js/plugins/select3/select3.full.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-
-
-            $(".select2").select2();
-            $(".select2-placeholer").select2({
-                allowClear: true
-            });
-
-
-        });
-
-
-    </script>
+   
     <script>
         var count = 0;
 
@@ -183,12 +111,12 @@
     <script>
         window.onload = load();
 
-        var DataEntry = [];
-
         function load() {
-
+         $(".select2").select2();
+            $(".select2-placeholer").select2({
+                allowClear: true
+            });
             getStore();
-            GetEntry();
 
         }
 
@@ -221,96 +149,6 @@
 
         }
 
-        function GetEntry() {
-            $.ajax({
-                url: '/RegisterCopeReserve/getDataRecordEntry',
-                data: null,
-                type: 'post',
-                beforeSend: function () {
-                    $(LoadingGift).show();
-                },
-                success: function (data) {
-
-                    DataEntry = data;
-
-                    $(LoadingGift).hide();
-
-
-                    var str = "";
-
-
-                    for (var i in data) {
-
-                        str += '<tr style="border:solid;text-align:center">';
-                        str += '<td style="border:solid;text-align:center">';
-                        str += '<div class="checkbox checkbox-replace checkbox-primary">';
-                        str += '<input type="checkbox" class="CHechBox" id="' + data[i].Id + '" value="' + data[i].Id + '">';
-                        str += '<label for="' + data[i].Id + '"></label>';
-                        str += '</div>';
-                        str += '</td>';
-                        str += '<td style="border:solid;text-align:center">' + data[i].minename + '</td>';
-                        str += '<td style="border:solid;text-align:center">' + data[i].copname + '</td>';
-                        str += '<td style="border:solid;text-align:center">' + data[i].Dimensions + '</td>';
-                        str += '<td style="border:solid;text-align:center">' + data[i].Weight + '</td>';
-                        str += '<td style="border:solid;text-align:center">' + data[i].CopsCod + '</td>';
-                        str += '<td style="border:solid;text-align:center">' + data[i].Transfernumber + '</td>';
-                        str += ' <td style="border:solid;text-align:center">';
-                        str += '<button class="btn btn-outline-primary" onclick="ShowPic(' + data[i].Id + ')"> مشاهده </button>';
-                        str += '</td>';
-                        str += '</tr>';
-                    }
-                    BodyModel.innerHTML = str;
-
-
-                }
-            });
-
-        }
-
-    </script>
-
-
-    <script>
-
-        $(SelectStore).change(function () {
-            var identry = SelectStore.value;
-            changedEntry(identry);
-        });
-
-        function changedEntry(id) {
-
-            BodyModel.innerHTML = "";
-
-
-            var str = "";
-
-
-            for (var i in DataEntry) {
-
-                if (DataEntry[i].IdStore == id) {
-                    str += '<tr style="border:solid;text-align:center">';
-                    str += '<td style="border:solid;text-align:center">';
-                    str += '<div class="checkbox checkbox-replace checkbox-primary">';
-                    str += '<input type="checkbox" class="CHechBox" id="' + DataEntry[i].Id + '" value="' + DataEntry[i].Id + '">';
-                    str += '<label for="' + DataEntry[i].Id + '"></label>';
-                    str += '</div>';
-                    str += '</td>';
-                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].minename + '</td>';
-                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].copname + '</td>';
-                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].Dimensions + '</td>';
-                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].Weight + '</td>';
-                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].CopsCod + '</td>';
-                    str += '<td style="border:solid;text-align:center">' + DataEntry[i].Transfernumber + '</td>';
-                    str += ' <td style="border:solid;text-align:center">';
-                    str += '<button class="btn btn-outline-primary" onclick="ShowPic(' + DataEntry[i].Id + ')"> مشاهده </button>';
-                    str += '</td>';
-                    str += '</tr>';
-                }
-
-
-            }
-            BodyModel.innerHTML = str;
-        }
 
     </script>
 
@@ -440,17 +278,186 @@
         }
     </script>
 
+    <script>
+
+
+
+        function Add() {
+            if (SelectStore.value == 0) {
+                AlertInAjax("انباری را انتخاب نمایید", modalAlertInAjax, "alert-danger");
+                $(modalAlertInAjax).modal("show");
+                return;
+            }
+            else {
+
+                if (CopCods.value == "") {
+                    AlertInAjax("کدراوارد نمایید", modalAlertInAjax, "alert-danger");
+                    $(modalAlertInAjax).modal("show");
+                    return;
+                }
+                else {
+                    var StoreId = SelectStore.value;
+                    var productCode = CopCods.value;
+                    $.ajax({
+                        url: '/ExitOrder/getRecordEntry',
+                        data: { StoreId: StoreId, productCode: productCode },
+                        type: 'post',
+                        beforeSend: function () {
+                            $(LoadingGift).show();
+                        },
+                        error: function (data) {
+
+                            $(LoadingGift).hide();
+                            if (data.status == 520) {
+                                AlertInAjax("انباری را انتخاب نمایید", modalAlertInAjax, "alert-danger");
+                                $(modalAlertInAjax).modal("show");
+                            }
+                            if (data.status == 521) {
+                                AlertInAjax("کدراوارد نمایید", modalAlertInAjax, "alert-danger");
+
+                                $(modalAlertInAjax).modal("show");
+                            }
+                        },
+                        success: function (data) {
+                            $(LoadingGift).hide();
+
+                            Filldata(data);
+                        }
+                    });
+                }
+
+            }
+        }
+    </script>
+
 
     <script>
-        $(InputeSearch).keyup(function () {
-            var value = $(this).val().toLowerCase();
-            $("#BodyModel tr").filter(function () {
+        function AddWithModal() {
+            if (SelectStore.value == 0) {
+                AlertInAjax("انباری را انتخاب نمایید", modalAlertInAjax, "alert-danger");
+                $(modalAlertInAjax).modal("show");
+                return;
+            }
+            else {
 
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+
+
+                var StoreId = SelectStore.value;
+
+                $.ajax({
+                    url: '/ExitOrder/GetModalRecordEntry',
+                    data: { StoreId: StoreId },
+                    type: 'post',
+                    beforeSend: function () {
+                        $(LoadingGift).show();
+                    },
+                    error: function (data) {
+
+                        $(LoadingGift).hide();
+                        if (data.status == 520) {
+                            AlertInAjax("انباری را انتخاب نمایید", modalAlertInAjax, "alert-danger");
+                            $(modalAlertInAjax).modal("show");
+                        }
+                        if (data.status == 521) {
+                            AlertInAjax("کدراوارد نمایید", modalAlertInAjax, "alert-danger");
+
+                            $(modalAlertInAjax).modal("show");
+                        }
+                    },
+                    success: function (data) {
+                        $(LoadingGift).hide();
+
+                        Filldata2(data);
+                    }
+                });
+
+
+            }
+        }
+    </script>
+
+
+    <script>
+        function Filldata2(data) {
+
+            var str = "";
+            for (var i in data) {
+                var r = parseInt(i) + 1;
+                str += ' <tr id="trlistdataModalCop' + data[i].Id + '">';
+                str += '<td >' + r + '</td>';
+                str += '<td id="txtminename_' + data[i].Id + '">' + data[i].minename + '</td>';
+                str += '<td id="txtcopname_' + data[i].Id + '">' + data[i].copname + '</td>';
+                str += '<td id="txtDimensions_' + data[i].Id + '">' + data[i].Dimensions + '</td>';
+                str += '<td>' + data[i].Weight + '</td>';
+                str += '<td>' + data[i].CopsCod + '</td>';
+                str += '<td></td>';
+                str += '<td>' + data[i].Transfernumber + '</td>';
+                str += '<td><input class="ChechBoxDataUl" id="' + data[i].Id + '" value="' + data[i].Id + '" type="checkbox"></td>';
+                str += '</tr>';
+
+
+            }
+            listdataModalCop.innerHTML = str;
+
+
+            $(modalSelectCop).modal('show');
+
+        }
+    </script>
+
+
+    <script>
+        function AddtoUlData() {
+            var str = "";
+            $('.ChechBoxDataUl:checked').each(function (i) {
+
+
+
+                var Id = $(this).val();
+
+
+                //var asdasddas = $("#txtcopname_" + Id).text();
+
+                //alert(asdasddas);
+
+                str += ' <li class="list-group-item rgExitLi" id="listcopdata' + Id + '">';
+                str += ' <input type="checkbox" class="CHechBox" id="' + Id + '" value="' + Id + '" checked style="display:none">';
+                str += ' <lable>' + $("#txtcopname_" + Id).text() + " " + $("#txtDimensions_" + Id).text() + " " + $("#txtminename_" + Id).text() + '</lable>';
+                str += ' <button class="btn btn-danger fa fa-trash float-left" onclick="deletevalues(' + Id + ')"></button>';
+                str += '</li>';
+
+                $("#trlistdataModalCop" + Id).remove();
 
             });
-        });
+            $("#listCopdata").append(str);
+            // $(modalSelectCop).modal('hide');
+
+        }
     </script>
+
+    <script>
+        function Filldata(data) {
+
+            var str = "";
+            for (var i in data) {
+                str += ' <li class="list-group-item rgExitLi" id="listcopdata' + data[i].Id + '">';
+                str += ' <input type="checkbox" class="CHechBox" id="' + data[i].Id + '" value="' + data[i].Id + '" checked style="display:none">';
+                str += ' <lable>' + data[i].copname + " " + data[i].Dimensions + " " + data[i].minename + '</lable>';
+                str += ' <button class="btn btn-danger fa fa-trash float-left" onclick="deletevalues(' + data[i].Id + ')"></button>';
+                str += '</li>';
+            }
+            $("#listCopdata").append(str);
+
+
+        }
+    </script>
+
+    <script>
+        function deletevalues(id) {
+            $("#listcopdata" + id).remove();
+        }
+    </script>
+
 
 
 }

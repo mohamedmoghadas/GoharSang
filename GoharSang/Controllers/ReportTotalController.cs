@@ -98,7 +98,7 @@ namespace GoharSang.Controllers
             int PageSkip = (PageNumber - 1) * PageOffSet;
 
 
-            var lists = db.Record_the_entry.Where(p => p.StateDelete == 0)
+            var lists = db.Record_the_entry.Where(p => p.StateDelete == 0 && p.ExitState!=true)
                 .ToList().Select(p => new listRecordEntryExitOrder
                 {
                     Id = p.Id,
@@ -185,7 +185,7 @@ namespace GoharSang.Controllers
 
         private object SGetExitOrder(listRecordEntryExitOrder vmr)
         {
-            var lists = db.Record_the_entry.Where(p => p.StateDelete == 0)
+            var lists = db.Record_the_entry.Where(p => p.StateDelete == 0 && p.ExitState != true)
                 .ToList().Select(p => new listRecordEntryExitOrder
                 {
                     Id = p.Id,

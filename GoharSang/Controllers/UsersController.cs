@@ -254,10 +254,10 @@ namespace GoharSang.Controllers
         {
             Users eUser = db.Users.Find(id);
 
-            eUser.StateDelete = 1;
-
+            //  eUser.StateDelete = 1;
 
             var deleteprops = db.UserRole.Where(p => p.IdUser == eUser.Id);
+            db.Users.Remove(eUser);
             db.UserRole.RemoveRange(deleteprops);
             await db.SaveChangesAsync();
 

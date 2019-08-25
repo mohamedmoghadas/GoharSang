@@ -166,7 +166,7 @@ namespace GoharSang.Controllers
                     string _Id = UserIdcookie;
                     long Id = Convert.ToInt16(CreatHash.Decrypt(_Id));
                     Users admin = db.Users.FirstOrDefault(p => p.Id == Id);
-                    //   List<UserRole> usr = db.UserRole.Where(p => p.IdUser == admin.Id).ToList();
+                   
 
 
                     if (admin == null)
@@ -180,6 +180,14 @@ namespace GoharSang.Controllers
                         var result = SGetExitOrder(vmr);
                         ViewBag.PageNumber = 1;
                         ViewBag.AllPage = 1;
+
+                        ViewBag.customerFullName = vmr.CustomerFullName;
+                        ViewBag.StoreName = vmr.StoreName;
+                        ViewBag.RecordEntryExitOrderCount = vmr.RecordEntryExitOrderCount;
+                        ViewBag.stateName = vmr.stateName;
+                        ViewBag.Uploaddate = vmr.Uploaddate;
+                       
+
                         return View(result);
 
 

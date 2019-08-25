@@ -274,11 +274,7 @@
                 str += '<td><input class="ChechBoxDataUl" id="' + data[i].Id + '" value="' + data[i].Id + '" type="checkbox"></td>';
                 str += '</tr>';
 
-                //str += ' <li class="list-group-item rgExitLi" id="lidatamodal' + data[i].Id + '">';
-                //str += ' <input type="checkbox" class="CHechBox" id="' + data[i].Id + '" value="' + data[i].Id + '" checked style="display:none">';
-                //str += ' <lable>' + data[i].copname + " " + data[i].Dimensions + " " + data[i].minename + '</lable>';
-                //str += ' <button class="btn btn-success fa fa-check float-left" onclick="deletevalues(' + data[i].Id + ')"></button>';
-                //str += '</li>';
+               
             }
             listdataModalCop.innerHTML = str;
 
@@ -303,7 +299,7 @@
 
                 //alert(asdasddas);
 
-                 str += ' <li class="list-group-item rgExitLi" id="lidatamodal' + Id + '">';
+                 str += ' <li class="list-group-item rgExitLi" id="lidata' + Id + '">';
                 str += ' <input type="checkbox" class="CHechBox" id="' +Id + '" value="' + Id + '" checked style="display:none">';
                 str += ' <lable>' + $("#txtcopname_" + Id).text() + " " + $("#txtDimensions_" + Id).text() + " " + $("#txtminename_" + Id).text() + '</lable>';
                 str += ' <button class="btn btn-danger fa fa-trash float-left" onclick="deletevalues(' + Id + ')"></button>';

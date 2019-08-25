@@ -62,7 +62,7 @@
    
 
 </head>
-<body>
+<body style="text-align:right;direction:rtl">
 
     <i class="fa fa-spinner fa-spin" id="LoadingGift" style="font-size:48px;color:blue;position:fixed;top:50%;left:50%;z-index:999999999999999;display:none"></i>
 
@@ -244,6 +244,22 @@
 
             });
         });
+    </script>
+
+    <script>
+        $(".toggle-filter").click(function () {
+            $("#filter-box").slideToggle();
+        });
+
+        $(".form-inline").css('float', 'right');
+        $("#filter-box").css('background-color','#bee5eb');
+
+       
+        $(".filter-btn").children('button').before('<br/>&nbsp;');
+        $(".filter-btn").children('button').after('&nbsp;&nbsp;&nbsp;&nbsp;');
+
+        $("#filter-box").children().after('<br/>&nbsp;');
+
     </script>
 
     @RenderSection("localscript", false)

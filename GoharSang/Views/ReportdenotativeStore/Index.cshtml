@@ -23,27 +23,32 @@
         <!-- Filter header -->
         <div class="filter-header">
             <button aria-label="Close" class="close toggle-filter" type="button" data-block-id="filter-box"><i class="icon-cancel"></i></button>
-            <h3 class="title" style="text-align:right">جستجو</h3>
+            <h3 class="title" >جستجو</h3>
         </div>
         <!-- /filter header -->
         <!-- Filter form -->
-        <form class="form-inline" method="get" action="/ReportdenotativeStore/SIndex">
-            <div class="form-group">
-                <label class="form-label" style="text-align:right">نوع کوپ</label>
-                <input type="text" placeholder="جستجو" name="copname" class="form-control">
+        <form  method="get" action="/ReportdenotativeStore/SIndex">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <label class="form-label" >نوع کوپ</label>
+                        <input type="text" placeholder="جستجو" name="copname" class="form-control">
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label class="form-label" style="text-align:right;">تعداد</label>
+                        <input type="text" placeholder="جستجو" name="RecordEntryExitOrderCount" class="form-control">
+                        <button class="btn btn-default">جستجو</button>
+
+                    </div>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label class="form-label" style="text-align:right;">تعداد</label>
-                <input type="text" placeholder="جستجو" name="RecordEntryExitOrderCount" class="form-control">
-            </div>
+           
 
 
 
 
-            <div class="form-group filter-btn">
-                <button class="btn btn-default">جستجو</button>
-            </div>
+            
         </form>
         <!-- /filter form -->
 

@@ -92,13 +92,21 @@
                 <div class="row margTop2 clear">
                     <div class="col">
                         <div class="row">
-                            @foreach (var item in Model.list)
-                            {
-                                <div class="checkbox checkbox-replace checkbox-primary">
-                                    <input type="checkbox" id="@item.Id" value="@item.Id">
-                                    <label for="@item.Id">&nbsp&nbsp&nbsp معدن= @item.minename  &nbsp&nbsp&nbsp   نوع کوپ= @item.copname &nbsp&nbsp&nbsp  ابعاد= @item.Dimensions  &nbsp&nbsp&nbsp  وزن= @item.Weight </label>
+                            <div class="col-sm-12" style="background-color:lightgray">
+                                <div class="col-sm-6">
+                                    @foreach (var item in Model.list)
+                                    {
+                                        <div class="checkbox checkbox-replace checkbox-primary">
+                                            <input type="checkbox" id="@item.Id" value="@item.Id">
+                                            <label for="@item.Id">&nbsp&nbsp&nbsp معدن= @item.minename  &nbsp&nbsp&nbsp   نوع کوپ= @item.copname &nbsp&nbsp&nbsp  ابعاد= @item.Dimensions  &nbsp&nbsp&nbsp  وزن= @item.Weight </label>
+                                        </div>
+                                       <span>-----------------------</span>
+                                    }
                                 </div>
-                            }
+                                </div>
+
+                            
+                           
 
                         </div>
                     </div>

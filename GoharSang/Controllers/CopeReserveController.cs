@@ -78,7 +78,7 @@ namespace GoharSang.Controllers
             int PageSkip = (PageNumber - 1) * PageOffSet;
 
 
-            var list = db.CopsBooking.Where(p => p.StateDelete == 0).ToList()
+            var list = db.CopsBooking.Where(p => p.StateDelete == 0 && p.RecordEntryCopsBooking.FirstOrDefault().Record_the_entry.ExitState != true).ToList()
                 .Select(p => new vmcopreserv
                 {
                    
@@ -149,7 +149,7 @@ namespace GoharSang.Controllers
 
         private object SgetCopReserve(vmcopreserv vmr)
         {
-            var list = db.CopsBooking.Where(p => p.StateDelete == 0).ToList()
+            var list = db.CopsBooking.Where(p => p.StateDelete == 0 && p.RecordEntryCopsBooking.FirstOrDefault().Record_the_entry.ExitState!=true).ToList()
               .Select(p => new
               {
 

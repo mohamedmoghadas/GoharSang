@@ -82,7 +82,8 @@ namespace GoharSang.Controllers
 
 
             Store _dmdata =db.Store.Find(id);
-            _dmdata.StateDelete = 1;
+            // _dmdata.StateDelete = 1;
+            db.Store.Remove(_dmdata);
             await db.SaveChangesAsync();
             return GetData();
 

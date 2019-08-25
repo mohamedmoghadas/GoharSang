@@ -85,7 +85,9 @@ namespace GoharSang.Controllers
 
 
             Cops _dmdata = db.Cops.Find(id);
-            _dmdata.StateDelete = 1;
+            // _dmdata.StateDelete = 1;
+
+            db.Cops.Remove(_dmdata);
             await db.SaveChangesAsync();
             return GetData();
 

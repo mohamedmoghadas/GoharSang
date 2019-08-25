@@ -105,6 +105,16 @@ namespace GoharSang.Controllers
                             var result = SGetExitOrder(vmr);
                             ViewBag.PageNumber = 1;
                             ViewBag.AllPage = 1;
+
+                            ViewBag.minename = vmr.minename;
+                            ViewBag.copname = vmr.copname;
+                            ViewBag.Weight = vmr.Weight;
+                            ViewBag.StoreName = vmr.StoreName;
+                            ViewBag.Dimensions = vmr.Dimensions;
+                            ViewBag.CopCode = vmr.CopCode;
+                            ViewBag.Transfernumber = vmr.Transfernumber;
+                            ViewBag.Uploaddate = vmr.Uploaddate;
+
                             return View(result);
                         }
                         else
@@ -144,7 +154,10 @@ namespace GoharSang.Controllers
                     CopCode = p.CopsCod,
                     minename = p.mine.Name,
                     Weight = p.Weight,
-                    Dimensions = p.length + "*" + p.width + "*" + p.Height,
+                   
+                    SDimensions = p.length.Trim() + "*" + p.width.Trim() + "*" + p.Height.Trim(),
+                    Dimensions = p.Height.Trim() + "*" + p.width.Trim() + "*" + p.length.Trim(),
+
                     Transfernumber = p.Transfernumber,
                     image = p.Record_the_Entrry_Image.ToList()
                 }).ToList();
@@ -187,7 +200,7 @@ namespace GoharSang.Controllers
 
             if (vmr.Dimensions != null)
             {
-                lists = lists.Where(p => p.Dimensions.Contains(vmr.Dimensions)).ToList();
+                lists = lists.Where(p => p.SDimensions.Contains(vmr.Dimensions)).ToList();
 
             }
 
@@ -223,7 +236,7 @@ namespace GoharSang.Controllers
                       CopCode = p.CopsCod,
                       minename = p.mine.Name,
                       Weight = p.Weight,
-                      Dimensions = p.length + "*" + p.width + "*" + p.Height,
+                      Dimensions = p.Height.Trim() + "*" + p.width.Trim() + "*" + p.length.Trim(),
                       Transfernumber = p.Transfernumber,
                       image = p.Record_the_Entrry_Image.ToList()
                   }).OrderBy(u => u.Id)
@@ -336,6 +349,14 @@ namespace GoharSang.Controllers
 
                         _re.Date = tempdate;
                     }
+                    _re.Height=_re.Height.Trim();
+                    _re.basculenumber = _re.basculenumber.Trim();
+                    _re.CopsCod = _re.CopsCod.Trim();
+                    _re.length = _re.length.Trim();
+                    _re.Transfernumber = _re.Transfernumber.Trim();
+                    _re.Trucknumber = _re.Trucknumber.Trim();
+                    _re.Weight = _re.Weight.Trim();
+                    _re.width = _re.width.Trim();
 
                     _re.ExitState = false;
                     _re.StateCopReserve = false;
@@ -411,19 +432,19 @@ namespace GoharSang.Controllers
                         _ere.Date = tempdate;
                     }
 
-                    _ere.basculenumber = _re.basculenumber;
-                    _ere.CopsCod = _re.CopsCod;
+                    _ere.basculenumber = _re.basculenumber.Trim();
+                    _ere.CopsCod = _re.CopsCod.Trim();
 
-                    _ere.Height = _re.Height;
+                    _ere.Height = _re.Height.Trim();
                     _ere.IdCops = _re.IdCops;
                     _ere.IdMine = _re.IdMine;
                     _ere.IdStore = _re.IdStore;
-                    _ere.length = _re.length;
+                    _ere.length = _re.length.Trim();
                     _ere.Time = _re.Time;
-                    _ere.Transfernumber = _re.Transfernumber;
-                    _ere.Trucknumber = _re.Trucknumber;
-                    _ere.Weight = _re.Weight;
-                    _ere.width = _re.width;
+                    _ere.Transfernumber = _re.Transfernumber.Trim();
+                    _ere.Trucknumber = _re.Trucknumber.Trim();
+                    _ere.Weight = _re.Weight.Trim();
+                    _ere.width = _re.width.Trim();
 
                     await db.SaveChangesAsync();
 
@@ -497,7 +518,8 @@ namespace GoharSang.Controllers
         public async Task<ActionResult> deletedata(long id)
         {
             Record_the_entry re = db.Record_the_entry.Find(id);
-            re.StateDelete = 1;
+            //re.StateDelete = 1;
+            db.Record_the_entry.Remove(re);
             await db.SaveChangesAsync();
 
             Record_the_Entrry_Image ereimg = db.Record_the_Entrry_Image.Where(p => p.IdRecordentry == id).FirstOrDefault();
@@ -518,7 +540,7 @@ namespace GoharSang.Controllers
 
         }
 
-        [HttpPost]
+        [HttpGet]
 
         public ActionResult ediddata(long id)
         {

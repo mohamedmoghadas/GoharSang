@@ -150,28 +150,43 @@ namespace GoharSang.Controllers
 
         private object SGetExitOrder(listRecordEntryExitOrder vmr)
         {
+           
+
             long i = 0;
-            var lists = (from exo in db.Exitorder
-                         join reo in db.RecordEntryExitOrder
-                         on exo.Id equals reo.IdExitOrder
-                         join driverREO in db.DriverREO
-                         on reo.Id equals driverREO.IdREO
-                         join re in db.Record_the_entry
-                         on reo.IdRecordEntry equals re.Id
-                         where exo.StateDelete == 0
-                         select new { exo, reo, re, driverREO }).ToList()
-                         .Select(p => new listRecordEntryExitOrder
-                         {
-                             Id = p.exo.Id,
-                             CustomerFullName = p.exo.CustomerFullName,
-                             Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
-                             StoreName = p.exo.Store.Name,
-                             RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
-                             stateName = p.exo.State.Name,
-                             Weight = p.re.Weight,
-                             Countmandeh = p.reo.StateExit == false ? i++ : 0,
-                             DriverName = p.driverREO.Driver.DriverName
-                         }).ToList();
+            long j = 0;
+
+
+
+            var lists2 = db.RecordEntryExitOrder.Where(p => p.Exitorder.StateDelete == 0 && p.Exitorder.IdState == 4).ToList();
+            List<listRecordEntryExitOrder> lists = new List<listRecordEntryExitOrder>();
+
+            listRecordEntryExitOrder _p = null;
+
+            foreach (var item in lists2)
+            {
+                i++;
+                _p = new listRecordEntryExitOrder();
+                _p.Id = item.Exitorder.Id;
+                _p.CustomerFullName = item.Exitorder.CustomerFullName;
+                _p.Uploaddate = clsPersianDate.MiladiToShamsi(item.Exitorder.Uploaddate);
+                _p.StoreName = item.Exitorder.Store.Name;
+                _p.RecordEntryExitOrderCount = i;
+                _p.stateName = item.Exitorder.State.Name;
+                _p.Weight = item.Record_the_entry.Weight;
+                _p.DriverName = item.DriverREO.FirstOrDefault().Driver.DriverName;
+               
+                if (item.StateExit == false)
+                {
+                    j++;
+                }
+                _p.Countmandeh = j;
+
+            }
+            if (_p != null)
+            {
+
+                lists.Add(_p);
+            }
 
 
 
@@ -214,31 +229,74 @@ namespace GoharSang.Controllers
             }
             int PageSkip = (PageNumber - 1) * PageOffSet;
 
+            //long i = 0;
+
+
             long i = 0;
-            var lists = (from exo in db.Exitorder
-                         join reo in db.RecordEntryExitOrder
-                         on exo.Id equals reo.IdExitOrder
-                         join driverREO in db.DriverREO
-                         on reo.Id equals driverREO.IdREO
-                         join re in db.Record_the_entry
-                         on reo.IdRecordEntry equals re.Id
-                         where exo.StateDelete == 0
-                         select new { exo, reo, re,driverREO }).ToList()
-                         .Select(p => new listRecordEntryExitOrder
-                         {
-                             Id = p.exo.Id,
-                             CustomerFullName = p.exo.CustomerFullName,
-                             Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
-                             StoreName = p.exo.Store.Name,
-                             RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
-                             stateName = p.exo.State.Name,
-                             Weight = p.re.Weight,
-                             Countmandeh = p.reo.StateExit == false ? i++ : 0,
-                             DriverName=p.driverREO.Driver.DriverName
-                         }).OrderBy(u => u.Id)
-                .Skip(PageSkip)
+            long j = 0;
+
+
+
+            var lists2 = db.RecordEntryExitOrder.Where(p => p.Exitorder.StateDelete == 0 && p.Exitorder.IdState == 4)
+                .OrderBy(u => u.Id)
+                 .Skip(PageSkip)
                 .Take(PageOffSet)
                 .ToList();
+            List<listRecordEntryExitOrder> lists = new List<listRecordEntryExitOrder>();
+
+            listRecordEntryExitOrder _p = null;
+
+            foreach (var item in lists2)
+            {
+                i++;
+                _p = new listRecordEntryExitOrder();
+                _p.Id = item.Exitorder.Id;
+                _p.CustomerFullName = item.Exitorder.CustomerFullName;
+                _p.Uploaddate = clsPersianDate.MiladiToShamsi(item.Exitorder.Uploaddate);
+                _p.StoreName = item.Exitorder.Store.Name;
+                _p.RecordEntryExitOrderCount = i;
+                _p.stateName = item.Exitorder.State.Name;
+                _p.Weight = item.Record_the_entry.Weight;
+                _p.DriverName = item.DriverREO.FirstOrDefault().Driver.DriverName;
+
+                if (item.StateExit == false)
+                {
+                    j++;
+                }
+                _p.Countmandeh = j;
+
+            }
+            if (_p != null)
+            {
+
+                lists.Add(_p);
+            }
+
+
+            //var lists = (from exo in db.Exitorder
+            //             join reo in db.RecordEntryExitOrder
+            //             on exo.Id equals reo.IdExitOrder
+            //             join driverREO in db.DriverREO
+            //             on reo.Id equals driverREO.IdREO
+            //             join re in db.Record_the_entry
+            //             on reo.IdRecordEntry equals re.Id
+            //             where exo.StateDelete == 0
+            //             select new { exo, reo, re,driverREO }).ToList()
+            //             .Select(p => new listRecordEntryExitOrder
+            //             {
+            //                 Id = p.exo.Id,
+            //                 CustomerFullName = p.exo.CustomerFullName,
+            //                 Uploaddate = clsPersianDate.MiladiToShamsi(p.exo.Uploaddate),
+            //                 StoreName = p.exo.Store.Name,
+            //                 RecordEntryExitOrderCount = p.exo.RecordEntryExitOrder.Count,
+            //                 stateName = p.exo.State.Name,
+            //                 Weight = p.re.Weight,
+            //                 Countmandeh = p.reo.StateExit == false ? i++ : 0,
+            //                 DriverName=p.driverREO.Driver.DriverName
+            //             }).OrderBy(u => u.Id)
+            //    .Skip(PageSkip)
+            //    .Take(PageOffSet)
+            //    .ToList();
 
 
             vmReportBargirt _vmReportBargirt = new vmReportBargirt();

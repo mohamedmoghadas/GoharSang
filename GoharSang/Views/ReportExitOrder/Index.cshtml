@@ -27,32 +27,35 @@
         <!-- Filter header -->
         <div class="filter-header">
             <button aria-label="Close" class="close toggle-filter" type="button" data-block-id="filter-box"><i class="icon-cancel"></i></button>
-            <h3 class="title" style="text-align:right">جستجو</h3>
+            <h3 class="title" >جستجو</h3>
         </div>
-        <form class="form-inline" method="get" action="/ReportExitOrder/SIndex">
+        <form method="get" action="/ReportExitOrder/SIndex">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <label class="form-label" >وضعیت</label>
+                        <input type="text" placeholder="جستجو" name="stateName" class="form-control">
+                    </div>
+
+                    <div class="col-sm-3">
 
 
-
-            <div class="form-group">
-                <label class="form-label" style="text-align:right">وضعیت</label>
-                <input type="text" placeholder="جستجو" name="stateName" class="form-control">
-            </div>
-
-            <div class="form-group">
-
-              
 
                         <label for="_CheckBoxDateInsert" style="text-align:right;">تاریخ بارگیری</label>
                         <input type="text" placeholder="تاریخ بارگیری" class="form-control jalali-datepicker" name="Uploaddate">
-                    
+
+                        <button class="btn btn-default">جستجو</button>
 
 
+                    </div>
+                </div>
             </div>
 
+          
 
-            <div class="form-group filter-btn">
-                <button class="btn btn-default">جستجو</button>
-            </div>
+
+
         </form>
 
     </div>
